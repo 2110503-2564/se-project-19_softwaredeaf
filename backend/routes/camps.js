@@ -1,17 +1,17 @@
 const express = require('express');
-const {getcamps, getcamp, createcamp, updatecamp, deletecamp} = require('../controllers/camps');
+const {getCamps, getCamp, createCamp, updateCamp, deleteCamp} = require('../controllers/camps');
 
 //include other resource routers
-const bookingrouter = require('./bookings');
+const bookingRouter = require('./bookings');
 
-const router = express.router();
+const router = express.Router();
 
 const {protect,authorize} = require('../middleware/auth');
 
 //re-route into other resource router
-router.use('/:campid/bookings/',bookingrouter);
+router.use('/:campid/bookings/',bookingRouter);
 
-router.route('/').get(getcamps).post(protect, authorize('admin'), createcamp);
-router.route('/:id').get(getcamp).put(protect, authorize('admin'), updatecamp).delete(protect, authorize('admin'), deletecamp);
+router.route('/').get(getCamps).post(protect, authorize('admin'), createCamp);
+router.route('/:id').get(getCamp).put(protect, authorize('admin'), updateCamp).delete(protect, authorize('admin'), deleteCamp);
 
 module.exports = router;

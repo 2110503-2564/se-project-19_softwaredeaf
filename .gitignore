@@ -1,6 +1,7 @@
+.vscode/
 node_modules/
 package-lock.json
 *.log
 *.gz
 
-config/config.env
+/backend/config/config.env
