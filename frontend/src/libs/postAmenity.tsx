@@ -1,3 +1,4 @@
+import { AmenityItem } from "../../interface";
 const BACKEND=process.env.NEXT_PUBLIC_BACKEND;
 
 export default async function postAmenity(

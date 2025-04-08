@@ -1,5 +1,5 @@
 export default async function booking(token:string,campgroundId:string,checkin:string,nights:number){
-    const response = await fetch(`${BACKEND}/api/v1/campgrounds/${campgroundId}/bookings/`,{
+    const response = await fetch(`${process.env.BACKEND}/api/v1/campgrounds/${campgroundId}/bookings/`,{
         method: "POST",
         headers: {
             "Content-Type" : "application/json",

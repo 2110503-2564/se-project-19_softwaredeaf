@@ -51,13 +51,13 @@ export interface User {
   email: string;
 }
 
-interface AmenityType {
+export interface AmenityType {
   _id: string,
   name: string,
   description: string
 }
 
-interface AmenityItem {
+export interface AmenityItem {
   _id: string,
   campgroundId: string, //link to AmenityType
   amenityTypeId: string,

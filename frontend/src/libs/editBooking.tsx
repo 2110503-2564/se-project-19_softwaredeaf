@@ -1,5 +1,5 @@
 export default async function editBooking(token:string,bookingId:string,checkin:string){
-    const response = await fetch(`${BACKEND}/api/v1/bookings/${bookingId}`,{
+    const response = await fetch(`${process.env.BACKEND}/api/v1/bookings/${bookingId}`,{
         method: "PUT",
         headers: {
             "Content-Type" : "application/json",
