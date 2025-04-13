@@ -1,6 +1,6 @@
 import Link from "next/link";
 import ProductCard from "./ProductCard";
-import { CampgroundItem, CampgroundJson } from "../../interfaces";
+import { CampgroundItem, CampgroundJson } from "../../interface";
 
 export default async function CampgroundCatalog({CampgroundJson}:{CampgroundJson:CampgroundJson}) {
     const campgroundJsonReady = await CampgroundJson

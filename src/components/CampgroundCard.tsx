@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { FaPhone, FaMapMarkerAlt, FaStar, FaTrash, FaEdit } from 'react-icons/fa';
-import { CampgroundItemAdmin } from '../../interfaces';
+import { CampgroundItemAdmin } from '../../interface';
 import Image from 'next/image';
 
 const CampgroundAdminCard = ({ campground }: { campground: CampgroundItemAdmin }) => {
