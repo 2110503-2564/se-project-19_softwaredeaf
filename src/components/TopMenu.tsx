@@ -11,10 +11,8 @@ export default function TopMenu() {
 
     return (
         <div className={styles.menucontainer}>
-            <Image src={'/img/logo.png'} className={styles.logoimg} alt='logo'
-                width={0} height={0} sizes='100vh' />
             <TopMenuItem title='Home' pageRef='/' />
-            <TopMenuItem title='About' pageRef='/about' />
+            {/* <TopMenuItem title='About' pageRef='/about' />
             <TopMenuItem title='Campgrounds' pageRef='/campground' />
             <TopMenuItem title={session?.user.role==='admin' ? 'View All Bookings' : 'Your Bookings'} pageRef='/cart' />
 
@@ -28,7 +26,7 @@ export default function TopMenu() {
                         <div className="flex items-center h-full px-2 text-white text-sm cursor-pointer">Sign-In</div>
                     </Link>
                 )}
-            </div>
+            </div> */}
         </div>
     );
 }
