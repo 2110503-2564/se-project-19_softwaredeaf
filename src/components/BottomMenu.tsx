@@ -10,7 +10,7 @@ export default function BottomMenu() {
     const { data: session } = useSession();
 
     return (
-        <div className={styles.menucontainer}>
+        <div className="bg-[#A4B465] w-[100%]">
             <div style={{ position: 'relative', width: '100px', height: '100px', marginLeft: 'auto' }}>
                 <Image
                     src="/img/logo.png"

@@ -54,6 +54,8 @@ export default function DummyCampgroundCatalog() {
                     <Link key={campgroundItem._id} href={`/campground/${campgroundItem._id}`} className='w-1/5 m-5'>
                         <ProductCard 
                             campgroundName={campgroundItem.name}
+                            campgroundAddress="test"
+                            campgroundPhone="081-234-5678"
                             imgSrc={campgroundItem.picture}
                             rating={campgroundItem.avgRating}
                         />

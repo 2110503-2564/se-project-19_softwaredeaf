@@ -10,10 +10,11 @@ export interface CampgroundItem{
   _id: string
   name: string
   address:string
-  region:string
-  avgRating:number
-  picture:string
+  district:string
+  province:string
+  postalcode:string
   tel:string
+  region:string
 }
 
 export interface CampgroundJson {
