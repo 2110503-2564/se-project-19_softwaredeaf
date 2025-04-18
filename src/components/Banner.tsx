@@ -14,11 +14,20 @@ export default function Banner (){
         <div className={styles.banner}>
             <Image src='/img/banner.png' alt='cover'
             fill={true}
-            objectFit='cover' className="opacity-90"/>
+            objectFit='cover' className="opacity-70"/>
             <div className={styles.bannerText}>
-                <Image src='/img/logo.png' alt='logo' width={150} height={150}/>
-                <h1 className = "font-bold text-5xl flex flex-left drop-shadow-md text-black mt-5">Find Your Perfect Spot Under the Stars</h1>
-            </div>
+            <div className="w-[15vw] h-auto relative aspect-square">
+            <Image
+                src="/img/logo.png"
+                alt="logo"
+                fill
+                className="object-contain"
+            />
+</div>
+<h1 className="font-bold sm:text-2xl md:text-3xl lg:text-4xl flex flex-left drop-shadow-md text-black mt-5">
+  Find Your Perfect Spot Under the Stars
+</h1>
+ </div>
 
             {
                 session? <div className='z-30 absolute top-5 right-10 font-semibold text-cyan-800 text-xl'>Hello {session.user?.role}</div>

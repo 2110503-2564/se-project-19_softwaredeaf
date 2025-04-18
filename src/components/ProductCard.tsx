@@ -12,7 +12,7 @@ export default function ProductCard({campgroundName,imgSrc,rating}:{campgroundNa
     const [value, setValue] = React.useState<number>(rating);
     return(
         <InteractiveCard contentName={campgroundName}>
-            <div className="w-full h-[70%] relative rounded-t-lg">
+            <div className="w-full h-[40%] relative rounded-t-lg">
                 <Image src={imgSrc}
                 alt='Product Picture'
                 fill={true}
