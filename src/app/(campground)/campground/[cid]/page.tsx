@@ -22,15 +22,38 @@ export default async function campground({params}:{params:{cid:string}}){
                     />
                 </div>
             </div>
-            <div className="flex start p-10">
-                <div className="bg-[#F5F5F5] w-[40%] rounded-xl">
-                    <div className="w-full p-3 bg-[#626F47]">
-                        <p className="text-white text-2xl">Amenities</p>
-                    </div>
-                    
-                </div>
+            <div className="rounded-xl overflow-hidden">
+    
+            <div className="flex justify-around gap-4 w-full">
+  {/* กล่องที่ 1 */}
+  <div className="w-[30vw] h-[300px] rounded-xl overflow-hidden shadow">
+    <div className="h-[20%] bg-[#626F47] p-3">
+      <p className="text-white text-2xl">Amenities</p>
+    </div>
+    <div className="h-[80%] bg-[#F5F5F5] p-3 overflow-y-auto">
+      <p className="text-black bg-white rounded-lg m-1 p-2">Lamp</p>
+      <p className="text-black bg-white rounded-lg m-1 p-2">Tent</p>
+      <p className="text-black bg-white rounded-lg m-1 p-2">BBQ Grill</p>
+      
+    </div>
+  </div>
 
-            </div>
+  
+  <div className="w-[30vw] h-[300px] rounded-xl overflow-hidden shadow">
+    <div className="h-[20%] bg-[#626F47] p-3">
+      <p className="text-white text-2xl">Reviews</p>
+    </div>
+    <div className="h-[80%] bg-[#F5F5F5] p-3 overflow-y-auto">
+      <p className="text-black bg-white rounded-lg m-1 p-2">Bank<br/>
+      "หิวข้าว"  dummy
+      </p>
+    </div>
+  </div>
+
+  
+</div>
+
+</div>
 
             
         </div> 
