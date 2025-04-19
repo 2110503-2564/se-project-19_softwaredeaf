@@ -60,8 +60,8 @@ export interface AmenityType {
 
 export interface AmenityItem {
   _id: string,
-  campgroundId: string, //link to AmenityType
-  amenityTypeId: string,
+  campgroundId: string, 
+  amenityTypeId: AmenityType, //link to AmenityType
   status: "available" | "booked",
   price: number,
   quantity: number

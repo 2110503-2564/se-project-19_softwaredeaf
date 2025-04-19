@@ -1,16 +1,42 @@
 // import BottomMenu from "@/components/BottomMenu"
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import DateReserve from '@/components/DateReserve';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import { CampgroundItem } from '../../../interface';
+import { CampgroundItem, CampgroundJson } from '../../../interface';
+import { Dayjs } from 'dayjs';
+import { useSession } from 'next-auth/react';
+import getCampgrounds from '@/libs/getCampgrounds';
+import { useSearchParams } from 'next/navigation';
 
 export default function booking(){
-    const [campground,setCampground] = useState("");
-    const [amenity,setAmenity]=useState("");
 
+    const searchParams = useSearchParams(); // ใช้เพื่อดึงพารามิเตอร์จาก URL
+    const selectedCampground = searchParams.get('id');
+
+    const [campgrounds,setCampgrounds] = useState<CampgroundJson|null>(null)
+    const [pickCampground,setPickcampground] = useState(selectedCampground || null);
+    const [amenity,setAmenity]=useState("");
+    const [name,setName]=useState("");
+    const [surname,setSurname]=useState("");
+    const [datefrom,setDatefrom]=useState<Dayjs|null>(null)
+    const [dateto,setDateto]=useState<Dayjs|null>(null)
+
+    const { data: session } = useSession();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getCampgrounds();
+            setCampgrounds(data);
+            setLoading(false);
+        }
+        fetchData();
+    }, []);
+
+    
     //mock data
     const mockData:CampgroundItem[]=[
         {
@@ -57,16 +83,16 @@ export default function booking(){
 
     return (
         <div 
-        className="py-20 pl-40 flex w-[70%] h-[50%] bg-white border border-[#A4B465] rounded-[40px] my-40 m-auto shadow-lg">
+        className="relative py-20 pl-40 flex w-[70%] h-[50%] bg-white border border-[#A4B465] rounded-[40px] my-40 m-auto shadow-lg">
             <div className="text-black text-xl">
                 <div className='flex items-center gap-40 font-semibold'>
                     <div className="m-5">
                         <p className="font-semibold mb-2">Name:</p>
-                        <TextField id="outlined-basic" label="Name" variant="outlined" />
+                        <TextField id="outlined-basic" label="Name" value={name} onChange={(e)=>{setName(e.target.value)}} variant="outlined"/>
                     </div>
                     <div className="m-5">
                         <p className="font-semibold mb-2">Surname:</p>
-                        <TextField id="outlined-basic" label="Surname" variant="outlined" />
+                        <TextField id="outlined-basic" label="Surname" value={surname} onChange={(e)=>setSurname(e.target.value)} variant="outlined" />
                     </div>
                 </div>
                 
@@ -76,14 +102,14 @@ export default function booking(){
 
                         <div className="flex items-center gap-5 font-semibold mb-5">
                             <p className="m-0">From</p>
-                            <DateReserve dateName="Start Date" />
+                            <DateReserve onDateChange={(value:Dayjs)=>{setDatefrom(value)}} dateName="Start Date" />
                         </div>
                     </div>
                     <div className="m-5">
                         <p className="font-semibold mb-2 ml-11">Date:</p>
                         <div className="flex items-center gap-5 font-semibold mb-5">
                             <p className="m-0">To</p>
-                            <DateReserve dateName="End Date" />
+                            <DateReserve onDateChange={(value:Dayjs)=>{setDateto(value)}} dateName="End Date" />
                         </div>
                     </div>
                 </div>
@@ -94,24 +120,26 @@ export default function booking(){
                             <p className="font-semibold mb-5">Campground:</p>
                             <Select
                             id="campgroundSelect"
-                            value={campground} 
-                            label={campground}
-                            onChange={(e)=>(setCampground(e.target.value))}
+                            className='w-[270px]'
+                            value={pickCampground} 
+                            label={pickCampground}
+                            onChange={(e)=>(setPickcampground(e.target.value))}
                             >
-                            {mockData.map((cg: CampgroundItem) => (
-                                <MenuItem key={cg._id} value={cg._id}>
-                                    {cg.name}
-                                </MenuItem>
-                            ))}
+                            {
+                                    campgrounds?.data.map((campgroundItem: CampgroundItem) => (
+                                        <MenuItem key={campgroundItem._id} value={campgroundItem._id}>{campgroundItem.name}</MenuItem>
+                                    ))
+                                }
                             </Select>
                         </div>
 
-                        <div>
+                        <div className='ml-[-130px]'>
                             <p className="font-semibold mb-5">Amenities:</p>
                             <Select
+                            className='w-[200px]'
                             id="amenitySelect"
-                            value={amenity} 
                             label={amenity}
+                            value={amenity}
                             onChange={(e)=>(setAmenity(e.target.value))}
                             >
                                 <MenuItem value="Amenity1">amenity1</MenuItem>
@@ -120,9 +148,13 @@ export default function booking(){
                     </div>
                 </div>
                 
-
+                <button name="Book Campground" className='w-[200px] bg-[#A4B465] text-black font-semibold py-2 px-2 rounded-xl hover:bg-[#626F47]
+                hover:text-white hover:border-transparent absolute bottom-5 right-5' onClick={()=>alert("Booked Just Kidding")}>Book</button>
             </div>
+            
         </div>
+        
+
     )
         
     

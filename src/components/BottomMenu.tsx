@@ -11,7 +11,7 @@ export default function BottomMenu() {
 
     return (
         <div className="bg-[#A4B465] w-[100%]">
-            <div style={{ position: 'relative', width: '100px', height: '100px', marginLeft: 'auto' }}>
+            <div style={{ position: 'relative', width: '6vw', height: '6vw', marginLeft: 'auto' }}>
                 <Image
                     src="/img/logo.png"
                     alt="logo"

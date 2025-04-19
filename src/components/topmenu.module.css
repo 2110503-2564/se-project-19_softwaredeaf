@@ -6,8 +6,8 @@
     left: 0px;
     right: 0px;
     z-index :30;
-    border-top: 1px solid lightgrey;
-    border-bottom: 1px solid lightgrey;
+    /* border-top: 1px solid lightgrey;
+    border-bottom: 1px solid lightgrey; */
     display: flex;
     flex-direction: row;
 }
@@ -24,7 +24,7 @@
     margin-top: auto;
     margin-bottom: auto;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 10pt;
+    font-size: 13pt;
     color:black;
     font-weight: bold;
 }

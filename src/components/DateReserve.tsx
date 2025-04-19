@@ -8,7 +8,7 @@ import { Dayjs } from "dayjs";
 interface DateReserveProps {
     dateName: string;
   }
-export default function DateReserve({dateName}:DateReserveProps){
+export default function DateReserve({dateName,onDateChange}:{dateName:string,onDateChange:Function}){
 
     const [reserveDate,setReserveDate] = useState<Dayjs|null>(null);
 
@@ -16,7 +16,7 @@ export default function DateReserve({dateName}:DateReserveProps){
         <div className="flex flex-row justify-center">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker className="bg-white" label={dateName}
-                value={reserveDate} onChange={(value)=>{setReserveDate(value);}}/>
+                value={reserveDate} onChange={(value)=>{setReserveDate(value);onDateChange(value)}}/>
             </LocalizationProvider>
         </div>
     );

@@ -1,5 +1,5 @@
 export default async function userRegister(userName:string,userTel:string,userEmail:string,userPassword:string){
-    const response = await fetch(`${process.env.BACKEND}/api/v1/auth/register`,{
+    const response = await fetch(`http://localhost:5000/api/v1/auth/register`,{
         method: "POST",
         headers: {
             "Content-Type" : "application/json",
@@ -15,11 +15,17 @@ export default async function userRegister(userName:string,userTel:string,userEm
 
     console.log('Response:', response);
 
-    if(!response.ok){   
-        const errorData = await response.json();
-        console.log('Error Data:', errorData); 
-        throw new Error(errorData?.message || "Registration failed");
-    }
+    if (!response.ok) {
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await response.json();
+          throw new Error(errorData?.message || "Registration failed");
+        } else {
+          const errorText = await response.text();
+          throw new Error(errorText || "Registration failed");
+        }
+      }
+      
 
     return await response.json()
 }

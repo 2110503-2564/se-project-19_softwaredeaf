@@ -27,37 +27,37 @@ export default function SignIn() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-[#f7f4ed] to-[#ffe6b5] text-white">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black">
       <h1 className="text-3xl font-bold mb-6 text-black">Sign In</h1>
-      <form onSubmit={handleLogin} className="bg-gray-800 p-6 rounded-lg shadow-lg w-80">
+      <form onSubmit={handleLogin} className="bg-[#D9D9D9] p-6 rounded-lg shadow-lg w-80 border border-black">
         <div className="mb-4">
-          <label className="block text-sm">Email</label>
+          <label className="block text-sm text-black">Email</label>
           <input
             type="email"
-            className="w-full p-2 rounded bg-gray-700 text-white"
+            className="w-full p-2 rounded bg-white text-black"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm">Password</label>
+          <label className="block text-sm text-black">Password</label>
           <input
             type="password"
-            className="w-full p-2 rounded bg-gray-700 text-white"
+            className="w-full p-2 rounded bg-white text-black"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />
         </div>
-        <button className="w-full py-2 bg-blue-600 rounded-lg hover:bg-blue-700 transition">
+        <button className="w-full py-2 bg-[#A4B465] rounded-lg hover:bg-[#626F47] hover:text-white hover:border-transparent">
           Sign In
         </button>
         {error && <p className="text-red-400 mt-2">{error}</p>}
       </form>
       <p className="mt-4 text-black">
         Don't have an account?{" "}
-        <a href="/signup" className="text-blue-400 hover:underline">
+        <a href="/signup" className="text-[#A4B465] hover:underline hover:text-[#626F47]">
           Sign up here
         </a>
       </p>
