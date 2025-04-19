@@ -66,3 +66,21 @@ export interface AmenityItem {
   price: number,
   quantity: number
 }
+
+export interface AmenityBooking {
+  campgroundId: string, 
+  amenityTypeId: AmenityType,
+  quantity: number,
+  startDate: string,
+  endDate: string
+}
+
+export interface AmenityJson {
+  campgroundId: string, 
+  _id: string,
+  name: string,
+  description: string
+  quantity: number,
+  status: string,
+  price: number,
+}

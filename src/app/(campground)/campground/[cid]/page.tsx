@@ -7,6 +7,7 @@ import Link from "next/link";
 export default async function campground({ params }: { params: { cid: string } }) {
   const campgroundJson = await getCampground(params.cid);
   const campground: CampgroundItem = campgroundJson.data;
+  
 
   // const amenityJson= await getAmenities(campground._id);
   // const amenity:AmenityItem[]=amenityJson.data;
@@ -104,7 +105,7 @@ export default async function campground({ params }: { params: { cid: string } }
                 amenity.length > 0 ?
                   (amenity.map((amenity: AmenityItem) =>
                     (
-                      <div className="p-3">
+                      <div className="p-[2px]">
                         <div className="relative flex flex-row bg-white rounded-lg m-1 p-2">
                           <p className="text-black">{amenity.amenityTypeId.name}</p>
                           {
@@ -127,14 +128,14 @@ export default async function campground({ params }: { params: { cid: string } }
             </div>
             <div className="h-[80%] bg-[#F5F5F5] p-3 overflow-y-auto">
               <p className="text-black bg-white rounded-lg m-1 p-2">Bank<br />
-                "หิวข้าว"  dummy
+                บรรยากาศสวยมาก อากาศดี 
               </p>
             </div>
             
           </div>
         </div>
         <div className="relative flex flex-row-reverse">
-        <Link href={`/booking?id=${params.cid}`}>
+        <Link href={`/campground/${params.cid}/booking`}>
         <button name="Book Campground" className='w-[150px] bg-[#A4B465] text-black font-semibold py-2 px-2 m-2
                 rounded-xl hover:bg-[#626F47] hover:text-white hover:border-transparent bottom-3 ' >Book</button>
         </Link>

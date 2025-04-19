@@ -23,7 +23,7 @@ export default function SignInSuccess(){
       }
 
       return (
-        <div className='flex flex-col h-screen w-full justify-center items-center bg-gradient-to-r from-[#f7f4ed] to-[#ffe6b5]'>
+        <div className='flex flex-col h-screen w-full justify-center items-center bg-white'>
             <h1 className='font-bold text-3xl text-black'>Welcome {session?.user.name} </h1>
             <h3 className="text-black">Redirecting you to Home Page</h3>
         </div>

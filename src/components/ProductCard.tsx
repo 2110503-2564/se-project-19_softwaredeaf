@@ -21,11 +21,12 @@ export default function ProductCard({campgroundName,campgroundAddress,campground
                 className="object-cover rounded-t-lg"
             />
             </div>
-            <div className="w-full h-[15%] p-[10px] text-black font-bold"> {campgroundName}</div> 
-            <div className="flex text-black"><MapPinIcon className="w-6 h-6 text-red-500" />  {campgroundAddress}</div>
-            <div className="flex text-black"><PhoneIcon className="w-6 h-6 text-black" />  {campgroundPhone}</div>
+            <div className='ml-[10px]'>
+            <div className="w-full h-[15%] pl-2 py-[10px] pb-5 text-black font-bold"> {campgroundName}</div> 
+            <div className="flex text-black mb-3"><MapPinIcon className="w-6 h-6 text-red-500" />  {campgroundAddress}</div>
+            <div className="flex text-black mb-3"><PhoneIcon className="w-6 h-6 text-black" />  {campgroundPhone}</div>
             <div className="flex text-yellow-400"><StarIcon className="w-6 h-6 text-yellow-400" />  {rating}</div>
-
+            </div>
             {/* <div>
                     {
                         rating?<Rating

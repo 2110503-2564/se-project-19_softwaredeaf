@@ -12,11 +12,14 @@ export default function TopMenu() {
     return (
         <div className={styles.menucontainer}>
             <TopMenuItem title='Home' pageRef='/' />
+            {/* {session?<TopMenuItem title='My Booking' pageRef='/mybooking' />:null} */}
+            <TopMenuItem title='Campgrounds' pageRef='/campground' />
+            <TopMenuItem title='My Bookings' pageRef='/mybooking' />
 
             <div className='flex flex-row absolute right-0 h-full'>
                 <TopMenuItem title={session?'Sign-out':'Sign-in'} pageRef={session?'/api/auth/signout':'/api/auth/signin'} />
 
-                <TopMenuItem title='Booking' pageRef='/booking' />
+                
             </div>
             {/* <TopMenuItem title='About' pageRef='/about' />
             <TopMenuItem title='Campgrounds' pageRef='/campground' />

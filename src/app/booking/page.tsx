@@ -88,7 +88,7 @@ export default function booking(){
                 <div className='flex items-center gap-40 font-semibold'>
                     <div className="m-5">
                         <p className="font-semibold mb-2">Name:</p>
-                        <TextField id="outlined-basic" label="Name" value={name} onChange={(e)=>{setName(e.target.value)}} variant="outlined"/>
+                        <TextField className='w-full' id="outlined-basic" label="Name" value={name} onChange={(e)=>{setName(e.target.value)}} variant="outlined"/>
                     </div>
                     <div className="m-5">
                         <p className="font-semibold mb-2">Surname:</p>

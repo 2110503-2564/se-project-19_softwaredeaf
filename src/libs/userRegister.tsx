@@ -1,4 +1,4 @@
-export default async function userRegister(userName:string,userTel:string,userEmail:string,userPassword:string){
+export default async function userRegister(userName:string,userTel:string,userEmail:string,userPassword:string,role:string){
     const response = await fetch(`http://localhost:5000/api/v1/auth/register`,{
         method: "POST",
         headers: {
@@ -9,7 +9,7 @@ export default async function userRegister(userName:string,userTel:string,userEm
             tel : userTel,
             email : userEmail,
             password : userPassword,
-            role : "user"
+            role : role
         })
     })
 
