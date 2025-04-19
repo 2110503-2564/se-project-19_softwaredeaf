@@ -1,68 +1,69 @@
 import getCampground from "@/libs/getCampground";
 import { getAmenities } from "@/libs/getAmenities";
-import { CampgroundItem, CampgroundJson, AmenityItem } from "../../../../../../interface"
+import { CampgroundItem, AmenityItem , AmenityJson} from "../../../../../../interface"
 import Image from "next/image";
-import { Dayjs } from 'dayjs';
-import getCampgrounds from '@/libs/getCampgrounds';
-import { useSearchParams } from 'next/navigation';
 import BookingForm from "@/components/BookingForm";
 
 export default async function booking({params}:{params:{cid:string}}){
     const campgroundJson = await getCampground(params.cid);
     const campground: CampgroundItem = campgroundJson.data;
+
+    const amenityJson:AmenityJson = await getAmenities(params.cid);
+    const amenity: AmenityItem[] = amenityJson.data;
+    
     
     console.log(params.cid);
     //mock amenity for campground id 68033e03f4a12360e7f5c204
-  const amenity: AmenityItem[] = [
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "Fire Pit",
-        "description": "A cozy fire pit perfect for evening gatherings."
-      },
-      "status": "available",
-      "price": 15,
-      "quantity": 3
-    },
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "BBQ grill",
-        "description": "eat bbq lol"
-      },
-      "status": "booked",
-      "price": 5000,
-      "quantity": 3
-    },
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "BBQ grill",
-        "description": "eat bbq lol"
-      },
-      "status": "booked",
-      "price": 5000,
-      "quantity": 3
-    },
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "BBQ grill",
-        "description": "eat bbq lol"
-      },
-      "status": "booked",
-      "price": 5000,
-      "quantity": 3
-    }
-  ];
+  // const amenity: AmenityItem[] = [
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "Fire Pit",
+  //       "description": "A cozy fire pit perfect for evening gatherings."
+  //     },
+  //     "status": "available",
+  //     "price": 15,
+  //     "quantity": 3
+  //   },
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "BBQ grill",
+  //       "description": "eat bbq lol"
+  //     },
+  //     "status": "booked",
+  //     "price": 5000,
+  //     "quantity": 3
+  //   },
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "BBQ grill",
+  //       "description": "eat bbq lol"
+  //     },
+  //     "status": "booked",
+  //     "price": 5000,
+  //     "quantity": 3
+  //   },
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "BBQ grill",
+  //       "description": "eat bbq lol"
+  //     },
+  //     "status": "booked",
+  //     "price": 5000,
+  //     "quantity": 3
+  //   }
+  // ];
 
     return (
         <div className="ml-20">

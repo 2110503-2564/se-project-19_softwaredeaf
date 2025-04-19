@@ -58,13 +58,24 @@ export interface AmenityType {
   description: string
 }
 
+// export interface AmenityItem {
+//   _id: string,
+//   campgroundId: string, 
+//   amenityTypeId: AmenityType, //link to AmenityType
+//   status: "available" | "booked",
+//   price: number,
+//   quantity: number
+// }
+
 export interface AmenityItem {
-  _id: string,
   campgroundId: string, 
-  amenityTypeId: AmenityType, //link to AmenityType
-  status: "available" | "booked",
+  _id: string,
+  name: string,
+  description: string,
+  image:string,
+  quantity: number,
+  status: string,
   price: number,
-  quantity: number
 }
 
 export interface AmenityBooking {
@@ -76,11 +87,6 @@ export interface AmenityBooking {
 }
 
 export interface AmenityJson {
-  campgroundId: string, 
-  _id: string,
-  name: string,
-  description: string
-  quantity: number,
-  status: string,
-  price: number,
+  count : number
+  data : AmenityItem[]
 }

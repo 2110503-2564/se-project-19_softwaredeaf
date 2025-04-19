@@ -1,68 +1,71 @@
 import getCampground from "@/libs/getCampground";
 import { getAmenities } from "@/libs/getAmenities";
 import Image from "next/image";
-import { CampgroundItem, CampgroundJson, AmenityItem } from "../../../../../interface"
+import { CampgroundItem, AmenityJson, AmenityItem } from "../../../../../interface"
 import Link from "next/link";
 
 export default async function campground({ params }: { params: { cid: string } }) {
   const campgroundJson = await getCampground(params.cid);
   const campground: CampgroundItem = campgroundJson.data;
+
+  const amenityJson:AmenityJson = await getAmenities(params.cid);
+  const amenity: AmenityItem[] = amenityJson.data;
   
 
   // const amenityJson= await getAmenities(campground._id);
   // const amenity:AmenityItem[]=amenityJson.data;
 
   //mock amenity for campground id 68033e03f4a12360e7f5c204
-  const amenity: AmenityItem[] = [
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "Fire Pit",
-        "description": "A cozy fire pit perfect for evening gatherings."
-      },
-      "status": "available",
-      "price": 15,
-      "quantity": 3
-    },
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "BBQ grill",
-        "description": "eat bbq lol"
-      },
-      "status": "booked",
-      "price": 5000,
-      "quantity": 3
-    },
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "BBQ grill",
-        "description": "eat bbq lol"
-      },
-      "status": "booked",
-      "price": 5000,
-      "quantity": 3
-    },
-    {
-      "_id": "68033e03f4a12360e7f5c204",
-      "campgroundId": "68025bb266414902e377d383",
-      "amenityTypeId": {
-        "_id": "68033dd6f4a12360e7f5c1fe",
-        "name": "BBQ grill",
-        "description": "eat bbq lol"
-      },
-      "status": "booked",
-      "price": 5000,
-      "quantity": 3
-    }
-  ];
+  // const amenity: AmenityItem[] = [
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "Fire Pit",
+  //       "description": "A cozy fire pit perfect for evening gatherings."
+  //     },
+  //     "status": "available",
+  //     "price": 15,
+  //     "quantity": 3
+  //   },
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "BBQ grill",
+  //       "description": "eat bbq lol"
+  //     },
+  //     "status": "booked",
+  //     "price": 5000,
+  //     "quantity": 3
+  //   },
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "BBQ grill",
+  //       "description": "eat bbq lol"
+  //     },
+  //     "status": "booked",
+  //     "price": 5000,
+  //     "quantity": 3
+  //   },
+  //   {
+  //     "_id": "68033e03f4a12360e7f5c204",
+  //     "campgroundId": "68025bb266414902e377d383",
+  //     "amenityTypeId": {
+  //       "_id": "68033dd6f4a12360e7f5c1fe",
+  //       "name": "BBQ grill",
+  //       "description": "eat bbq lol"
+  //     },
+  //     "status": "booked",
+  //     "price": 5000,
+  //     "quantity": 3
+  //   }
+  // ];
   //mock review
   const review=[
     {
@@ -107,7 +110,7 @@ export default async function campground({ params }: { params: { cid: string } }
                     (
                       <div className="p-[2px]">
                         <div className="relative flex flex-row bg-white rounded-lg m-1 p-2">
-                          <p className="text-black">{amenity.amenityTypeId.name}</p>
+                          <p className="text-black">{amenity.name}</p>
                           {
                             amenity.status === "available" ?
                               <p className="text-[#A4B465] absolute right-3">Available</p>

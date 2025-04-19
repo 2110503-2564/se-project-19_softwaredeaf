@@ -21,7 +21,7 @@ export default function AmenityBookingItem({amenities,handleSubmit,bookfrom,book
         if (datefrom && dateto && amount > 0 && dateto.format("YYYY-MM-DD") > datefrom.format("YYYY-MM-DD") ) {
           const booking: AmenityBooking = {
             campgroundId: amenities.campgroundId, 
-            amenityTypeId: amenities.amenityTypeId,
+            amenityTypeId: amenities,
             quantity: amount,
             startDate: datefrom.format("YYYY-MM-DD"),
             endDate: dateto.format("YYYY-MM-DD")
@@ -34,7 +34,7 @@ export default function AmenityBookingItem({amenities,handleSubmit,bookfrom,book
     return(
         <div className={`border border-black rounded-xl my-2`}>
            <div className="flex flex-row justify-around content-around">
-                <p className="w-[35%] p-5 text-xl text-black font-normal">{amenities.amenityTypeId.name}</p> 
+                <p className="w-[35%] p-5 text-xl text-black font-normal">{amenities.name}</p> 
                 <p className="w-[25%] p-5 text-xl text-black font-normal">Amount Left : {amenities.quantity}</p> 
                 <div className="w-[20%] flex justify-center items-center">
                     <button name="View Detail" className='w-[80%] py-2 text-base bg-[#A4B465] text-50px text-black font-normal rounded-xl hover:bg-[#626F47]
@@ -46,7 +46,7 @@ export default function AmenityBookingItem({amenities,handleSubmit,bookfrom,book
                 </div>
             </div> 
             {
-                viewDetail ? <p className="w-[35%] p-5 text-xl text-black font-normal">{amenities.amenityTypeId.description}</p> 
+                viewDetail ? <p className="w-[35%] p-5 text-xl text-black font-normal">{amenities.description}</p> 
                 : null
             }
             {
