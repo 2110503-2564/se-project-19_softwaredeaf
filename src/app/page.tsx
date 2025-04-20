@@ -4,6 +4,7 @@ import CampgroundCatalog from '@/components/CampgroundCatalog';
 // import { useEffect, useState } from 'react';
 import { CampgroundItem, CampgroundJson } from '../../interface';
 import getCampgrounds from '@/libs/getCampgrounds';
+import BottomMenu from '@/components/BottomMenu';
 //import { TravelCard } from "@/components/TravelCard";
 
 export default async function Home() {
@@ -20,7 +21,7 @@ export default async function Home() {
     // fetchData();
 // }, []);
   return (
-    <main>
+    <main className='mb-[100px]'>
         <Banner/>
         {/* <TravelCard></TravelCard> */}
         <div className="font-bold ml-10 mt-3 text-xl text-black">
@@ -35,7 +36,9 @@ export default async function Home() {
         campgrounds && <CampgroundCatalog CampgroundJson={campgrounds} />
       )}
         
-
+        <div className="fixed w-[100%] bottom-0">
+          <BottomMenu/>
+        </div>
     </main>
   );
 }

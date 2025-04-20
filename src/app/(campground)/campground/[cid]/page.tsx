@@ -83,8 +83,8 @@ export default async function campground({ params }: { params: { cid: string } }
   return (
     <div className="p-10 w-[80%] h-[70%] bg-white border border-[#A4B465] rounded-[40px] my-40 m-auto shadow-lg">
       <div className="pl-3 flex justify-between w-full">
-        <div className="text-black text-3xl font-semibold mt-10">
-          Name: {campground.name}
+        <div>
+          <div className="text-black text-3xl font-semibold mt-10">{campground.name}</div>
           <p className="text-2xl font-normal">description description blah blah</p>
         </div>
         <div className="relative w-[170px] h-[170px] border rounded-xl">

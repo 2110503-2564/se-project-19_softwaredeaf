@@ -15,8 +15,8 @@ export default function BottomMenu() {
             <div className="flex justify-between items-center">
                 <div className="ml-4">
                     <div className="font-bold text-black">Contact Us</div>
-                    <div className="text-black">
-                        <EnvelopeIcon className="w-6 h-6"/>email@email.com
+                    <div className="flex flex-row text-black">
+                        <EnvelopeIcon className="w-6 h-6 pr-[5px]"/> email@email.com
                     </div>
                     continue soon
                     <p className="text-black">098-765-4321</p>
