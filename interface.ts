@@ -86,7 +86,7 @@ export interface AmenityType {
 // }
 
 export interface AmenityItem {
-  campgroundId: string, 
+  campgroundId: CampgroundItem | null, 
   _id: string,
   name: string,
   description: string,
