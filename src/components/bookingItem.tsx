@@ -1,12 +1,26 @@
 'use client'
 import BookedAmenityList from "@/components/BookedAmenityList";
+import dayjs from "dayjs";
 import Image from 'next/image';
 import deleteBooking from "@/libs/deleteBooking";
+import deleteAmenityBookingByBookingId from "@/libs/deleteAmenityBookingByBookingId";
 import { ReservationItem } from "../../interface";
 import Link from "next/link";
 export default function BookingItem({booking,token}:{booking:ReservationItem,token:string}){
     const handleDelete = async (bid:string) => {
-        await deleteBooking(token,bid);
+        try{
+            await deleteAmenityBookingByBookingId(token,bid);
+        }catch(error){
+            console.log(error);
+            return;
+        }
+        try{
+            await deleteBooking(token,bid);
+        }catch(error){
+            console.log(error);
+            return;
+        }
+        alert('Delete Booking Success!');
         // optionally trigger a refresh or UI update
       };
     return (
@@ -20,7 +34,7 @@ export default function BookingItem({booking,token}:{booking:ReservationItem,tok
                         </div>
                     </div>
                     {/* <div className="flex-col-rev"> */}
-                    <Link href={`/${booking._id}/edit`}>
+                    <Link href={`/mybooking/${booking._id}/edit`}>
                         <button 
                             className="mt-5 w-16 h-16 rounded-full bg-[#FFB900] flex items-center justify-center shadow-md hover:brightness-70"
                             >
@@ -40,18 +54,18 @@ export default function BookingItem({booking,token}:{booking:ReservationItem,tok
                     <div className="flex place-content-stretch">
                         <div className="flex overflow-y-auto mr-5 w-[45%]">
                             <p className="mr-2">From:</p>
-                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> {booking.startDate.toString()}</div>
+                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> { dayjs(booking.startDate).format('DD/MM/YYYY').toString()}</div>
                         </div>
                         <div className="flex overflow-y-auto w-[45%]">
                             <p className="mr-2">To:</p>
-                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> {booking.endDate.toString()}</div>
+                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> {dayjs(booking.endDate).format('DD/MM/YYYY').toString()}</div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div className="w-[48%]">
-                <BookedAmenityList/>
+                <BookedAmenityList token={token} bid={booking._id}/>
             </div>
         
         </div>

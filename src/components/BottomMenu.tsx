@@ -11,7 +11,7 @@ export default function BottomMenu() {
     const { data: session } = useSession();
 
     return (
-        <div className="z-100 bg-[#A4B465] w-full">
+        <div className="bg-[#A4B465] w-full">
             <div className="flex justify-between items-center">
                 <div className="ml-4">
                     <div className="font-bold text-black">Contact Us</div>

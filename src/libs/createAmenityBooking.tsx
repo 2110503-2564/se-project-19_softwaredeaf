@@ -1,7 +1,7 @@
 import { AmenityBooking } from "../../interface"
 
 export default async function createAmenityBooking(token:string,bookingId:string,AmenityItem:AmenityBooking){
-    const response = await fetch(`http://localhost:5000/api/v1/bookings/${bookingId}/amenities/${AmenityItem.amenityTypeId._id}/amenitybookings`,{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/bookings/${bookingId}/amenities/${AmenityItem.amenityTypeId._id}/amenitybookings`,{
         method: "POST",
         headers: {
             "Content-Type" : "application/json",

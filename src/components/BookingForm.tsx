@@ -41,10 +41,10 @@ export default function BookingForm({amenities,campsId}:{amenities:AmenityItem[]
                   quantity: newbooking.quantity,
                 };
                 setAmenList(updatedList);
-                alert('Update Amenity!');
+                alert(`Updated booked quantity of ${newbooking.amenityTypeId.name}`);
             }else{
                 setAmenList(prev => [...prev, newbooking]);
-                alert('Booking Amenity Success!');
+                alert(`Added ${newbooking.amenityTypeId.name} to your booking`);
             }
         }
     }
@@ -56,7 +56,7 @@ export default function BookingForm({amenities,campsId}:{amenities:AmenityItem[]
                   (item) => item.amenityTypeId != deleteAmenity.amenityTypeId
                 )
             );
-            alert(`Delete ${deleteAmenity.amenityTypeId.name}!`);
+            alert(`Removed ${deleteAmenity.amenityTypeId.name} from your booking!`);
         }
     }
     
@@ -77,7 +77,7 @@ export default function BookingForm({amenities,campsId}:{amenities:AmenityItem[]
                     try{
                         await createAmenityBooking(token,bookingId,item);
                     }catch(error){
-                        alert('Booking Failed!');
+                        alert('Booking amenity Failed!');
                         console.log(error);
                         return;
                     }
@@ -127,7 +127,7 @@ export default function BookingForm({amenities,campsId}:{amenities:AmenityItem[]
                         <p className="text-3xl text-black font-semibold">Amenities</p>
 
                         {
-                            amenities ? amenities.map((AmenityItem:AmenityItem)=>(
+                            amenities.length > 0 ? amenities.map((AmenityItem:AmenityItem)=>(
                                 <div>
                                     <AmenityBookingItem amenities={AmenityItem} handleSubmit={commitBooking} bookfrom={datefrom} bookto={dateto}/>
                                 </div>
@@ -142,9 +142,9 @@ export default function BookingForm({amenities,campsId}:{amenities:AmenityItem[]
                     {
                         amenBookList.length == 0 ?                 
                         ' ' :
-                        <div className="flex flex-row w-[70%]">
-                            <p className="pl-5 text-black text-xl font-semibold mb-2">Amenities:</p>
-                            <p className="pl-5 text-black text-s font-thin mb-2">click for delete</p>
+                        <div className="flex flex-row w-[70%] items-center">
+                            <p className="pl-5 text-black text-xl font-semibold">Amenities:</p>
+                            <p className="pl-5 text-[#C46B65] text-s font-normal" onClick={()=>setAmenList([])}>Delete All</p>
                         </div>
                     }
                     {

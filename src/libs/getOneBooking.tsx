@@ -1,5 +1,5 @@
 export default async function getOneBooking(token:string,id:string){
-    const response = await fetch(`${process.env.BACKEND}/api/v1/bookings/${id}`,{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/bookings/${id}`,{
         method: "GET",
         headers: {
             authorization : `Bearer ${token}`,

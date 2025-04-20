@@ -6,7 +6,6 @@ export default async function CampgroundCatalog({CampgroundJson}:{CampgroundJson
     const campgroundJsonReady = await CampgroundJson
     return(
         <>
-        Explore {campgroundJsonReady.count} Campgrounds in List
         <div className="grid grid-cols-4 ">
                     {   
                         campgroundJsonReady.data.map((campgroundItem:CampgroundItem)=>(

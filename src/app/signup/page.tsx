@@ -33,7 +33,6 @@ export default function SignUp() {
   };
 
   const formatPhoneNumber = (value: string) => {
-    // ลบทุกตัวที่ไม่ใช่ตัวเลขออก
     const cleaned = value.replace(/\D/g, "");
     const match = cleaned.match(/^(\d{0,3})(\d{0,3})(\d{0,4})$/);
     if (match) {

@@ -10,7 +10,7 @@ import { getServerSession } from "next-auth";
 
 export default async function booking({params}:{params:{cid:string}}){
     const session=await getServerSession(authOptions);
-    if(!session || !session.user) return (<div>lol</div>);
+    if(!session || !session.user) return (<div>User not logged in</div>);
     const token=session.user.token;
     const campgroundJson = await getCampground(params.cid);
     const campground: CampgroundItem = campgroundJson.data;
@@ -18,29 +18,12 @@ export default async function booking({params}:{params:{cid:string}}){
     const amenityJson:AmenityJson = await getAmenities(params.cid);
     const amenity: AmenityItem[] = amenityJson.data;
     console.log(params.cid);
-    // const handleSubmit = async (
-    //     name: string,
-    //     surname: string,
-    //     startDate: string,
-    //     endDate: string
-    //   ) => {
-    //     const result = await createBooking({
-    //       token,
-    //       campgroundId : campground._id,
-    //       name,
-    //       surname,
-    //       startDate,
-    //       endDate
-    //     });
-      
-    //     return result;
-    //   };
     return (
         <div className="px-20">
-            <p className="p-5 text-7xl text-black font-bold">Create New Booking</p>
+            <p className="p-5 text-4xl text-black font-bold">Create New Booking</p>
 
             <div className="grid grid-cols-3 grid-rows-5 bg-white border border-[#626F47] p-5 rounded-xl shadow-xl h-[30vh] w-full">
-                <div className="col-span-1 row-span-full text-black bg-green-100 rounded-tl-xl rounded-bl-xl flex justify-center">
+                <div className="col-span-1 row-span-full text-black rounded-tl-xl rounded-bl-xl flex justify-center">
                     <Image
                         alt="campground"
                         src="/img/campicdemo.jpg"
@@ -50,9 +33,9 @@ export default async function booking({params}:{params:{cid:string}}){
                     >
                     </Image>
                 </div>
-                <div className="flex flex-col column-auto row-span-full col-span-2 bg-red-100 rounded-tr-xl rounded-br-xl">
+                <div className="flex flex-col column-auto row-span-full col-span-2 rounded-tr-xl rounded-br-xl">
                     {/* <div className="row-span-5 text-black bg-red-200"> */}
-                        <div className="flex flex-row row-span-1 col-span-2 bg-red-200 rounded-tr-xl">
+                        <div className="flex flex-row row-span-1 col-span-2 rounded-tr-xl">
                             <p className="text-black text-xl font-semibold min-w-[100px]">Name: </p>
                             <p className="text-black text-xl font-semibold">{campground.name}</p>
                         </div>

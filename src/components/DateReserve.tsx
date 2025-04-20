@@ -9,15 +9,15 @@ import { Dayjs } from "dayjs";
 interface DateReserveProps {
     dateName: string;
   }
-export default function DateReserve({dateName,onDateChange,minDate,maxDate}:{dateName:string,onDateChange:Function,minDate?:Dayjs|null,maxDate?:Dayjs|null}){
+export default function DateReserve({dateName,onDateChange,minDate,maxDate,initDate}:{dateName:string,onDateChange:Function,minDate?:Dayjs|null,maxDate?:Dayjs|null,initDate?:Dayjs|null}){
 
-    const [reserveDate,setReserveDate] = useState<Dayjs|null>(null);
+    const [reserveDate,setReserveDate] = useState<Dayjs|null>(initDate||null);
 
     return(
         <div className="flex flex-row justify-center">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <DatePicker className="bg-white" label={dateName}
-                value={reserveDate} onChange={(value)=>{setReserveDate(value);onDateChange(value)}}  minDate={minDate || dayjs()} maxDate={maxDate||null} />
+                value={reserveDate} onChange={(value)=>{setReserveDate(value);onDateChange(value)}}  minDate={minDate || dayjs()} maxDate={maxDate||undefined} />
             </LocalizationProvider>
         </div>
     );

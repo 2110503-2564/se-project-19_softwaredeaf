@@ -1,5 +1,5 @@
-export default async function deleteBooking(token:string,bookingId:string){
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/bookings/${bookingId}`,{
+export default async function deleteAmenityBookingByBookingId(token:string,bookingId:string){
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/amenitybookings/bookings/${bookingId}`,{
         method: "DELETE",
         headers: {
             authorization : `Bearer ${token}`,

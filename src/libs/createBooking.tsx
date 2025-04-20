@@ -1,5 +1,5 @@
 export default async function createBooking(token:string,campgroundId:string,name:string,surname:string,startDate:string,endDate:string){
-    const response = await fetch(`http://localhost:5000/api/v1/camps/${campgroundId}/bookings`,{
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/camps/${campgroundId}/bookings`,{
         method: "POST",
         headers: {
             "Content-Type" : "application/json",

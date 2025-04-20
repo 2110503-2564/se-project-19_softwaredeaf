@@ -20,6 +20,7 @@ export default function AmenityBookingItem({amenities,handleSubmit,bookfrom,book
     const makeAmenityBooking = () => {
         if (datefrom && dateto && amount > 0 && dateto.format("YYYY-MM-DD") > datefrom.format("YYYY-MM-DD") ) {
           const booking: AmenityBooking = {
+            _id:"",
             campgroundId: amenities.campgroundId, 
             amenityTypeId: amenities,
             quantity: amount,

@@ -1,5 +1,5 @@
-export default async function getBooking(token:string){
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/bookings`,{
+export default async function getAmenityBooking(token:string,bookingId:string){
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/amenitybookings/bookings/${bookingId}`,{
         method: "GET",
         headers: {
             authorization : `Bearer ${token}`,

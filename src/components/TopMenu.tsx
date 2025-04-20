@@ -1,4 +1,4 @@
-"use client";  // ⬅️ Make this a client component
+"use client"; 
 import styles from './topmenu.module.css';
 import Image from 'next/image';
 import TopMenuItem from './TopMenuItem';
@@ -13,8 +13,8 @@ export default function TopMenu() {
         <div className={styles.menucontainer}>
             <TopMenuItem title='Home' pageRef='/' />
             {/* {session?<TopMenuItem title='My Booking' pageRef='/mybooking' />:null} */}
-            <TopMenuItem title='Campgrounds' pageRef='/campground' />
-            <TopMenuItem title='My Bookings' pageRef='/mybooking' />
+            <TopMenuItem title={session?.user?.role === 'owner' ? 'My Campgrounds' : 'Campgrounds'} pageRef='/campground' />
+            <TopMenuItem title={(!session || session?.user?.role === 'user') ? 'My Bookings' : 'All Bookings'}  pageRef='/mybooking' />
 
             <div className='flex flex-row absolute right-0 h-full'>
                 <TopMenuItem title={session?'Sign-out':'Sign-in'} pageRef={session?'/api/auth/signout':'/api/auth/signin'} />

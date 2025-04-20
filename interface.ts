@@ -8,6 +8,22 @@ export interface ReservationItem {
   user:string
 }
 
+export interface AmenityBookingItemFetch {
+  _id:string
+  campgroundBookingId:ReservationItem
+  userId:User
+  campgroundAmenityId:AmenityItem
+  amount:number
+  startDate:string
+  endDate:string
+  createdAt:string
+}
+
+export interface AmenityBookingJson {
+  count : number
+  data : AmenityBookingItemFetch[]
+}
+
 export interface CampgroundItem{
   _id: string
   name: string
@@ -81,6 +97,7 @@ export interface AmenityItem {
 }
 
 export interface AmenityBooking {
+  _id:string
   campgroundId: string, 
   amenityTypeId: AmenityType,
   quantity: number,
