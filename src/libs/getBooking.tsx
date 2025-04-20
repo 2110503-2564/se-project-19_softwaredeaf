@@ -6,7 +6,7 @@ export default async function getBooking(token:string){
         }
     })
     if(!response.ok){   
-        throw new Error("Failed to Delete Booking")
+        throw new Error("Failed to get Booking")
     }
 
     return await response.json()

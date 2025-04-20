@@ -1,4 +1,3 @@
-'use server'
 import getCampground from "@/libs/getCampground";
 import { getAmenities } from "@/libs/getAmenities";
 import createBooking from "@/libs/createBooking";
@@ -8,7 +7,7 @@ import BookingForm from "@/components/BookingForm";
 import { authOptions } from "@/app/utils/authOptions";
 import { getServerSession } from "next-auth";
 
-export default async function booking({params}:{params:{cid:string}}){
+export default async function editBooking({params}:{params:{cid:string}}){
     const session=await getServerSession(authOptions);
     if(!session || !session.user) return (<div>lol</div>);
     const token=session.user.token;

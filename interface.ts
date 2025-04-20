@@ -1,9 +1,11 @@
 export interface ReservationItem {
   _id:string
-  campground:CampgroundItem
-  campingDate:string
-  nights:number
-  user:User
+  camp:CampgroundItem
+  name:string
+  surname:string
+  startDate:string
+  endDate:string
+  user:string
 }
 
 export interface CampgroundItem{

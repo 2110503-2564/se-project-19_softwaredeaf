@@ -5,7 +5,7 @@ import TopMenuItem from './TopMenuItem';
 import Link from 'next/link';
 import { useSession } from "next-auth/react"; 
 import DropdownMenu from './DropdownMenu';
-import { EnvelopeIcon } from '@heroicons/react/20/solid';
+import { EnvelopeIcon ,PhoneIcon} from '@heroicons/react/20/solid';
 
 export default function BottomMenu() {
     const { data: session } = useSession();
@@ -18,8 +18,9 @@ export default function BottomMenu() {
                     <div className="flex flex-row text-black">
                         <EnvelopeIcon className="w-6 h-6 pr-[5px]"/> email@email.com
                     </div>
-                    continue soon
-                    <p className="text-black">098-765-4321</p>
+                    <div className="flex flex-row text-black">
+                        <PhoneIcon className="w-6 h-6 pr-[5px]"/>098-765-4321
+                    </div>
                 </div>
                 
                 <div className="relative w-[6vw] h-[6vw] mr-4">

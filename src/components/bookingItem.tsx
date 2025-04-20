@@ -3,6 +3,7 @@ import BookedAmenityList from "@/components/BookedAmenityList";
 import Image from 'next/image';
 import deleteBooking from "@/libs/deleteBooking";
 import { ReservationItem } from "../../interface";
+import Link from "next/link";
 export default function BookingItem({booking,token}:{booking:ReservationItem,token:string}){
     const handleDelete = async (bid:string) => {
         await deleteBooking(token,bid);
@@ -15,17 +16,17 @@ export default function BookingItem({booking,token}:{booking:ReservationItem,tok
                     <div className="w-[60%]">
                         <p className='mt-7 mb-3'>Campground:</p>
                         <div className="bg-[#D9D9D9] px-3 py-1 mt-2 rounded-md text-base font-light w-[74%] flex place-content-evenly">
-                            {booking.campground.name}
+                            {booking.camp.name}
                         </div>
                     </div>
                     {/* <div className="flex-col-rev"> */}
+                    <Link href={`/${booking._id}/edit`}>
                         <button 
                             className="mt-5 w-16 h-16 rounded-full bg-[#FFB900] flex items-center justify-center shadow-md hover:brightness-70"
-                            
                             >
                             <img src="/img/edit.png" alt="Edit" className="w-6 h-6" />
                         </button>
-
+                    </Link>
                         <button 
                             className="mt-5 w-16 h-16 rounded-full bg-[#C46B65] flex items-center justify-center shadow-md hover:brightness-70"
                             onClick={()=>handleDelete(booking._id)}
@@ -39,11 +40,11 @@ export default function BookingItem({booking,token}:{booking:ReservationItem,tok
                     <div className="flex place-content-stretch">
                         <div className="flex overflow-y-auto mr-5 w-[45%]">
                             <p className="mr-2">From:</p>
-                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> {booking.campingDate}</div>
+                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> {booking.startDate.toString()}</div>
                         </div>
                         <div className="flex overflow-y-auto w-[45%]">
                             <p className="mr-2">To:</p>
-                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> {booking.campingDate}</div>
+                            <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly"> {booking.endDate.toString()}</div>
                         </div>
                     </div>
                 </div>

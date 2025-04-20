@@ -3,6 +3,7 @@ import { getAmenities } from "@/libs/getAmenities";
 import Image from "next/image";
 import { CampgroundItem, AmenityJson, AmenityItem } from "../../../../../interface"
 import Link from "next/link";
+import Booknowbutton from "@/components/Booknowbutton";
 
 export default async function campground({ params }: { params: { cid: string } }) {
   const campgroundJson = await getCampground(params.cid);
@@ -10,99 +11,51 @@ export default async function campground({ params }: { params: { cid: string } }
 
   const amenityJson:AmenityJson = await getAmenities(params.cid);
   const amenity: AmenityItem[] = amenityJson.data;
-  
-
-  // const amenityJson= await getAmenities(campground._id);
-  // const amenity:AmenityItem[]=amenityJson.data;
-
-  //mock amenity for campground id 68033e03f4a12360e7f5c204
-  // const amenity: AmenityItem[] = [
-  //   {
-  //     "_id": "68033e03f4a12360e7f5c204",
-  //     "campgroundId": "68025bb266414902e377d383",
-  //     "amenityTypeId": {
-  //       "_id": "68033dd6f4a12360e7f5c1fe",
-  //       "name": "Fire Pit",
-  //       "description": "A cozy fire pit perfect for evening gatherings."
-  //     },
-  //     "status": "available",
-  //     "price": 15,
-  //     "quantity": 3
-  //   },
-  //   {
-  //     "_id": "68033e03f4a12360e7f5c204",
-  //     "campgroundId": "68025bb266414902e377d383",
-  //     "amenityTypeId": {
-  //       "_id": "68033dd6f4a12360e7f5c1fe",
-  //       "name": "BBQ grill",
-  //       "description": "eat bbq lol"
-  //     },
-  //     "status": "booked",
-  //     "price": 5000,
-  //     "quantity": 3
-  //   },
-  //   {
-  //     "_id": "68033e03f4a12360e7f5c204",
-  //     "campgroundId": "68025bb266414902e377d383",
-  //     "amenityTypeId": {
-  //       "_id": "68033dd6f4a12360e7f5c1fe",
-  //       "name": "BBQ grill",
-  //       "description": "eat bbq lol"
-  //     },
-  //     "status": "booked",
-  //     "price": 5000,
-  //     "quantity": 3
-  //   },
-  //   {
-  //     "_id": "68033e03f4a12360e7f5c204",
-  //     "campgroundId": "68025bb266414902e377d383",
-  //     "amenityTypeId": {
-  //       "_id": "68033dd6f4a12360e7f5c1fe",
-  //       "name": "BBQ grill",
-  //       "description": "eat bbq lol"
-  //     },
-  //     "status": "booked",
-  //     "price": 5000,
-  //     "quantity": 3
-  //   }
-  // ];
-  //mock review
-  const review=[
-    {
-      "user":"user1",
-      "rating":5,
-      "comment":"sleepy",
-    },
-    {
-      "user":"user2",
-      "rating":2,
-      "comment":"sleepy",
-    }
-  ];
 
   return (
-    <div className="p-10 w-[80%] h-[70%] bg-white border border-[#A4B465] rounded-[40px] my-40 m-auto shadow-lg">
-      <div className="pl-3 flex justify-between w-full">
-        <div>
-          <div className="text-black text-3xl font-semibold mt-10">{campground.name}</div>
-          <p className="text-2xl font-normal">description description blah blah</p>
-        </div>
-        <div className="relative w-[170px] h-[170px] border rounded-xl">
+    <div className="px-20">
+      <p className="py-5 text-5xl text-black font-bold">{campground.name}</p>
+      <div className="grid grid-cols-3 grid-rows-5 bg-white border border-[#626F47] p-5 rounded-xl shadow-xl w-full h-auto">
+        <div className="col-span-1 row-span-full text-black bg-green-100 rounded-tl-xl rounded-bl-xl flex justify-center">
           <Image
-            src="/img/logo.png"
-            alt="logo"
-            fill
-          />
+            alt="campground"
+            src="/img/campicdemo.jpg"
+            height={300}
+            width={300}
+            className="w-[40%] h-auto w-auto rounded-xl"
+            >
+          </Image>
         </div>
-      </div>
-
-      <div className="rounded-xl overflow-hidden">
-        <div className="flex justify-around gap-4 w-full">
-          {/* กล่องที่ 1 */}
-          <div className="w-[30vw] h-[300px] rounded-xl overflow-hidden shadow">
-            <div className="h-[20%] bg-[#626F47] p-3">
-              <p className="text-white text-2xl">Amenities</p>
+          <div className="flex flex-col space-y-2 column-auto row-span-full col-span-2 bg-red-100 rounded-tr-xl rounded-br-xl pl-10">
+            {/* <div className="row-span-5 text-black bg-red-200"> */}
+            <div className="flex flex-row row-span-1 col-span-2 bg-red-200 rounded-tr-xl">
+              <p className="text-black text-xl font-semibold min-w-[100px]">Name: </p>
+              <p className="text-black text-xl font-semibold">{campground.name}</p>
             </div>
+                            <div className="flex flex-row row-span-2 col-span-2">
+                                <p className="row-span-1 col-span-1 text-black text-xl font-semibold min-w-[100px]">Address: </p>
+                                <p className="col-span-1 text-black text-xl font-semibold">
+                                    {campground.address} {campground.district} {campground.province}  {campground.postalcode}
+                                </p>
+                            </div>
+                            <div className="flex flex-row row-span-1 col-span-2">
+                                <p className="text-black text-xl font-semibold min-w-[100px]">Tel: </p>
+                                <p className="text-black text-xl font-semibold">{campground.tel}</p>
+                            </div>
+                            <div className="flex flex-row row-span-1 col-span-2">
+                                <p className="text-black text-xl font-semibold min-w-[100px]">Region: </p>
+                                <p className="text-black text-xl font-semibold">{campground.region}</p>
+                            </div>
+                            <div className="flex flex-row row-span-1 col-span-2 text-[#FFB900]">
+                                <p className=" text-xl font-semibold min-w-[100px]">Rating: </p>
+                                <p className="text-xl font-semibold">dummy Stars</p>
+                            </div>
+          </div>
+      </div>
+      <div className="my-10">
+        <Booknowbutton linktext={params.cid}/>
+      </div>
+            <p className="text-4xl text-black font-bold py-5">Amenity</p>
             <div className="h-[80%] bg-[#F5F5F5] p-3 overflow-y-auto">
               {
                 amenity.length > 0 ?
@@ -123,9 +76,8 @@ export default async function campground({ params }: { params: { cid: string } }
                   : <p className="text-black text-xl">No amenity Available D: </p>
               }
             </div>
-          </div>
 
-          <div className="w-[30vw] h-[300px] rounded-xl overflow-hidden shadow">
+          <div className="w-[30vw] h-[300px] rounded-xl overflow-hidden shadow mt-10">
             <div className="h-[20%] bg-[#626F47] p-3">
               <p className="text-white text-2xl">Reviews</p>
             </div>
@@ -136,14 +88,8 @@ export default async function campground({ params }: { params: { cid: string } }
             </div>
             
           </div>
-        </div>
-        <div className="relative flex flex-row-reverse">
-        <Link href={`/campground/${params.cid}/booking`}>
-        <button name="Book Campground" className='w-[150px] bg-[#A4B465] text-black font-semibold py-2 px-2 m-2
-                rounded-xl hover:bg-[#626F47] hover:text-white hover:border-transparent bottom-3 ' >Book</button>
-        </Link>
-        </div>
+
+        
       </div>
-    </div>
   )
 }
