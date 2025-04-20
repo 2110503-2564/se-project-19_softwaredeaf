@@ -58,7 +58,7 @@ export default async function campground({ params }: { params: { cid: string } }
             <p className="text-4xl text-black font-bold py-5">Amenity</p>
             <div className="h-[80%] bg-[#F5F5F5] p-3 overflow-y-auto">
               {
-                amenity.length > 0 ?
+                amenity && amenity.length > 0 ?
                   (amenity.map((amenity: AmenityItem) =>
                     (
                       <div className="p-[2px]">
