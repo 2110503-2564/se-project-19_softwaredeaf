@@ -2,7 +2,7 @@ import { AmenityItem } from "../../interface";
 
 export default async function createAmenity(
     amenity:AmenityItem,campgroundId:string, token:string){
-    await new Promise((resolve)=>setTimeout(resolve,300));
+    // await new Promise((resolve)=>setTimeout(resolve,300));
     const response=await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/camps/${campgroundId}/amenities`,
         {
             method:'POST',

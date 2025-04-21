@@ -5,7 +5,7 @@ import Image from "next/image";
 import { CampgroundItem, AmenityJson, AmenityItem } from "../../../../../interface"
 import Link from "next/link";
 import Booknowbutton from "@/components/Booknowbutton";
-import DeleteCampgroundButton from "@/components/DeleteCampgroundButton";
+
 
 const cleanURL = (url: string) => {
   return url
