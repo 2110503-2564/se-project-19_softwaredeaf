@@ -1,4 +1,4 @@
-//Done
+
 import BookingItem from "@/components/bookingItem";
 import { ReservationItem } from "../../../interface";
 import deleteBooking from "@/libs/deleteBooking";
@@ -15,9 +15,6 @@ export default async function myBooking(){
   if(!user) return null;
   const bookingJson = await getBooking(user);
   const bookings:ReservationItem[] = bookingJson.data;
-      const handleDelete = async (bid: string) => {
-        await deleteBooking(user, bid);
-      };
 
     return(
         <div className="text-xl text-black h-[60%] py-10">
