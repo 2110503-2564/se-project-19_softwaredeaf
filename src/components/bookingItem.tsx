@@ -10,11 +10,7 @@ export default function BookingItem({booking,token}:{booking:ReservationItem,tok
     const handleDelete = async (bid:string) => {
         try{
             await deleteAmenityBookingByBookingId(token,bid);
-        }catch(error){
-            console.log(error);
-            return;
-        }
-        try{
+
             await deleteBooking(token,bid);
         }catch(error){
             console.log(error);

@@ -22,6 +22,7 @@ export default function AmenityEditItem({amenities,handleSubmit,handleDelete}:{a
     const makeAmenityBooking = () => {
         if (name && description && quantity > 0 && price > 0 ) {
           const amenity: AmenityItem = {
+            amountbooked:0,
             _id:amenities._id,
             name:name,
             description:description,
@@ -39,6 +40,7 @@ export default function AmenityEditItem({amenities,handleSubmit,handleDelete}:{a
     const deleteAmenityBooking = () => {
         if (name && description && quantity > 0 && price > 0 ) {
             const amenity: AmenityItem = {
+                amountbooked:0,
                 _id:amenities._id,
                 name:name,
                 description:description,

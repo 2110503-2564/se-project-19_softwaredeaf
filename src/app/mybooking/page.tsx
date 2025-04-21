@@ -1,7 +1,6 @@
 
 import BookingItem from "@/components/bookingItem";
 import { ReservationItem } from "../../../interface";
-import deleteBooking from "@/libs/deleteBooking";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 import getBooking from "@/libs/getBooking";
