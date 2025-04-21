@@ -94,7 +94,7 @@ export default async function campground({ params }: { params: { cid: string } }
                         <div>
                           <p><span className="font-semibold">Name:</span> {amenity.name}</p>
                           <p><span className="font-semibold">Description:</span> {amenity.description}</p>
-                          <p><span className="font-semibold">Quantity:</span> {amenity.quantity}</p>
+                          <p><span className="font-semibold">Quantity:</span>{amenity.amountbooked} booked out of {amenity.quantity}</p>
                           <p><span className="font-semibold">Price:</span> {amenity.price} THB/night</p>
                         </div>
                         <div className="text-right">

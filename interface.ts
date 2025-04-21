@@ -92,6 +92,7 @@ export interface AmenityItem {
   description: string,
   image:string,
   quantity: number,
+  amountbooked: number,
   status: string,
   price: number,
 }
