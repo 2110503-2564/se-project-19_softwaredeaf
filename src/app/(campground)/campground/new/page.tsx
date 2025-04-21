@@ -153,29 +153,34 @@ export default function NewCampground() {
         <div className="border border-black py-5 px-10 rounded-xl">
             <div className="text-black text-lg">       
                 <div className="gap-5">
-                  <div className="flex flex-row mb-10">
-                    <p>Name:</p>   
-                    <TextField className="w-[490px]" size="small" id="outlined-basic" label="AmenityName" value={amenityName} onChange={(e)=>{setAmenityName(e.target.value)}} variant="outlined"/>
-                    <p className= "ml-5">Description:</p>   
-                    <TextField className="w-full" size="small" id="outlined-basic" label="Description" value={description} onChange={(e)=>{setDescription(e.target.value)}} variant="outlined"/>
-                    
+                  <div className="flex flex-row items-center mb-10">
+                    <p className="w-[120px]">Name : </p>   
+                    <div className="w-[300px] ml-2 flex items-center">
+                        <TextField className="w-[300px]" size="small" id="outlined-basic" label="AmenityName" value={amenityName} onChange={(e)=>{setAmenityName(e.target.value)}} variant="outlined"/>
+                    </div>
+                    <p className= "w-[220px] ml-5">Description : </p>   
+                    <div className="ml-2 flex items-center w-full">
+                        <TextField className="w-full" size="small" id="outlined-basic" label="Description" value={description} onChange={(e)=>{setDescription(e.target.value)}} variant="outlined"/>
+                    </div>
                   </div>
-                    <div className="relative flex flex-row">
-                      <p>Image Link:</p>   
-                      <TextField size="small" id="outlined-basic" label="Image" value={image} onChange={(e)=>{setImage(e.target.value)}} variant="outlined"/>
-                        <p className= "ml-5">Amount:</p>   
+                    <div className="relative flex flex-row items-center">
+                      <p>Image Link :</p>   
+                      <div className="ml-2 flex items-center">
+                        <TextField size="small" id="outlined-basic" label="Image" value={image} onChange={(e)=>{setImage(e.target.value)}} variant="outlined"/>
+                      </div>
+                        <p className= "ml-5">Amount : </p>   
                         <input
                             type="number"
                             min="0"
-                            className="w-[100px] h-10 rounded-md border text-center"
+                            className="w-[100px] ml-2 h-10 rounded-md border text-center"
                             onChange={(e)=>setQuantity(Number(e.target.value))}
                             value={quantity}
                             />
-                        <p className= "ml-5">Price:</p>   
+                        <p className= "ml-5">Price : </p>   
                         <input
                             type="number"
                             min="0"
-                            className="w-[150px] h-10 rounded-md border text-center"
+                            className="w-[150px] ml-2 h-10 rounded-md border text-center"
                             onChange={(e)=>setPrice(Number(e.target.value))}
                             value={price}
                             />
