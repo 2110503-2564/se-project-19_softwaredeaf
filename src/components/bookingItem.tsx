@@ -6,19 +6,28 @@ import deleteBooking from "@/libs/deleteBooking";
 import deleteAmenityBookingByBookingId from "@/libs/deleteAmenityBookingByBookingId";
 import { ReservationItem } from "../../interface";
 import Link from "next/link";
-export default function BookingItem({booking,token}:{booking:ReservationItem,token:string}){
-    const handleDelete = async (bid:string) => {
-        try{
-            await deleteAmenityBookingByBookingId(token,bid);
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
-            await deleteBooking(token,bid);
-        }catch(error){
-            console.log(error);
-            return;
-        }
-        alert('Delete Booking Success!');
-        // optionally trigger a refresh or UI update
-      };
+export default function BookingItem({booking,token}:{booking:ReservationItem,token:string}){
+
+    const router = useRouter();
+    const [isDeleting, setIsDeleting] = useState(false);
+
+    const handleDelete = async (bid: string) => {
+    setIsDeleting(true);
+    try {
+        await deleteAmenityBookingByBookingId(token, bid);
+        await deleteBooking(token, bid);
+    } catch (error) {
+        console.log(error);
+        alert("Delete failed");
+    } finally {
+        alert("Delete Booking Success!");
+        router.push("/mybooking");
+        setIsDeleting(false);
+    }
+    };
     return (
         <div className="flex flex-row p-3 pr-0 w-[80%] h-[300px] bg-white text-black font-bold border border-[#A4B465] rounded-[40px]  mx-auto my-20 shadow-lg">
             <div className="p-3 pl-10 w-[50%] flex-col">
@@ -39,7 +48,7 @@ export default function BookingItem({booking,token}:{booking:ReservationItem,tok
                     </Link>
                         <button 
                             className="mt-5 w-16 h-16 rounded-full bg-[#C46B65] flex items-center justify-center shadow-md hover:brightness-70"
-                            onClick={()=>handleDelete(booking._id)}
+                            disabled={isDeleting} onClick={()=>handleDelete(booking._id)}
                             >
                             <img src="/img/delete.png" alt="Delete" className="w-6 h-6" />
                         </button>

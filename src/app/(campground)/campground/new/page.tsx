@@ -73,6 +73,7 @@ export default function NewCampground() {
   const handleAddAmenity = () => {
     if(amenityName&&description&&quantity&&price){
         const newAmenity: AmenityItem = {
+            amountbooked:0,
             campgroundId: null, 
             _id: "",
             name: amenityName,
