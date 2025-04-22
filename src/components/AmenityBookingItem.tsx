@@ -2,7 +2,7 @@
 import { AmenityItem , AmenityBooking} from "../../interface"
 import { useState } from "react";
 import DateReserve from "./DateReserve";
-import dayjs,{ Dayjs } from "dayjs";
+import { Dayjs } from "dayjs";
 
 
 

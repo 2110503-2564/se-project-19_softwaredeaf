@@ -1,5 +1,5 @@
 import BookedAmenity from "@/components/BookedAmenity";
-import { AmenityItem , AmenityBookingItemFetch , AmenityBookingJson} from "../../interface";
+import { AmenityBookingItemFetch , AmenityBookingJson} from "../../interface";
 import getAmenityBooking from "@/libs/getBookingAmenity";
 import { useEffect, useState } from 'react';
 

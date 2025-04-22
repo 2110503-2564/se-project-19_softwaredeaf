@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import dayjs from 'dayjs';
-import { AmenityItem , AmenityBookingItemFetch } from '../../interface';
+import { AmenityBookingItemFetch } from '../../interface';
 export default function BookedAmenity({amenityList}:{amenityList:AmenityBookingItemFetch[]}){
     
     return(

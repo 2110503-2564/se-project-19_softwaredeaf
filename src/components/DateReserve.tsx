@@ -6,9 +6,7 @@ import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs"
 import dayjs from 'dayjs';
 import { Dayjs } from "dayjs";
 
-interface DateReserveProps {
-    dateName: string;
-  }
+
 export default function DateReserve({dateName,onDateChange,minDate,maxDate,initDate}:{dateName:string,onDateChange:Function,minDate?:Dayjs|null,maxDate?:Dayjs|null,initDate?:Dayjs|null}){
 
     const [reserveDate,setReserveDate] = useState<Dayjs|null>(initDate||null);

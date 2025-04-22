@@ -1,14 +1,8 @@
 "use client";  
-import styles from './bottommenu.module.css';
 import Image from 'next/image';
-import TopMenuItem from './TopMenuItem';
-import Link from 'next/link';
-import { useSession } from "next-auth/react"; 
-import DropdownMenu from './DropdownMenu';
 import { EnvelopeIcon ,PhoneIcon} from '@heroicons/react/20/solid';
 
 export default function BottomMenu() {
-    const { data: session } = useSession();
 
     return (
         <div className="bg-[#A4B465] w-full">

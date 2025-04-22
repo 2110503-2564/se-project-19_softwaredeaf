@@ -1,7 +1,6 @@
 'use client'
 import BookedAmenityList from "@/components/BookedAmenityList";
 import dayjs from "dayjs";
-import Image from 'next/image';
 import deleteBooking from "@/libs/deleteBooking";
 import deleteAmenityBookingByBookingId from "@/libs/deleteAmenityBookingByBookingId";
 import { ReservationItem } from "../../interface";

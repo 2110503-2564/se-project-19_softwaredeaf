@@ -1,4 +1,4 @@
-'use client';  // เพิ่มบรรทัดนี้เพื่อให้คอมโพเนนต์นี้เป็น Client Component
+'use client';  
 
 import React from 'react';
 

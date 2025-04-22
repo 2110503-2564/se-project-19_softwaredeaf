@@ -1,15 +1,12 @@
 .menucontainer {
     height: 100px;
     background-color: #A4B465;
-    /* position: fixed; --> ลบออก */
-    /* bottom: 0px; --> ไม่ต้องใช้ */
-    /* left: 0px; right: 0px; --> ไม่ต้องใช้ */
     z-index: 30;
     border-top: 1px solid lightgrey;
     border-bottom: 1px solid lightgrey;
     display: flex;
     flex-direction: row;
-    margin-top: 50px; /* เพิ่มระยะห่างจากเนื้อหาด้านบน ถ้าต้องการ */
+    margin-top: 50px; 
 }
 
 

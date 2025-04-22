@@ -1,12 +1,9 @@
 'use client';
-import { useState } from 'react';
 import styles from './banner.module.css'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 
 export default function Banner (){ 
-    const router = useRouter();
     const {data:session} = useSession()
     console.log(session?.user.token)
 

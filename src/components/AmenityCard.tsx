@@ -1,5 +1,5 @@
 'use client'
-import { AmenityItem , AmenityBooking} from "../../interface"
+import { AmenityItem } from "../../interface"
 
 export default function AmenityCard({amenities,handleDelete}:{amenities:AmenityItem,handleDelete:Function}){
     

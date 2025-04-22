@@ -1,5 +1,5 @@
 'use client'
-import { AmenityItem , AmenityBooking , AmenityBookingItemFetch} from "../../interface"
+import { AmenityBooking , AmenityBookingItemFetch} from "../../interface"
 import { useState } from "react";
 import DateReserve from "./DateReserve";
 import dayjs,{ Dayjs } from "dayjs";

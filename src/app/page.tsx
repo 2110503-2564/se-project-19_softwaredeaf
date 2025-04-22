@@ -9,7 +9,6 @@ import getCampgrounds from '@/libs/getCampgrounds';
 import BottomMenu from '@/components/BottomMenu';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/app/utils/authOptions';
-//import { TravelCard } from "@/components/TravelCard";
 
 export default async function Home() {
   let campgrounds:CampgroundJson;
@@ -24,9 +23,6 @@ export default async function Home() {
       const data:CampgroundJson = await getCampgrounds(user);
         campgrounds=data;
         loading=false;
-    // }
-    // fetchData();
-// }, []);
   return (
     <main>
         <Banner/>
