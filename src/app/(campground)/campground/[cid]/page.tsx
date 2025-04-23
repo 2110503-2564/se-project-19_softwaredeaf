@@ -7,6 +7,8 @@ import Link from "next/link";
 import Booknowbutton from "@/components/Booknowbutton";
 import ReviewList from "@/components/ReviewList";
 import { mockReviews } from "@/app/mock/mockReviews";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/utils/authOptions";
 
 
 const cleanURL = (url: string) => {
@@ -21,6 +23,10 @@ export default async function campground({ params }: { params: { cid: string } }
 
   const amenityJson:AmenityJson = await getAmenities(params.cid);
   const amenity: AmenityItem[] = amenityJson.data;
+
+  const session = await getServerSession(authOptions);
+  const userRole = session?.user.role;
+
 
   return (
     <div className="px-20">
@@ -131,7 +137,7 @@ export default async function campground({ params }: { params: { cid: string } }
          */}
          <div>
           <p className="text-4xl text-black font-semibold py-5">Reviews</p>
-            <ReviewList reviews={mockReviews}/>
+            <ReviewList reviews={mockReviews} role={userRole}/>
           
          </div>
     </div>

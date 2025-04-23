@@ -12,7 +12,7 @@ export interface Review {
       id: "1",
       name: "Bank",
       rating: 4,
-      comment: "ให้แค่นี้ก่อน เดี๋ยวไปแล้วค่อยเพิ่มดาวให้",
+      comment: "หิวข้าว",
     },
     {
       id: "2",
