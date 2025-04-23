@@ -1,12 +1,15 @@
 'use client'
 import { Rating } from "@mui/material"
-export default async function Review({name,comment,rating,role}:{name:string,comment:string,rating:number,role:string}){
-    
+import { useSession } from "next-auth/react";
+export default async function Review({id,name,comment,rating,role}:{id:string,name:string,comment:string,rating:number,role:string}){
+    const session=useSession();
     const removeReviewHandler = () => {
         alert("delete review eiei");
+        // res=await deleteReview(id,session.user.token); ????
     };
     const cancelReportHandler= ()=>{
         alert("discard report");
+        // res=await deleteReport(id,session.user.token); ????
     };
 
     return(

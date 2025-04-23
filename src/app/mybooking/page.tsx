@@ -23,7 +23,7 @@ export default async function myBooking(){
                     <div className="my-10">
                         <BookingItem booking={book} token={user}/>
                         {/* test review+report butt */}
-                        <Review name='test' comment='test' rating={5} role='user' />
+                        <Review id="test" name='test' comment='test' rating={5} role='user' />
                     </div>
                 ))
 
