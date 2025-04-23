@@ -9,7 +9,7 @@ export default async function Review({id,name,comment,rating,role}:{id:string,na
     };
     const cancelReportHandler= ()=>{
         alert("discard report");
-        // res=await deleteReport(id,session.user.token); ????
+        // res=await cancelReport(id,session.user.token); ????
     };
 
     return(
