@@ -1,11 +1,13 @@
 // mockReviews.ts
 
 export interface Review {
-    id: string;
-    name: string;
-    rating: number;
-    comment: string;
-  }
+  id: string;
+  name: string;
+  rating: number;
+  comment: string;
+  images: string[]; // เพิ่มตรงนี้
+}
+
   
   export const mockReviews: Review[] = [
     {
@@ -13,12 +15,14 @@ export interface Review {
       name: "Bank",
       rating: 4,
       comment: "หิวข้าว",
+      images: ["/img/campicdemo.jpg", "/img/logo.png"]
     },
     {
       id: "2",
       name: "Mook",
       rating: 4,
       comment: "ชอบความสะอาดของสถานที่ และเจ้าหน้าที่บริการดีมาก",
+      images: ["/img/campicdemo.jpg", "/img/logo.png"]
     },
     {
         id: "4",
@@ -31,6 +35,7 @@ export interface Review {
       
       ข้อเสนอแนะเดียวคือเรื่องที่จอดรถควรมีการจัดการให้เป็นระเบียบกว่านี้ เพราะบางคันจอดล้ำเข้ามาใกล้ลานแคมป์ไปนิด แต่โดยรวมคือดีมาก ประสบการณ์ดีๆ แบบนี้อยากให้เพื่อนๆ มาลองกันค่ะ จะกลับมาอีกแน่นอนถ้ามีโอกาส!
         `,
+        images: ["/img/campicdemo.jpg", "/img/logo.png"]
       },
       
     {
@@ -38,12 +43,14 @@ export interface Review {
       name: "Fah",
       rating: 1,
       comment: "ไม่ชอบเลยค่ะ น่าเบื่อสุดๆ",
+      images: ["/img/campicdemo.jpg", "/img/logo.png"]
     },
     {
       id: "5",
       name: "Joe",
       rating: 2,
       comment: "วันที่ไปเจอฝนตกหนัก น้ำท่วมเล็กน้อย อยากให้เตรียมรับมือดีกว่านี้",
+      images: ["/img/campicdemo.jpg", "/img/logo.png"]
     },
   ];
   
