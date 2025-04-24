@@ -7,7 +7,7 @@ export default function BookedAmenity({
   amenityList: AmenityBookingItemFetch[];
 }) {
   return (
-    <div className="bg-[#D9D9D9] flex-row overflow-y-auto place-content-around h-full w-full">
+    <div className="bg-[#D9D9D9] flex-row overflow-y-auto place-content-around h-auto w-full">
       {amenityList.length > 0 ? (
         amenityList.map((amenityList: AmenityBookingItemFetch, idx) => (
           <div

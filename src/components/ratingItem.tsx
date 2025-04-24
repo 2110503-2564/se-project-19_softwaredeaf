@@ -5,11 +5,10 @@ import dayjs from "dayjs";
 import deleteBooking from "@/libs/deleteBooking";
 import deleteAmenityBookingByBookingId from "@/libs/deleteAmenityBookingByBookingId";
 import { ReservationItem } from "../../interface";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function RatingandReview({
+export default function RatingAndReview({
   booking,
   token,
 }: {
@@ -26,85 +25,95 @@ export default function RatingandReview({
     try {
       await deleteAmenityBookingByBookingId(token, bid);
       await deleteBooking(token, bid);
-    } catch (error) {
-      console.log(error);
-      alert("Delete failed");
-    } finally {
       alert("Delete Booking Success!");
       router.push("/mybooking");
+    } catch (error) {
+      console.error(error);
+      alert("Delete failed");
+    } finally {
       setIsDeleting(false);
     }
   };
+
+  const handleReviewSubmit = () => {
+    if (!rating || !comment.trim()) { 
+      alert("Please provide both a rating and a comment.");
+      return;
+    }
+    // Submit logic goes here (API call)
+    console.log("Review Submitted:", { rating, comment });
+    alert("Review submitted!");
+  };
+
   return (
-    <div className="flex flex-col px-10 py-5 w-[80%] h-auto bg-white text-black font-bold border border-[#A4B465] rounded-[40px]  mx-auto my-20 shadow-lg">
+    <div className="flex flex-col px-10 py-5 w-[90%] bg-white text-black font-bold border border-[#A4B465] rounded-[40px] mx-auto my-20 shadow-lg">
+      {/* Header Section */}
       <div className="flex flex-row">
-        <div className="w-[50%]">
-          <div className="w-[100%] flex justify-start gap-5">
+        {/* Campground & Date Info */}
+        <div className="w-[55%] mr-10">
+          <div className="flex gap-5 items-start">
             <div className="w-[60%]">
-              <p className="mt-7 mb-3">Campground:</p>
-              <div className="bg-[#D9D9D9] px-3 py-1 mt-2 rounded-md text-base font-light w-[74%] flex place-content-evenly">
+              <p className="mt-7">Campground:</p>
+              <div className="bg-[#D9D9D9] mt-2 px-3 py-1 rounded-md text-base font-light w-[100%]">
                 {booking.camp.name}
               </div>
             </div>
             <button
-              className="w-[100px] h-[50px] bg-[#C46B65] flex items-center justify-center shadow-md hover:brightness-70 mt-10"
-              onClick={() => {
-                // You can implement submit review logic here later
-                alert("Review submitted!");
-              }}
+              className="mt-10 w-[250px] min-h-[40px] bg-yellow-400 rounded-xl shadow-md hover:bg-yellow-700 transition"
+              onClick={handleReviewSubmit}
             >
-              Complete Review
+              Review Campground
             </button>
           </div>
-          <div className="w-full mt-10">
-            <p className="mb-5">Date:</p>
-            <div className="flex place-content-stretch">
-              <div className="flex overflow-y-auto mr-5 w-[45%]">
-                <p className="mr-2">From:</p>
-                <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly">
-                  {" "}
-                  {dayjs(booking.startDate).format("DD/MM/YYYY").toString()}
+
+          {/* Date Section */}
+          <div className="mt-10">
+            <p className="mb-2">Date:</p>
+            <div className="flex gap-5">
+              <div className="w-[45%]">
+                <p className="text-sm mb-1">From:</p>
+                <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light">
+                  {dayjs(booking.startDate).format("DD/MM/YYYY")}
                 </div>
               </div>
-              <div className="flex overflow-y-auto w-[45%]">
-                <p className="mr-2">To:</p>
-                <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-full flex place-content-evenly">
-                  {" "}
-                  {dayjs(booking.endDate).format("DD/MM/YYYY").toString()}
+              <div className="w-[45%]">
+                <p className="text-sm mb-1">To:</p>
+                <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light">
+                  {dayjs(booking.endDate).format("DD/MM/YYYY")}
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="w-[50%]">
+        {/* Amenity List Section */}
+        <div className="ml-5 w-[45%]">
           <BookedAmenityList token={token} bid={booking._id} />
         </div>
       </div>
 
-      <div className="h-auto border border-yellow-300 rounded-xl mt-5 p-5 flex flex-col">
+      {/* Review & Rating Section */}
+      <div className="border border-yellow-300 rounded-xl mt-10 p-5">
         <Rating
-          name="campgroundrating"
-          defaultValue={0}
+          name="campground-rating"
           value={rating}
-          onChange={(event, newValue) => {
-            setRating(newValue);
-          }}
+          onChange={(event, newValue) => setRating(newValue)}
           precision={0.5}
         />
-        <div className="mt-5 flex flex-row">
+        <div className="mt-5 flex gap-5">
           <TextField
-            className="w-[75%]"
-            id="ratingcomment"
+            fullWidth
+            className="bg-neutral-200 rounded-md"
+            id="rating-comment"
             label="Write your comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             multiline
             rows={4}
           />
-
-          <div className="ml-10 w-[25%] h-auto border border-black rounded-xl">
-            <p>Add picture up to 3</p>
+          <div className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer">
+            <p className="text-sm">Add Picture (Up to 3)</p>
+            <p className="text-5xl mt-2">+</p>
           </div>
         </div>
       </div>
