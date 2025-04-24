@@ -14,7 +14,10 @@ interface Props {
 
 export default function ReviewList({ reviews, role }: Props) {
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
-  const [fullModal, setFullModal] = useState(false); {/*ของ ReviewModal*/ }
+  const [fullModal, setFullModal] = useState(false);
+  {
+    /*ของ ReviewModal*/
+  }
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
@@ -133,6 +136,11 @@ function ReviewCard({
             alt="review image"
             className="object-cover w-full h-full"
           />
+          {review.images.length > 1 && (
+            <div className="absolute bottom-1 right-1 bg-black bg-opacity-60 text-white text-sm px-2 py-0.5 rounded-md">
+              +{review.images.length - 1}
+            </div>
+          )}
         </div>
       </div>
 

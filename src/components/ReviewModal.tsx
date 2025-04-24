@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useState } from "react";
 import StarRating from "./StarRating";
 import { Review } from "@/app/mock/mockReviews";
@@ -66,6 +66,12 @@ const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
                 alt={`review image ${imageIndex + 1}`}
                 className="rounded-md object-cover h-auto w-full"
               />
+
+              {/* ⬅️ แสดงเลข index */}
+              <div className="absolute bottom-2 right-3 bg-black bg-opacity-60 text-white text-sm px-2 py-1 rounded-md">
+                {imageIndex + 1}/{selectedReview.images.length}
+              </div>
+
               {selectedReview.images.length > 1 && (
                 <>
                   <button
