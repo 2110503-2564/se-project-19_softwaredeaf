@@ -4,7 +4,7 @@ import { ReservationItem } from "../../../interface";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 import getBooking from "@/libs/getBooking";
-
+import Review from "@/components/Review";
 export default async function myBooking(){
   const session = await getServerSession(authOptions);
   const user=session?.user.token;
@@ -22,6 +22,8 @@ export default async function myBooking(){
               bookings.map((book)=>(
                     <div className="my-10">
                         <BookingItem booking={book} token={user}/>
+                        {/* test review+report butt */}
+                        <Review name='test' comment='test' rating={5} role='user' />
                     </div>
                 ))
 
