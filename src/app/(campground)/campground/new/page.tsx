@@ -78,7 +78,7 @@ export default function NewCampground() {
       console.error(err);
     } finally {
       setCreated(true);
-      await new Promise(r => setTimeout(r,2000));
+      await new Promise((r) => setTimeout(r, 2000));
       router.push(`/campground/${newCampId}`);
     }
   };
@@ -118,14 +118,13 @@ export default function NewCampground() {
         <div>
           {created ? (
             <div className="flex flex-col items-center justify-center">
-            <p className="text-black font-bold mt-12 text-center">
-              Create Campground Success
-            </p>
-            <p className="text-black font-bold mt-2 text-center">
-              Navigate to {name} Campground
-            </p>
-          </div>
-          
+              <p className="text-black font-bold mt-12 text-center">
+                Create Campground Success
+              </p>
+              <p className="text-black font-bold mt-2 text-center">
+                Navigate to {name} Campground
+              </p>
+            </div>
           ) : (
             <div className="flex justify-center">
               <p className="text-black font-bold mt-12">
@@ -246,7 +245,6 @@ export default function NewCampground() {
                   <button
                     onClick={(e) => {
                       setCampgroundImage(undefined);
-                      e.stopPropagation();
                     }}
                     className="ml-auto"
                   >
@@ -351,6 +349,20 @@ export default function NewCampground() {
                         }
                         style={{ display: "none" }}
                       />
+                        {amenityImage ? (
+                        <button
+                          onClick={(e) => {
+                            setAmenityImage(undefined);
+                          }}
+                          className="ml-auto"
+                        >
+                          <img
+                            src="/img/cancel.png"
+                            alt="Edit"
+                            className="ml-3 w-3 h-3"
+                          />
+                        </button>
+                      ) : null}
                     </div>
                     <p className="ml-5">Amount : </p>
                     <input
