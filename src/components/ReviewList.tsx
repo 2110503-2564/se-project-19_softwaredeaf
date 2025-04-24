@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Rating } from "@mui/material";
 import { Review } from "@/app/mock/mockReviews";
 import StarRating from "./StarRating";
+import ReviewModal from "./ReviewModal";
+import ReportModal from "./ReportModal";
 
 interface Props {
   reviews: Review[];
@@ -12,7 +14,7 @@ interface Props {
 
 export default function ReviewList({ reviews, role }: Props) {
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
-  const [fullModal, setFullModal] = useState(false);
+  const [fullModal, setFullModal] = useState(false); {/*ของ ReviewModal*/ }
   const [imageIndex, setImageIndex] = useState(0);
 
   return (
@@ -42,90 +44,10 @@ export default function ReviewList({ reviews, role }: Props) {
 
       {/* Modal */}
       {selectedReview && (
-        <div
-          className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center"
-          onClick={() => setSelectedReview(null)}
-        >
-          <div
-            className="bg-white rounded-xl p-6 max-w-xl w-full relative shadow-lg max-h-[80vh] overflow-y-auto"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="absolute top-2 right-3 text-xl font-bold text-gray-700 hover:text-black"
-              onClick={() => setSelectedReview(null)}
-            >
-              ✕
-            </button>
-
-            <div className="mb-4">
-              <StarRating rating={selectedReview.rating} maxRating={5} />
-              <h2 className="text-2xl font-bold mt-2 text-black">
-                {selectedReview.name}
-              </h2>
-            </div>
-
-            {/* Comment */}
-            <p
-              className={`text-gray-800 whitespace-pre-wrap ${
-                !fullModal ? "line-clamp-[7]" : ""
-              }`}
-            >
-              {selectedReview.comment}
-            </p>
-            {selectedReview.comment.length > 300 && (
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setFullModal(!fullModal);
-                }}
-                className="text-blue-500 hover:underline text-sm mt-1"
-              >
-                {fullModal ? "Show less" : "Read more"}
-              </button>
-            )}
-
-            {/* Images */}
-            <div className="mt-4 relative">
-              {selectedReview.images.length > 0 && (
-                <>
-                  <img
-                    src={selectedReview.images[imageIndex]}
-                    alt={`review image ${imageIndex + 1}`}
-                    className="rounded-md object-cover h-auto w-full"
-                  />
-                  {selectedReview.images.length > 1 && (
-                    <>
-                      <button
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full text-black border border-black"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setImageIndex(
-                            (prev) =>
-                              (prev - 1 + selectedReview.images.length) %
-                              selectedReview.images.length
-                          );
-                        }}
-                      >
-                        ◀
-                      </button>
-                      <button
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full text-black border border-black"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setImageIndex(
-                            (prev) => (prev + 1) % selectedReview.images.length
-                          );
-                        }}
-                      >
-                        ▶
-                      </button>
-                    </>
-                  )}
-                </>
-              )}
-            </div>
-          </div>
-        </div>
+        <ReviewModal
+          selectedReview={selectedReview}
+          setSelectedReview={setSelectedReview}
+        />
       )}
     </>
   );
@@ -141,8 +63,17 @@ function ReviewCard({
   onClick?: () => void;
 }) {
   const [showFull, setShowFull] = useState(false);
-
+  const [showReport, setShowReport] = useState(false);
   const handleReportClick = () => {
+    setShowReport(!showReport);
+  };
+
+  const handleReportSubmit = (reportReason: string) => {
+    alert(`Reported with reason: ${reportReason}`);
+    // คุณสามารถเพิ่มฟังก์ชันเพิ่มเติม เช่น ส่งข้อมูลไปยัง server หรือเก็บสถานะการรายงาน
+  };
+
+  const handleConfirmReportClick = () => {
     const confirmed = window.confirm(
       "Are you sure you want to report this review?"
     );
@@ -152,7 +83,6 @@ function ReviewCard({
       alert("Cancelled.");
     }
   };
-
   return (
     <div
       onClick={onClick}
@@ -160,7 +90,7 @@ function ReviewCard({
     >
       <div className="flex justify-between items-center">
         <div className="ml-3">
-        <StarRating rating={review.rating} maxRating={5} />
+          <StarRating rating={review.rating} maxRating={5} />
         </div>
         <button
           type="button"
@@ -205,6 +135,14 @@ function ReviewCard({
           />
         </div>
       </div>
+
+      {showReport && (
+        <ReportModal
+          role={role}
+          onReport={handleReportSubmit}
+          onClose={handleReportClick}
+        />
+      )}
     </div>
   );
 }
