@@ -27,9 +27,9 @@ export default async function campground({ params }: { params: { cid: string } }
         <div className="col-span-1 row-span-full text-black flex justify-center">
           <Image
             alt="campground"
-            src="/img/campicdemo.jpg"
-            height={300}
-            width={300}
+            src={campground.picture}
+            height={1080}
+            width={1920}
             className="w-[40%] h-auto w-auto rounded-xl"
             >
           </Image>
@@ -75,7 +75,7 @@ export default async function campground({ params }: { params: { cid: string } }
                         {amenity.image && amenity.image !== "" ? (
                           <Image
                             alt="amenity"
-                            src={cleanURL(amenity.image)}
+                            src={amenity.image}
                             fill
                             className="object-cover"
                           />
