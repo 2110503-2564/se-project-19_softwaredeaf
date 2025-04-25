@@ -15,11 +15,15 @@ export default function TopMenu() {
             {/* {session?<TopMenuItem title='My Booking' pageRef='/mybooking' />:null} */}
             <TopMenuItem title={session?.user?.role === 'owner' ? 'My Campgrounds' : 'Campgrounds'} pageRef='/campground' />
             <TopMenuItem title={(!session || session?.user?.role === 'user') ? 'My Bookings' : 'All Bookings'}  pageRef='/mybooking' />
+            {
+               session && session.user.role==='admin' ?
+               <TopMenuItem title={'Report'}  pageRef='/reports' />
+               : null
+            }
+            
 
             <div className='flex flex-row absolute right-0 h-full'>
                 <TopMenuItem title={session?'Sign-out':'Sign-in'} pageRef={session?'/api/auth/signout':'/api/auth/signin'} />
-
-                
             </div>
             {/* <TopMenuItem title='About' pageRef='/about' />
             <TopMenuItem title='Campgrounds' pageRef='/campground' />

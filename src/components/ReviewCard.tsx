@@ -115,13 +115,13 @@ export default function ReviewCard({ review, role, onClick, cancel }: Props) {
 
         <div className="w-[40%] h-[100px] relative bg-gray-300 rounded-lg overflow-hidden">
           <img
-            src={review.images[0]}
+            src={review.pictures[0]}
             alt="review image"
             className="object-cover w-full h-full"
           />
-          {review.images.length > 1 && (
+          {review.pictures.length > 1 && (
             <div className="absolute bottom-1 right-1 bg-black bg-opacity-60 text-white text-sm px-2 py-0.5 rounded-md">
-              +{review.images.length - 1}
+              +{review.pictures.length - 1}
             </div>
           )}
         </div>

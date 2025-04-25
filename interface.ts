@@ -6,7 +6,9 @@ export interface ReservationItem {
   startDate:string
   endDate:string
   user:string
-  visited:Boolean
+  /*mock*/visited:Boolean
+  /*mock*/rating:number
+  /*mock*/review:string
 }
 
 export interface AmenityBookingItemFetch {

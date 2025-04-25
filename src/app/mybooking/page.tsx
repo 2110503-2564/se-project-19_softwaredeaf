@@ -3,7 +3,6 @@ import { ReservationItem } from "../../../interface";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/authOptions";
 import getBooking from "@/libs/getBooking";
-import Review from "@/components/Review";
 import RatingandReview from "@/components/ratingItem";
 
 export default async function myBooking() {
@@ -20,6 +19,9 @@ export default async function myBooking() {
 
   return (
     <div className="text-xl text-black h-[60%] py-10">
+      <div>
+        
+      </div>
       {bookings.length > 0 ? (
         bookings.map((book) =>
           book.visited ? (

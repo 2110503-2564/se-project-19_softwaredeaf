@@ -36,7 +36,7 @@ export default function RatingAndReview({
   };
 
   const handleReviewSubmit = () => {
-    if (!rating || !comment.trim()) { 
+    if (!rating || !comment.trim()) {
       alert("Please provide both a rating and a comment.");
       return;
     }
@@ -49,34 +49,40 @@ export default function RatingAndReview({
     <div className="flex flex-col px-10 py-5 w-[90%] bg-white text-black font-bold border border-[#A4B465] rounded-[40px] mx-auto my-20 shadow-lg">
       {/* Header Section */}
       <div className="flex flex-row">
+        <div className="w-[20%] bg-neutral-200 rounded-xl">
+          
+        </div>
         {/* Campground & Date Info */}
-        <div className="w-[55%] mr-10">
-          <div className="flex gap-5 items-start">
-            <div className="w-[60%]">
-              <p className="mt-7">Campground:</p>
-              <div className="bg-[#D9D9D9] mt-2 px-3 py-1 rounded-md text-base font-light w-[100%]">
-                {booking.camp.name}
+        <div className="w-[45%] px-10"> 
+          <div className="flex flex-row gap-5">
+            <div className="w-[50%]">
+                <p className="mt-7">Campground:</p>
+                <div className="bg-[#D9D9D9] mt-2 px-3 py-1 rounded-md text-base font-light w-[100%]">
+                  {booking.camp.name}
+                </div>
               </div>
-            </div>
-            <button
-              className="mt-10 w-[250px] min-h-[40px] bg-yellow-400 rounded-xl shadow-md hover:bg-yellow-700 transition"
-              onClick={handleReviewSubmit}
-            >
-              Review Campground
-            </button>
+              {/* Review button */}
+
+                <button
+                  className="mt-5 px-3 w-[50%] h-[35px] bg-yellow-400 rounded-xl shadow-md hover:bg-yellow-700 transition"
+                  onClick={handleReviewSubmit}
+                >
+                    Review Campground
+                </button>
+
           </div>
 
           {/* Date Section */}
           <div className="mt-10">
             <p className="mb-2">Date:</p>
             <div className="flex gap-5">
-              <div className="w-[45%]">
+              <div className="w-[50%]">
                 <p className="text-sm mb-1">From:</p>
                 <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light">
                   {dayjs(booking.startDate).format("DD/MM/YYYY")}
                 </div>
               </div>
-              <div className="w-[45%]">
+              <div className="w-[50%]">
                 <p className="text-sm mb-1">To:</p>
                 <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light">
                   {dayjs(booking.endDate).format("DD/MM/YYYY")}
@@ -87,19 +93,28 @@ export default function RatingAndReview({
         </div>
 
         {/* Amenity List Section */}
-        <div className="ml-5 w-[45%]">
+        <div className="pl-5 w-[35%]">
           <BookedAmenityList token={token} bid={booking._id} />
         </div>
       </div>
 
       {/* Review & Rating Section */}
-      <div className="border border-yellow-300 rounded-xl mt-10 p-5">
-        <Rating
-          name="campground-rating"
-          value={rating}
-          onChange={(event, newValue) => setRating(newValue)}
-          precision={0.5}
-        />
+      <div className="relative border border-yellow-300 rounded-xl mt-10 p-5">
+        <div className="flex flex-row ">
+          <Rating
+            name="campground-rating"
+            value={rating}
+            onChange={(event, newValue) => setRating(newValue)}
+            precision={0.5}
+          />
+          <button
+            onClick={handleReviewSubmit}
+            className="flex absolute right-5 px-4 py-1 bg-yellow-300 rounded-lg text-black text-lg font-semibold hover:bg-yellow-400 transition"
+          >
+            Submit Review
+          </button>
+        </div>
+
         <div className="mt-5 flex gap-5">
           <TextField
             fullWidth
