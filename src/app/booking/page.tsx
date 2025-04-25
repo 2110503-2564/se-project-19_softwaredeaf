@@ -37,50 +37,6 @@ export default function booking(){
     }, []);
 
     
-    //mock data
-    const mockData:CampgroundItem[]=[
-        {
-          _id: "cg001",
-          name: "River Valley Retreat",
-          address: "123 Riverside Rd",
-          district: "Chiang Dao",
-          province: "Chiang Mai",
-          postalcode: "50170",
-          tel: "0812345678",
-          region: "North",
-        },
-        {
-          _id: "cg002",
-          name: "Sandy Shores Camp",
-          address: "45 Beachside Ave",
-          district: "Hua Hin",
-          province: "Prachuap Khiri Khan",
-          postalcode: "77110",
-          tel: "0823456789",
-          region: "Central",
-        },
-        {
-          _id: "cg003",
-          name: "Mountain Breeze Basecamp",
-          address: "9 Mountain View Rd",
-          district: "Pak Chong",
-          province: "Nakhon Ratchasima",
-          postalcode: "30130",
-          tel: "0834567890",
-          region: "Northeast",
-        },
-        {
-          _id: "cg004",
-          name: "Jungle Hideaway",
-          address: "77 Forest Trail",
-          district: "Khlong Thom",
-          province: "Krabi",
-          postalcode: "81120",
-          tel: "0845678901",
-          region: "South",
-        },
-      ];
-
     return (
         <div 
         className="relative py-20 pl-40 flex w-[70%] h-[50%] bg-white border border-[#A4B465] rounded-[40px] my-40 m-auto shadow-lg">
