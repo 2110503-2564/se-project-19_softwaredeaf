@@ -9,9 +9,10 @@ interface Props {
   review: Review;
   role?: string;
   onClick?: () => void;
+  cancel?: boolean | false;
 }
 
-export default function ReviewCard({ review, role, onClick }: Props) {
+export default function ReviewCard({ review, role, onClick, cancel }: Props) {
   const [showFull, setShowFull] = useState(false);
   const [showReport, setShowReport] = useState(false);
 
@@ -21,6 +22,14 @@ export default function ReviewCard({ review, role, onClick }: Props) {
 
   const handleReportSubmit = (reportReason: string) => {
     alert(`Reported with reason: ${reportReason}`);
+  };
+  const removeReviewHandler = () => {
+    alert("delete review eiei");
+    // res=await deleteReview(id,session.user.token); ????
+  };
+  const cancelReportHandler = () => {
+    alert("discard report");
+    // res=await cancelReport(id,session.user.token); ????
   };
 
   return (
@@ -32,25 +41,62 @@ export default function ReviewCard({ review, role, onClick }: Props) {
         <div className="ml-3">
           <StarRating rating={review.rating} maxRating={5} />
         </div>
-        <button
-          type="button"
-          className="text-xl w-[80px] h-[40px] bg-[#C46B65] text-white font-semibold py-1 px-1 rounded-xl hover:bg-[#830900]"
-          onClick={(e) => {
-            e.stopPropagation();
-            handleReportClick();
-          }}
-        >
-          Report
-        </button>
+        {
+          role === 'admin' ?
+            <div className="flex flex-row place-items-around">
+              <button
+                type="button"
+                className="text-xl w-[80px] h-[40px] bg-[#C46B65] text-white font-semibold py-1 px-1 rounded-xl hover:brightness-75"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  removeReviewHandler();
+                }}
+              >
+                Remove
+              </button>
+              {
+                cancel ?
+                  (
+                    <button
+                      type="button"
+                      className="ml-5 text-xl w-[80px] h-[40px] bg-[#65C465] text-white font-semibold py-1 px-1 rounded-xl hover:brightness-75"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        cancelReportHandler();
+                      }}
+                    >
+                      Discard
+                    </button>
+                  )
+                  : null
+              }
+
+            </div>
+
+            : (
+              role === 'owner' && (
+                <button
+                  type="button"
+                  className="text-xl w-[80px] h-[40px] bg-[#C46B65] text-white font-semibold py-1 px-1 rounded-xl hover:bg-[#830900]"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleReportClick();
+                  }}
+                >
+                  Report
+                </button>
+              )
+
+            )
+        }
       </div>
 
       <div className="flex mt-2 justify-between">
         <div className="ml-4 w-[40%]">
           <p className="text-black text-xl font-semibold">{review.name}</p>
           <p
-            className={`text-gray-700 whitespace-pre-wrap transition-all duration-300 ${
-              !showFull ? "line-clamp-[7]" : ""
-            }`}
+            className={`text-gray-700 whitespace-pre-wrap transition-all duration-300 ${!showFull ? "line-clamp-[7]" : ""
+              }`}
           >
             {review.comment}
           </p>
