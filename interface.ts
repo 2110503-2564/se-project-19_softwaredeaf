@@ -6,6 +6,7 @@ export interface ReservationItem {
   startDate:string
   endDate:string
   user:string
+  visited:Boolean
 }
 
 export interface AmenityBookingItemFetch {
