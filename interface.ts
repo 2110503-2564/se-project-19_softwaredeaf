@@ -33,6 +33,7 @@ export interface CampgroundItem{
   postalcode:string
   tel:string
   region:string
+  picture:string
 }
 
 export interface CampgroundJson {
