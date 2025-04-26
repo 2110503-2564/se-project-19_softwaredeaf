@@ -18,8 +18,9 @@ export default function AmenityBookingEditItem({amenities,handleSubmit,handleDel
     const [amount,setAmount]=useState<number>(amenities.amount)
 
     const makeAmenityBooking = () => {
-        if (datefrom && dateto && amount > 0 && dateto.format("YYYY-MM-DD") >= datefrom.format("YYYY-MM-DD") ) {
-          const booking: AmenityBooking = {
+        if (datefrom && dateto && amount > 0 && amount<=amenities.amount && dateto.format("YYYY-MM-DD") >= datefrom.format("YYYY-MM-DD") ) {
+        
+            const booking: AmenityBooking = {
             _id:amenities._id,
             campgroundId: amenities.campgroundBookingId._id, 
             amenityTypeId: amenities.campgroundAmenityId,
@@ -30,10 +31,23 @@ export default function AmenityBookingEditItem({amenities,handleSubmit,handleDel
           toggleEdit();
           return booking;
         }
+        else{
+            if(amount<=0 ||amount>amenities.amount) alert("Amount must be in range 1-"+amenities.amount);
+            else alert("Invalid booking date");
+        }
     };
+    const handleSetAmount = (newamount:number) => {
+        if(newamount > amenities.amount || newamount < 1){
+            alert('Amount should be in range 1-'+amenities.amount);
+            setAmount(amount);
+        }else{
+            setAmount(newamount);
+        }
+    }
 
     const deleteAmenityBooking = () => {
         if (datefrom && dateto && amount > 0 && dateto.format("YYYY-MM-DD") >= datefrom.format("YYYY-MM-DD") ) {
+        
           const booking: AmenityBooking = {
             _id:amenities._id,
             campgroundId: amenities.campgroundBookingId._id, 
@@ -71,7 +85,7 @@ export default function AmenityBookingEditItem({amenities,handleSubmit,handleDel
                                     min="1"
                                     max={amenities.amount}
                                     className="w-15 h-10 rounded-md border text-center"
-                                    onChange={(e)=>setAmount(Number(e.target.value))}
+                                    onChange={(e)=>handleSetAmount(Number(e.target.value))}
                                     defaultValue={amount}
                                     />
                                 </div>

@@ -6,7 +6,7 @@ export default async function editBookingStatus(token:string,bookingId:string){
             authorization : `Bearer ${token}`,
         },
         body: JSON.stringify({
-            bookstatus:true
+            visited:true
         })
     })
     if(!response.ok){   

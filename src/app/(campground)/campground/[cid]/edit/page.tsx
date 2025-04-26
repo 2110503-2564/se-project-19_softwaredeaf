@@ -132,7 +132,8 @@ export default function EditCampground({ params }: { params: { cid: string } }) 
         );
           setEditAmenities(prev => [...prev, amenity]);
           alert('Update Amenity!');
-      }else{
+      }
+      else{
         setEditAmenities(prev => [...prev, amenity]);
           alert('Booking Amenity Success!');
       }

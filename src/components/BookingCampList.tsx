@@ -39,7 +39,7 @@ export default function BookingCampgroundList({
     }
   };
 
-  const filtered = bookings.filter(b => isViewConfirm ? b.bookstatus : !b.bookstatus);
+  const filtered = bookings.filter(b => isViewConfirm ? b.visited : !b.visited);
 
   const handleConfirm = async (bid: string) => {
     const newForm = new FormData();
@@ -134,7 +134,7 @@ export default function BookingCampgroundList({
                               </button>
                             </div>
                             <div className="flex items-center justify-center">
-                              {booking.bookstatus ? null : (
+                              {booking.visited ? null : (
                                 <button
                                   type="button"
                                   className="text-xl h-[40px] bg-[#65C465] text-black font-semibold py-1 px-1 mt-4 rounded-xl hover:bg-[#B5DE62] 

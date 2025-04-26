@@ -14,9 +14,6 @@ export default async function myBooking() {
   if (!user) return null;
   const bookingJson = await getBooking(user);
   const bookings: ReservationItem[] = bookingJson.data;
-  bookings.map((book) => {
-    book.visited = true;
-  });
 
   return (
     <div className="text-xl text-black h-[60%] py-10">

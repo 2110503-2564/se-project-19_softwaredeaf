@@ -12,13 +12,8 @@ export default function BookingList({bookings,user}:{bookings:ReservationItem[],
 
     const filtered = isAll 
         ? bookings 
-        : bookings.filter(b => isVisited ? b.bookstatus : !b.bookstatus);
+        : bookings.filter(b => isVisited ? b.visited : !b.visited);
 
-
-  //mock booking of the user
-  bookings.map((book) => {
-    book.visited = isVisited;
-  });
 
   return (
     <div className="text-xl text-black h-[60%] py-10 flex flex-col">
@@ -31,7 +26,7 @@ export default function BookingList({bookings,user}:{bookings:ReservationItem[],
         {
             filtered && filtered.length > 0 ? 
             filtered.map((book) =>
-            book.bookstatus ? (
+            book.visited ? (
                 <RatingandReview key={book._id} booking={book} token={user} />
             ) : (
                 <div key={book._id} className="my-10">
