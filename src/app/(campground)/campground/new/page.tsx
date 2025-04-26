@@ -102,6 +102,18 @@ export default function NewCampground() {
       setAmenityImage(undefined);
       alert("Added Amenity!");
     }
+    else if(!amenityName){
+      alert("Please fill Amenity Name");
+    }
+    else if(!description){
+      alert("Please fill amenity description");
+    }
+    else if(quantity ==0){
+      alert("Please fill amenity amount")
+    }
+    else if(price ==0){
+      alert("Please fill amenity price")
+    }
   };
 
   const handleDelete = (deleteAmenity: FormData) => {

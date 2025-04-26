@@ -48,6 +48,20 @@ export default function AmenityEditItem({
       toggleEdit();
       return formData;
     }
+    else if(!name){
+      alert("Please fill Amenity Name");
+    }
+    else if(!description){
+      alert("Please fill amenity description");
+    }
+    else if(quantity ==0){
+      alert("Please fill amenity amount")
+    }
+    else if(price ==0){
+      alert("Please fill amenity price")
+    }
+  
+    
   };
 
   const deleteAmenityBooking = () => {
