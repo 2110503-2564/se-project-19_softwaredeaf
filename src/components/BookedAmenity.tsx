@@ -7,7 +7,7 @@ export default function BookedAmenity({
   amenityList: AmenityBookingItemFetch[];
 }) {
   return (
-    <div className="bg-[#D9D9D9] flex-row overflow-y-auto place-content-around h-auto w-full">
+    <div className="overflow-y-auto place-content-around h-full w-full">
       {amenityList.length > 0 ? (
         amenityList.map((amenityList: AmenityBookingItemFetch, idx) => (
           <div
@@ -52,7 +52,9 @@ export default function BookedAmenity({
           </div>
         ))
       ) : (
-        <p>You haven't booked any amenity</p>
+        <div className="h-full w-full flex flex-row items-center justify-center">
+          <p className="">You haven't booked any amenity</p>
+        </div>
       )}
     </div>
   );

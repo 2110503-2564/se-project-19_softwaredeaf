@@ -2,30 +2,52 @@
 import getCampground from "@/libs/getCampground";
 import { getAmenities } from "@/libs/getAmenities";
 import Image from "next/image";
-import { CampgroundItem, AmenityJson, AmenityItem } from "../../../../../interface"
+import {
+  CampgroundItem,
+  AmenityJson,
+  AmenityItem,
+  ReservationItem,
+  BookingJson
+} from "../../../../../interface";
 import Link from "next/link";
 import Booknowbutton from "@/components/Booknowbutton";
 import ReviewList from "@/components/ReviewList";
 import { mockReviews } from "@/app/mock/mockReviews";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/utils/authOptions";
-
+import AmenityList from "@/components/AmenityList";
+import getBooking from "@/libs/getBooking";
+import BookingCampgroundList from "@/components/BookingCampList";
 
 const cleanURL = (url: string) => {
   return url
-    .replace(/\s/g, '')        // remove all spaces and newlines
-    .replace(/&amp;/g, '&');   // in case it got HTML encoded
+    .replace(/\s/g, "") // remove all spaces and newlines
+    .replace(/&amp;/g, "&"); // in case it got HTML encoded
 };
 
-export default async function campground({ params }: { params: { cid: string } }) {
+export default async function campground({
+  params,
+}: {
+  params: { cid: string };
+}) {
+  const session = await getServerSession(authOptions);
+  const userRole = session?.user.role;
+
   const campgroundJson = await getCampground(params.cid);
   const campground: CampgroundItem = campgroundJson.data;
 
-  const amenityJson:AmenityJson = await getAmenities(params.cid);
+  const amenityJson: AmenityJson = await getAmenities(params.cid);
   const amenity: AmenityItem[] = amenityJson.data;
 
-  const session = await getServerSession(authOptions);
-  const userRole = session?.user.role;
+
+  if(!session?.user.token){
+    return;
+  }
+
+  const campBookingJson:BookingJson = await getBooking(session?.user.token,`?campId=${params.cid}`);
+  const campBookings:ReservationItem[] =  campBookingJson.data;
+
+  console.log("campBookingJson = ", campBookingJson);
 
 
   return (
@@ -39,107 +61,58 @@ export default async function campground({ params }: { params: { cid: string } }
             height={1080}
             width={1920}
             className="w-[40%] h-auto w-auto rounded-xl"
-            >
-          </Image>
+          ></Image>
         </div>
-          <div className="flex flex-col space-y-2 column-auto row-span-full col-span-2 rounded-tr-xl rounded-br-xl pl-10 ">
-            {/* <div className="row-span-5 text-black bg-red-200"> */}
-            <div className="flex flex-row row-span-1 col-span-2 rounded-tr-xl">
-              <p className="text-black text-xl font-semibold min-w-[100px]">Name: </p>
-              <p className="text-black text-xl font-semibold">{campground.name}</p>
-            </div>
-                            <div className="flex flex-row row-span-2 col-span-2">
-                                <p className="row-span-1 col-span-1 text-black text-xl font-semibold min-w-[100px]">Address: </p>
-                                <p className="col-span-1 text-black text-xl font-semibold">
-                                    {campground.address}, {campground.district}, {campground.province}, {campground.postalcode}
-                                </p>
-                            </div>
-                            <div className="flex flex-row row-span-1 col-span-2">
-                                <p className="text-black text-xl font-semibold min-w-[100px]">Tel: </p>
-                                <p className="text-black text-xl font-semibold">{campground.tel}</p>
-                            </div>
-                            <div className="flex flex-row row-span-1 col-span-2">
-                                <p className="text-black text-xl font-semibold min-w-[100px]">Region: </p>
-                                <p className="text-black text-xl font-semibold">{campground.region}</p>
-                            </div>
-                            <div className="flex flex-row row-span-1 col-span-2 text-[#FFB900]">
-                                <p className=" text-xl font-semibold min-w-[100px]">Rating: </p>
-                                <p className="text-xl font-semibold">dummy Stars</p>
-                            </div>
+        <div className="flex flex-col space-y-2 column-auto row-span-full col-span-2 rounded-tr-xl rounded-br-xl pl-10 ">
+          {/* <div className="row-span-5 text-black bg-red-200"> */}
+          <div className="flex flex-row row-span-1 col-span-2 rounded-tr-xl">
+            <p className="text-black text-xl font-semibold min-w-[100px]">
+              Name:{" "}
+            </p>
+            <p className="text-black text-xl font-semibold">
+              {campground.name}
+            </p>
           </div>
+          <div className="flex flex-row row-span-2 col-span-2">
+            <p className="row-span-1 col-span-1 text-black text-xl font-semibold min-w-[100px]">
+              Address:{" "}
+            </p>
+            <p className="col-span-1 text-black text-xl font-semibold">
+              {campground.address}, {campground.district}, {campground.province}
+              , {campground.postalcode}
+            </p>
+          </div>
+          <div className="flex flex-row row-span-1 col-span-2">
+            <p className="text-black text-xl font-semibold min-w-[100px]">
+              Tel:{" "}
+            </p>
+            <p className="text-black text-xl font-semibold">{campground.tel}</p>
+          </div>
+          <div className="flex flex-row row-span-1 col-span-2">
+            <p className="text-black text-xl font-semibold min-w-[100px]">
+              Region:{" "}
+            </p>
+            <p className="text-black text-xl font-semibold">
+              {campground.region}
+            </p>
+          </div>
+          <div className="flex flex-row row-span-1 col-span-2 text-[#FFB900]">
+            <p className=" text-xl font-semibold min-w-[100px]">Rating: </p>
+            <p className="text-xl font-semibold">dummy Stars</p>
+          </div>
+        </div>
       </div>
       <div className="my-10">
-        <Booknowbutton linktext={params.cid}/>
-        
-        </div>
-            <p className="text-4xl text-black font-semibold py-5">Amenity</p>
-            <div className="h-[80%] bg-[#F5F5F5] p-3 overflow-y-auto">
-              {amenity.length > 0 ? (
-                amenity.map((amenity: AmenityItem) => (
-                  <div className="p-2" key={amenity._id}>
-                    <div className="flex flex-row bg-white rounded-lg shadow-md overflow-hidden border border-blue-300">
-                      {/* Image */}
-                      <div className="w-[180px] h-[150px] relative bg-white border-r-2 border-pink-200">
-                        {amenity.image && amenity.image !== "" ? (
-                          <Image
-                            alt="amenity"
-                            src={amenity.image}
-                            fill
-                            className="object-cover"
-                          />
-                        ) : (
-                          <Image
-                            alt="amenity"
-                            src="/img/campicdemo.jpg"
-                            fill
-                            className="object-cover"
-                          />
-                        )}
-                      </div>
+        <Booknowbutton linktext={params.cid} />
+      </div>
+      <ReviewList reviews={mockReviews} role={userRole} />
+      <AmenityList amenities={amenity} />
+      {
+        (session?.user.role == 'owner') && campBookings ?
+        <BookingCampgroundList bookings={campBookings} token={session?.user.token}/>
+        : null
+      }
 
-                      {/* Details */}
-                      <div className="flex flex-col justify-between p-4 text-black w-full text-sm leading-relaxed">
-                        <div>
-                          <p><span className="font-semibold">Name:</span> {amenity.name}</p>
-                          <p><span className="font-semibold">Description:</span> {amenity.description}</p>
-                          <p><span className="font-semibold">Quantity:</span>{amenity.amountbooked} booked out of {amenity.quantity}</p>
-                          <p><span className="font-semibold">Price:</span> {amenity.price} THB/night</p>
-                        </div>
-                        <div className="text-right">
-                          <p className={`
-                            font-semibold 
-                            ${amenity.status === "available" ? "text-[#A4B465]" : "text-[#C46B65]"}
-                          `}>
-                            {amenity.status === "available" ? "Available" : "Maintenance"}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-black text-xl">No amenity Available D: </p>
-              )}
-            </div>
-
-          {/* <div className="w-[30vw] h-[300px] rounded-xl overflow-hidden shadow mt-10">
-            <div className="h-[20%] bg-[#626F47] p-3">
-              <p className="text-white text-2xl">Reviews</p>
-            </div>
-            <div className="h-[80%] bg-[#F5F5F5] p-3 overflow-y-auto">
-              <p className="text-black bg-white rounded-lg m-1 p-2">Bank<br />
-                บรรยากาศสวยมาก อากาศดี 
-              </p>
-            </div>
-            
-          </div>
-
-         */}
-         <div>
-          <p className="text-4xl text-black font-semibold py-5">Reviews</p>
-            <ReviewList reviews={mockReviews} role={userRole}/>
-          
-         </div>
     </div>
-  )
+  );
 }

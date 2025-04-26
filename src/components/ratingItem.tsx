@@ -18,11 +18,13 @@ export default function RatingAndReview({
   token: string;
 }) {
   const router = useRouter();
+  const [showReviewSection, setShowReviewSection] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [rating, setRating] = useState<number | null>(0);
   const [comment, setComment] = useState<string>("");
   const [reviewPictures, setReviewPictures] = useState<File[]>();
   const inputRef = useRef<HTMLInputElement | null>(null);
+
 
   const handleDelete = async (bid: string) => {
     setIsDeleting(true);
@@ -55,19 +57,19 @@ export default function RatingAndReview({
   };
 
   return (
-    <div className="flex flex-col px-10 py-5 w-[90%] bg-white text-black font-bold border border-[#A4B465] rounded-[40px] mx-auto my-20 shadow-lg">
+    <div className="flex flex-col w-[90%] bg-white text-black font-bold border border-[#A4B465] rounded-[40px] mx-auto my-20 shadow-lg">
       {/* Header Section */}
       <div className="flex flex-row">
-        <div className="w-[20%] bg-neutral-200 rounded-xl overflow-hidden relative">
+        <div className="w-[20%] h-[250px] bg-neutral-200 rounded-tl-[40px] overflow-hidden relative">
           <Image
             alt="campground"
             src={booking.camp.picture}
             height={1080}
             width={1920}
-            className="w-full h-full object-cover rounded-xl"
+            className="w-full h-full object-cover rounded-tl-[40px]"
           />
 
-          <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-60 rounded-xl" />
+          <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-60 rounded-tl-[40px]" />
 
           <Image
               alt="Overlay"
@@ -87,13 +89,14 @@ export default function RatingAndReview({
               </div>
             </div>
             {/* Review button */}
-
-            <button
-              className="mt-5 px-3 w-[50%] h-[35px] bg-yellow-400 rounded-xl shadow-md hover:bg-yellow-700 transition"
-              onClick={handleReviewSubmit}
-            >
-              Review Campground
-            </button>
+            <div className="w-[50%] flex items-center justify-center">
+              <button
+                className={`mt-5 px-3 w-[230px] h-[35px] ${showReviewSection? "bg-yellow-700":"bg-yellow-400"} rounded-xl shadow-md hover:bg-yellow-700 transition`}
+                onClick={()=>setShowReviewSection(!showReviewSection)}
+              >
+                Review Campground
+              </button>
+            </div>
           </div>
 
           {/* Date Section */}
@@ -117,13 +120,14 @@ export default function RatingAndReview({
         </div>
 
         {/* Amenity List Section */}
-        <div className="pl-5 w-[35%]">
-          <BookedAmenityList token={token} bid={booking._id} />
+        <div className="w-[35%]">
+          <BookedAmenityList token={token} bid={booking._id} rt={true}/>
         </div>
       </div>
 
       {/* Review & Rating Section */}
-      <div className="relative border border-yellow-300 rounded-xl mt-10 p-5">
+      {showReviewSection && (
+      <div className="relative border border-yellow-300 rounded-xl m-10 p-5">
         <div className="flex flex-row ">
           <Rating
             name="campground-rating"
@@ -209,6 +213,7 @@ export default function RatingAndReview({
           />
         </div>
       </div>
+      )}
     </div>
   );
 }

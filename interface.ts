@@ -1,4 +1,5 @@
 export interface ReservationItem {
+  bookstatus:boolean
   _id:string
   camp:CampgroundItem
   name:string

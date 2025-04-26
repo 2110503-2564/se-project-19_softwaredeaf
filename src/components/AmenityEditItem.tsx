@@ -52,13 +52,13 @@ export default function AmenityEditItem({
       alert("Please fill Amenity Name");
     }
     else if(!description){
-      alert("Please fill amenity description");
+      alert("Please fill Amenity Aescription");
     }
     else if(quantity ==0){
-      alert("Please fill amenity amount")
+      alert("Please fill Amenity Amount")
     }
     else if(price ==0){
-      alert("Please fill amenity price")
+      alert("Please fill Amenity Price")
     }
   
     

@@ -3,18 +3,7 @@ import BookingItem from "@/components/bookingItem";
 import { ReservationItem } from "../../interface";
 import RatingandReview from "@/components/ratingItem";
 import { useState } from "react";
-
-const FilterButton = ({ active, onClick, children ,moreClassname}: { active: boolean, onClick: () => void, children: React.ReactNode , moreClassname?:string}) => (
-    <button
-      className={`w-[200px] text-black font-semibold py-2 px-2 rounded-xl border-4 border-[#626F47] 
-                  ${active ? "bg-[#A4B465]" : "bg-white"} 
-                  ${moreClassname} 
-                  hover:bg-[#626F47] hover:text-white hover:border-transparent`}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
+import { FilterButton } from "./FilterButton";
   
 
 export default function BookingList({bookings,user}:{bookings:ReservationItem[],user:string}) {
@@ -23,7 +12,7 @@ export default function BookingList({bookings,user}:{bookings:ReservationItem[],
 
     const filtered = isAll 
         ? bookings 
-        : bookings.filter(b => isVisited ? b.visited : !b.visited);
+        : bookings.filter(b => isVisited ? b.bookstatus : !b.bookstatus);
 
 
   //mock booking of the user
@@ -42,7 +31,7 @@ export default function BookingList({bookings,user}:{bookings:ReservationItem[],
         {
             filtered && filtered.length > 0 ? 
             filtered.map((book) =>
-            book.visited ? (
+            book.bookstatus ? (
                 <RatingandReview key={book._id} booking={book} token={user} />
             ) : (
                 <div key={book._id} className="my-10">

@@ -30,7 +30,7 @@ export default async function campgroundPage(){
                         <button
                           name="Add Campgrounds"
                           className="text-2xl w-[180px] h-[45px] bg-[#A4B465] text-black text-sm font-semibold py-2 px-4
-                          rounded-xl hover:bg-[#626F47] hover:text-white hover:border-transparent"
+                          rounded-xl hover:bg-[#626F47] hover:text-white hover:border-transparent transition-all duration-300 ease-in-out"
                         >
                           Add Campground
                         </button>

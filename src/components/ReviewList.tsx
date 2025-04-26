@@ -16,34 +16,53 @@ interface Props {
 export default function ReviewList({ reviews, role }: Props) {
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [fullModal, setFullModal] = useState(false);
+  const [isViewReview, setViewReview] = useState(true);
   {
     /*ของ ReviewModal*/
   }
   const [imageIndex, setImageIndex] = useState(0);
+  const toggleReviews = () => {
+    setViewReview((prev) => !prev);
+  };
 
   return (
-    <>
-      <div className="w-full max-w-7xl mx-auto px-4 py-6">
-        <div className="flex flex-wrap justify-center gap-4">
-          {reviews.length > 0 ? (
-            reviews.map((review) => (
-              <ReviewCard
-                key={review.id}
-                review={review}
-                role={role}
-                onClick={() => {
-                  setSelectedReview(review);
-                  setFullModal(false);
-                  setImageIndex(0);
-                }}
-              />
-            ))
-          ) : (
-            <p className="text-black text-xl px-5 py-2">
-              No reviews Available D:
-            </p>
-          )}
-        </div>
+    <div className="mt-5 mb-5">
+      <div className="flex flex-row">
+        <p className="text-4xl text-black font-semibold py-5">Reviews</p>
+        <h2
+          className={`text-xl font-semibold cursor-pointer flex items-center ml-4 mt-1 text-black hover:text-gray-200 transition-transform duration-300 ${
+            isViewReview ? "rotate-180" : "rotate-0"
+          }`}
+          onClick={toggleReviews}
+        >
+          ▼
+        </h2>
+      </div>
+      <div>
+        {isViewReview ? (
+          <div className="w-full max-w-7xl mx-auto px-4 py-6">
+            <div className="flex flex-wrap justify-center gap-4">
+              {reviews.length > 0 ? (
+                reviews.map((review) => (
+                  <ReviewCard
+                    key={review.id}
+                    review={review}
+                    role={role}
+                    onClick={() => {
+                      setSelectedReview(review);
+                      setFullModal(false);
+                      setImageIndex(0);
+                    }}
+                  />
+                ))
+              ) : (
+                <p className="text-black text-xl px-5 py-2">
+                  No reviews Available D:
+                </p>
+              )}
+            </div>
+          </div>
+        ) : null}
       </div>
 
       {/* Modal */}
@@ -53,7 +72,6 @@ export default function ReviewList({ reviews, role }: Props) {
           setSelectedReview={setSelectedReview}
         />
       )}
-    </>
+    </div>
   );
 }
-

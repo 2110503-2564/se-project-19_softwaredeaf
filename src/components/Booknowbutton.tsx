@@ -26,7 +26,7 @@ export default function Booknowbutton({ linktext }: { linktext: string }) {
         name={session?.user.role === 'owner' || session?.user.role === 'admin' ? "Edit Campground" : "Book Campground"}
         onClick={handleClick}
         className="text-2xl w-[140px] h-[40px] bg-[#C46B65] text-white font-semibold py-1 px-1
-        rounded-xl hover:bg-[#830900] hover:text-white hover:border-transparent"
+        rounded-xl hover:bg-[#830900] hover:text-white hover:border-transparent transition-all duration-300 ease-in-out"
       >
         {session?.user.role === 'owner' || session?.user.role === 'admin' ? "Edit" : "Book Now"}
       </button>
