@@ -29,7 +29,7 @@ export default function BookedAmenity({
               <div className="flex flex-row items-center">
                 <div className="w-[50%]">
                   <p className="font-normal text-base">
-                    Price : {amenityList.campgroundAmenityId.price} THB/night
+                    Price : {amenityList.campgroundAmenityId.price} THB
                   </p>
                   <p className="font-normal text-base">
                     Amount : {amenityList.amount}

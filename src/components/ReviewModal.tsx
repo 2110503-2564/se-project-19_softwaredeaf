@@ -59,20 +59,20 @@ const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
 
         {/* Images */}
         <div className="mt-4 relative">
-          {selectedReview.images.length > 0 && (
+          {selectedReview.pictures.length > 0 && (
             <>
               <img
-                src={selectedReview.images[imageIndex]}
+                src={selectedReview.pictures[imageIndex]}
                 alt={`review image ${imageIndex + 1}`}
                 className="rounded-md object-cover h-auto w-full"
               />
 
               {/* ⬅️ แสดงเลข index */}
               <div className="absolute bottom-2 right-3 bg-black bg-opacity-60 text-white text-sm px-2 py-1 rounded-md">
-                {imageIndex + 1}/{selectedReview.images.length}
+                {imageIndex + 1}/{selectedReview.pictures.length}
               </div>
 
-              {selectedReview.images.length > 1 && (
+              {selectedReview.pictures.length > 1 && (
                 <>
                   <button
                     className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-70 p-2 rounded-full text-black border border-black"
@@ -80,8 +80,8 @@ const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
                       e.stopPropagation();
                       setImageIndex(
                         (prev) =>
-                          (prev - 1 + selectedReview.images.length) %
-                          selectedReview.images.length
+                          (prev - 1 + selectedReview.pictures.length) %
+                          selectedReview.pictures.length
                       );
                     }}
                   >
@@ -92,7 +92,7 @@ const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
                     onClick={(e) => {
                       e.stopPropagation();
                       setImageIndex(
-                        (prev) => (prev + 1) % selectedReview.images.length
+                        (prev) => (prev + 1) % selectedReview.pictures.length
                       );
                     }}
                   >
