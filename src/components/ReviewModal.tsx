@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import StarRating from "./StarRating";
-import { Review } from "@/app/mock/mockReviews";
 
 interface Props {
   selectedReview: Review | null;

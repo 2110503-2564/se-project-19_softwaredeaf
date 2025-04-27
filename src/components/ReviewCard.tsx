@@ -3,7 +3,7 @@
 import { useState } from "react";
 import StarRating from "./StarRating";
 import ReportModal from "./ReportModal";
-import { Review } from "@/app/mock/mockReviews";
+
 
 interface Props {
   review: Review;
@@ -84,7 +84,7 @@ export default function ReviewCard({ review, role, onClick, cancel }: Props) {
 
       <div className="flex mt-2 justify-between">
         <div className="ml-4 w-[40%]">
-          <p className="text-black text-xl font-semibold">{review.name}</p>
+          <p className="text-black text-xl font-semibold">{review.username}</p>
           <p
             className={`text-gray-700 whitespace-pre-wrap transition-all duration-300 ${
               !showFull ? "line-clamp-[7]" : ""

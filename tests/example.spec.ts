@@ -12,7 +12,8 @@ await page.getByRole('button', { name: 'Sign In' }).click();
 await page.getByRole('link', { name: 'My Campgrounds' }).click();
 if ((await page.content()).includes('CampgroundTest')) {
   await page.getByRole('link', { name: /CampgroundTest/ }).click();
-  await page.getByRole('button', { name: 'Edit' }).click();
+  await page.locator('button', { hasText: 'Edit' }).nth(0).click(); // คลิกปุ่มแรก
+
   page.once('dialog', dialog => dialog.dismiss().catch(() => {}));
   await page.getByRole('button', { name: 'Delete Campground' }).click();
   await page.getByRole('link', { name: 'My Campgrounds' }).click();

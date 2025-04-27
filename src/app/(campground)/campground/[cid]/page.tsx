@@ -1,6 +1,7 @@
 // DONE
 import getCampground from "@/libs/getCampground";
 import { getAmenities } from "@/libs/getAmenities";
+import {getCampgroundReviews} from "@/libs/getCampgroundReviews";
 import Image from "next/image";
 import {
   CampgroundItem,
@@ -9,7 +10,7 @@ import {
   ReservationItem,
   BookingJson
 } from "../../../../../interface";
-import Link from "next/link";
+import { Review } from "../../../../../interface";
 import Booknowbutton from "@/components/Booknowbutton";
 import ReviewList from "@/components/ReviewList";
 import { mockReviews } from "@/app/mock/mockReviews";
@@ -39,15 +40,19 @@ export default async function campground({
   const amenityJson: AmenityJson = await getAmenities(params.cid);
   const amenity: AmenityItem[] = amenityJson.data;
 
-
-  if(!session?.user.token){
-    return;
+  let campBookingJson:BookingJson ;
+  let campBookings:ReservationItem[] =[];
+  if(session?.user.token){
+    campBookingJson= await getBooking(session.user.token,`?campId=${params.cid}`);
+    campBookings=campBookingJson.data
+    console.log("campBookingJson = ", campBookingJson);
   }
+  
 
-  const campBookingJson:BookingJson = await getBooking(session?.user.token,`?campId=${params.cid}`);
-  const campBookings:ReservationItem[] =  campBookingJson.data;
+  
 
-  console.log("campBookingJson = ", campBookingJson);
+  const reviewDataJson = await getCampgroundReviews(params.cid);
+  const reviewData:Review[] = reviewDataJson.data;
 
 
   return (
@@ -98,14 +103,14 @@ export default async function campground({
           </div>
           <div className="flex flex-row row-span-1 col-span-2 text-[#FFB900]">
             <p className=" text-xl font-semibold min-w-[100px]">Rating: </p>
-            <p className="text-xl font-semibold">dummy Stars</p>
+            <p className="text-xl font-semibold">{campground.avgRating} ( {campground.reviewCount} Reviews )</p>
           </div>
         </div>
       </div>
       <div className="my-10">
         <Booknowbutton linktext={params.cid} />
       </div>
-      <ReviewList reviews={mockReviews} role={userRole} />
+      <ReviewList reviews={reviewData} role={userRole} />
       <AmenityList amenities={amenity} />
       {
         (session?.user.role == 'owner') && campBookings ?

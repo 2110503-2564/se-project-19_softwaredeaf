@@ -123,7 +123,7 @@ export default function NewCampground() {
       );
     }
   };
-
+  
   return (
     <div>
       {loading ? (

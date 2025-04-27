@@ -1,6 +1,5 @@
-//ยังไม่ได้ลอง
-export default async function getCampgroundReviews(id: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/campReviews/${id}`, {
+export async function getCampgroundReviews(id: string) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/campreviews/${id}`, {
       cache: 'no-store' 
     });
   

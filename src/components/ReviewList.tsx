@@ -2,11 +2,11 @@
 
 import { useState } from "react";
 import { Rating } from "@mui/material";
-import { Review } from "@/app/mock/mockReviews";
 import StarRating from "./StarRating";
 import ReviewModal from "./ReviewModal";
 import ReportModal from "./ReportModal";
 import ReviewCard from "./ReviewCard";
+import { Review } from "../../interface";
 
 interface Props {
   reviews: Review[];
@@ -45,7 +45,7 @@ export default function ReviewList({ reviews, role }: Props) {
               {reviews.length > 0 ? (
                 reviews.map((review) => (
                   <ReviewCard
-                    key={review.id}
+                    key={review._id}
                     review={review}
                     role={role}
                     onClick={() => {

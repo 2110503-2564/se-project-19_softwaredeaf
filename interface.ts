@@ -38,6 +38,8 @@ export interface CampgroundItem{
   tel:string
   region:string
   picture:string
+  avgRating:number,
+  reviewCount:number
 }
 
 export interface CampgroundJson {
@@ -114,4 +116,27 @@ export interface AmenityBooking {
 export interface AmenityJson {
   count : number
   data : AmenityItem[]
+}
+
+export interface ReviewData {
+  success: boolean;
+  data: Review[];
+}
+
+export interface Review {
+  status: {
+    reported: boolean;
+  };
+  report: {
+    reason: string;
+    otherReasonText: string;
+  };
+  _id: string;
+  userId: string;
+  username: string;
+  campgroundId: string;
+  campgroundName: string;
+  rating: number;
+  comment: string;
+  pictures: string[];
 }

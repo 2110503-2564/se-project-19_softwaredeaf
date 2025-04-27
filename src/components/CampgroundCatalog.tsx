@@ -10,7 +10,7 @@ export default async function CampgroundCatalog({CampgroundJson}:{CampgroundJson
                     {   
                         campgroundJsonReady.data.map((campgroundItem:CampgroundItem)=>(
                             <Link key={campgroundItem._id} href={`/campground/${campgroundItem._id}`} className=' m-5'>
-                            <ProductCard campgroundName={campgroundItem.name} campgroundAddress={campgroundItem.address} campgroundPhone={campgroundItem.tel} imgSrc={campgroundItem.picture} rating={5}
+                            <ProductCard campground={campgroundItem}
                             />
                             </Link>
                         ))
