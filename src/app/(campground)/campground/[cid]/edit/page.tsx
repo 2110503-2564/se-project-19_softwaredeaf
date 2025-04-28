@@ -166,7 +166,6 @@ export default function EditCampground({ params }: { params: { cid: string } }) 
       const formData = new FormData();
       formData.append("name", amenityName);
       formData.append("quantity", amount.toString());
-      alert("amount :"+amount.toString());
       formData.append("price", price.toString());
       formData.append("description", description);
       if (amenityImage) {

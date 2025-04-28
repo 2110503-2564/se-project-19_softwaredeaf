@@ -1,14 +1,6 @@
 import { test, expect } from "playwright/test";
 
-test.beforeEach(async ({ page }) => {
-  await page.goto("http://localhost:3000");
-  await page.getByRole("link", { name: "Sign-in" }).click();
-  await page.locator('input[type="email"]').fill("karn2@gmail.com");
-  await page.locator('input[type="password"]').fill("123456");
-  await page.getByRole("button", { name: "Sign In" }).click();
-  await page.waitForURL("http://localhost:3000/");
-});
-
+test.use({ storageState: 'storage/storageState-karn2.json' });
 
 test("UC2-1-1", async ({ page }) => {
   test.setTimeout(60000);
