@@ -7,7 +7,7 @@ export default async function getAmenityBooking(token: string, bookingId: string
       authorization: `Bearer ${token}`,
     }
   });
-  if(response.status===400){
+  if(response.status==400){
     return response;
   }
   else if (!response.status) {

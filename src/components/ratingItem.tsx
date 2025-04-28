@@ -31,14 +31,22 @@ export default function RatingAndReview({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const getReview = async () => {
-    const response = await getBookingReview(token, booking._id);
-    if (response.ok) {
-      setReview(response.data);
+    try{
+      const response:ReviewData = await getBookingReview(token, booking._id);
+      setReview(response.data[0]);
+      if(response.data[0]){
+        setShowReviewSection(true)
+      }
+      router.refresh();
+      console.log(response.data[0]);
+    }catch(error){
+      console.log(error);
     }
   }
   useEffect(() => {
     getReview();
-  });
+    // console.log(review);
+  },[]);
 
   const handleDelete = async (bid: string) => {
     setIsDeleting(true);
@@ -70,6 +78,7 @@ export default function RatingAndReview({
     newData.append('comment', comment);
     newData.append('campgroundId', booking.camp._id);
     newData.append('campgroundName', booking.camp.name);
+    newData.append('bookingId',booking._id)
     if (reviewPictures && reviewPictures.length > 0) {
       reviewPictures.forEach(file => {
         newData.append('images', file);
@@ -120,27 +129,58 @@ export default function RatingAndReview({
                 {booking.camp.name}
               </div>
             </div>
-            {/* Review button */}
-            {
+            
+            {/* {
               role == 'user' ?
                 <div className="w-[50%] flex items-center justify-center">
                   {
                     review ?
                       <button
-                        className={`mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
+                        className={mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition}
                         onClick={() => setShowReviewSection(!showReviewSection)}
                       >
                         Edit Review
                       </button>
                       :
                       <button
-                        className={`mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
+                        className={mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition}
                         onClick={() => setShowReviewSection(!showReviewSection)}
                       >
                         Review
                       </button>
                   }
                 </div> : null
+            }
+          </div>
+
+           */}
+            {/* Review button */}
+            {
+              role == 'user' ?
+                <div className="w-[50%] flex items-center justify-center">
+                  {
+                    review ?
+                    <div>
+                    <button
+                      className={`mt-10 ml-3 px-3 w-[200px] h-[35px] bg-yellow-400 rounded-md shadow-md hover:bg-yellow-700 transition`}
+                      onClick={() => alert('Edit Review')}
+                    >
+                      Edit Review
+                    </button>
+                  </div> 
+                  :
+                  <div>
+                    <button
+                      className={`mt-10 ml-3 px-3 w-[200px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
+                      onClick={() => setShowReviewSection(!showReviewSection)}
+                    >
+                       Review
+                    </button>
+                  </div> 
+                  }
+          
+                </div>
+                : null
             }
           </div>
 
@@ -176,13 +216,20 @@ export default function RatingAndReview({
           {
             review ?
               <div>
-                <div className="flex flex-row ">
+                <div className="flex flex-row items-center">
                   <Rating
                     name="campground-rating"
                     value={review.rating}
                     precision={0.5}
                     readOnly
                   />
+
+                  <button
+                      className={`ml-auto mr-5 px-3 w-[150px] h-[35px] bg-red-400 rounded-md shadow-md hover:bg-red-700 transition`}
+                      onClick={() => alert('Delete Review')}
+                    >
+                       DELETE
+                    </button>
                 </div>
                 <div className="mt-5 flex gap-5">
                   <TextField
@@ -196,13 +243,23 @@ export default function RatingAndReview({
                     aria-readonly
                   />
                   <label
-                    htmlFor="reviewImageInput"
                     className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
                   >
                     {
                       review.pictures.length > 0 && review.pictures ? (
                         <div className="flex flex-col items-center justify-center cursor-pointer">
-
+                          <div className="w-[100%] h-[100px] relative bg-gray-300 rounded-lg overflow-hidden">
+                            <img
+                              src={review.pictures[0]}
+                              alt="review image"
+                              className="object-cover w-full h-full"
+                            />
+                            {review.pictures.length > 1 && (
+                              <div className="absolute bottom-1 right-1 bg-black bg-opacity-60 text-white text-sm px-2 py-0.5 rounded-md">
+                                +{review.pictures.length - 1}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       ) : (
                         <div className="flex flex-col items-center justify-center cursor-pointer">
