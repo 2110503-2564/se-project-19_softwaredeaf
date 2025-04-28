@@ -4,12 +4,13 @@ import BookedAmenityList from "@/components/BookedAmenityList";
 import dayjs from "dayjs";
 import deleteBooking from "@/libs/deleteBooking";
 import deleteAmenityBookingByBookingId from "@/libs/deleteAmenityBookingByBookingId";
-import { ReservationItem } from "../../interface";
+import { ReservationItem, Review, ReviewData } from "../../interface";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRef } from "react";
 import createReview from "@/libs/createReview";
+import getBookingReview from "@/libs/getBookingReview";
 
 export default function RatingAndReview({
   booking,
@@ -18,7 +19,7 @@ export default function RatingAndReview({
 }: {
   booking: ReservationItem;
   token: string;
-  role:string
+  role: string
 }) {
   const router = useRouter();
   const [showReviewSection, setShowReviewSection] = useState(false);
@@ -26,8 +27,18 @@ export default function RatingAndReview({
   const [rating, setRating] = useState<number | null>(0);
   const [comment, setComment] = useState<string>("");
   const [reviewPictures, setReviewPictures] = useState<File[]>();
+  const [review, setReview] = useState<Review | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
+  const getReview = async () => {
+    const response = await getBookingReview(token, booking._id);
+    if (response.ok) {
+      setReview(response.data);
+    }
+  }
+  useEffect(() => {
+    getReview();
+  });
 
   const handleDelete = async (bid: string) => {
     setIsDeleting(true);
@@ -44,7 +55,7 @@ export default function RatingAndReview({
     }
   };
 
-  const handleChangFileArray = (fileInput:FileList) => {
+  const handleChangFileArray = (fileInput: FileList) => {
     const arrayFile = Array.from(fileInput);
     setReviewPictures(arrayFile);
   }
@@ -55,23 +66,23 @@ export default function RatingAndReview({
       return;
     }
     const newData = new FormData;
-    newData.append('rating',rating.toString());
-    newData.append('comment',comment);
-    newData.append('campgroundId',booking.camp._id);
-    newData.append('campgroundName',booking.camp.name);
-    if(reviewPictures&&reviewPictures.length > 0){
+    newData.append('rating', rating.toString());
+    newData.append('comment', comment);
+    newData.append('campgroundId', booking.camp._id);
+    newData.append('campgroundName', booking.camp.name);
+    if (reviewPictures && reviewPictures.length > 0) {
       reviewPictures.forEach(file => {
         newData.append('images', file);
       });
     }
 
-    try{
-      await createReview(token,newData);
+    try {
+      await createReview(token, newData);
       // Submit logic goes here (API call)
       console.log("Review Submitted:", { rating, comment });
       // router.refresh();
       alert("Review submitted!");
-    }catch(error){
+    } catch (error) {
       console.log(error);
       alert('Create Review Failed!')
     }
@@ -93,12 +104,12 @@ export default function RatingAndReview({
           <div className={`absolute top-0 left-0 w-full h-full bg-white bg-opacity-60 ${showReviewSection ? 'rounded-tl-[40px]' : 'rounded-l-[40px]'}`} />
 
           <Image
-              alt="Overlay"
-              src="/img/visitedStamp.png"
-              height={500}
-              width={500}
-              className="absolute top-1/2 left-1/2 w-[70%] h-[70%] object-contain pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
-            />
+            alt="Overlay"
+            src="/img/visitedStamp.png"
+            height={500}
+            width={500}
+            className="absolute top-1/2 left-1/2 w-[70%] h-[70%] object-contain pointer-events-none transform -translate-x-1/2 -translate-y-1/2"
+          />
         </div>
         {/* Campground & Date Info */}
         <div className="w-[45%] px-10">
@@ -111,15 +122,25 @@ export default function RatingAndReview({
             </div>
             {/* Review button */}
             {
-              role=='user' ? 
-              <div className="w-[50%] flex items-center justify-center">
-                <button
-                  className={`mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection? "bg-yellow-700":"bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
-                  onClick={()=>setShowReviewSection(!showReviewSection)}
-                >
-                  Review
-                </button>
-              </div> : null
+              role == 'user' ?
+                <div className="w-[50%] flex items-center justify-center">
+                  {
+                    review ?
+                      <button
+                        className={`mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
+                        onClick={() => setShowReviewSection(!showReviewSection)}
+                      >
+                        Edit Review
+                      </button>
+                      :
+                      <button
+                        className={`mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
+                        onClick={() => setShowReviewSection(!showReviewSection)}
+                      >
+                        Review
+                      </button>
+                  }
+                </div> : null
             }
           </div>
 
@@ -145,98 +166,164 @@ export default function RatingAndReview({
 
         {/* Amenity List Section */}
         <div className="w-[35%]">
-          <BookedAmenityList token={token} bid={booking._id} rt={showReviewSection}/>
+          <BookedAmenityList token={token} bid={booking._id} rt={showReviewSection} />
         </div>
       </div>
 
       {/* Review & Rating Section */}
       {showReviewSection && (
-      <div className="relative border border-yellow-300 rounded-xl m-10 p-5">
-        <div className="flex flex-row ">
-          <Rating
-            name="campground-rating"
-            value={rating}
-            onChange={(event, newValue) => setRating(newValue)}
-            precision={0.5}
-          />
-          <button
-            onClick={handleReviewSubmit}
-            className="flex absolute right-5 px-4 py-1 bg-yellow-300 rounded-lg text-black text-lg font-semibold hover:bg-yellow-400 transition"
-          >
-            Submit Review
-          </button>
-        </div>
+        <div className="relative border border-yellow-300 rounded-xl m-10 p-5">
+          {
+            review ?
+              <div>
+                <div className="flex flex-row ">
+                  <Rating
+                    name="campground-rating"
+                    value={review.rating}
+                    precision={0.5}
+                    readOnly
+                  />
+                </div>
+                <div className="mt-5 flex gap-5">
+                  <TextField
+                    fullWidth
+                    className="bg-neutral-200 rounded-md"
+                    id="rating-comment"
+                    label="Write your comment"
+                    value={review.comment}
+                    multiline
+                    rows={4}
+                    aria-readonly
+                  />
+                  <label
+                    htmlFor="reviewImageInput"
+                    className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
+                  >
+                    {
+                      review.pictures.length > 0 && review.pictures ? (
+                        <div className="flex flex-col items-center justify-center cursor-pointer">
 
-        <div className="mt-5 flex gap-5">
-          <TextField
-            fullWidth
-            className="bg-neutral-200 rounded-md"
-            id="rating-comment"
-            label="Write your comment"
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            multiline
-            rows={4}
-          />
-          <label
-            htmlFor="reviewImageInput"
-            className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
-          >
-            {
-              reviewPictures ? (
-                <div className="flex flex-col items-center justify-center cursor-pointer">
-                  {reviewPictures.map((picture, index) => (
-                    <p key={index} className="text-sm">{picture.name}</p>
-                  ))}
-                  <button
-                    onClick={(e) => {
-                      setReviewPictures(undefined);
-                      e.preventDefault()
-                      if (inputRef.current) {
-                        inputRef.current.value = "";
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center cursor-pointer">
+
+                        </div>
+                      )
+                    }
+
+                  </label>
+                  <input
+                    ref={inputRef}
+                    id="reviewImageInput"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) => {
+                      const files = e.target.files;
+                      if (files && files.length > 3) {
+                        alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
+                        e.target.value = "";
+                      } else if (files && !reviewPictures) {
+                        alert("เพิ่มรูปภาพแล้ว");
+                        handleChangFileArray(files);
+                      } else if (files) {
+                        alert("เปลี่ยนรูปภาพแล้ว");
+                        handleChangFileArray(files);
                       }
                     }}
-                    className="mt-2"
+                    style={{ display: "none" }}
+                  />
+                </div>
+              </div>
+              :
+              <div>
+                <div className="flex flex-row ">
+                  <Rating
+                    name="campground-rating"
+                    value={rating}
+                    onChange={(event, newValue) => setRating(newValue)}
+                    precision={0.5}
+                  />
+                  <button
+                    onClick={handleReviewSubmit}
+                    className="flex absolute right-5 px-4 py-1 bg-yellow-300 rounded-lg text-black text-lg font-semibold hover:bg-yellow-400 transition"
                   >
-                    <img
-                      src="/img/cancel.png"
-                      alt="clear"
-                      className="ml-3 w-3 h-3"
-                    />
+                    Submit Review
                   </button>
                 </div>
-              ) : (
-                <div className="flex flex-col items-center justify-center cursor-pointer">
-                  <p className="text-sm">Add Picture (Up to 3)</p>
-                  <p className="text-5xl mt-2">+</p>
-                </div>
-              )
-            }
 
-          </label>
-          <input
-            ref={inputRef}
-            id="reviewImageInput"
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={(e) => {
-              const files = e.target.files;
-              if (files && files.length > 3) {
-                alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
-                e.target.value = "";
-              } else if(files && !reviewPictures) {
-                alert("เพิ่มรูปภาพแล้ว");
-                handleChangFileArray(files);
-              }else if(files){
-                alert("เปลี่ยนรูปภาพแล้ว");
-                handleChangFileArray(files);
-              }
-            }}
-            style={{ display: "none" }}
-          />
+                <div className="mt-5 flex gap-5">
+                  <TextField
+                    fullWidth
+                    className="bg-neutral-200 rounded-md"
+                    id="rating-comment"
+                    label="Write your comment"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                    multiline
+                    rows={4}
+                  />
+                  <label
+                    htmlFor="reviewImageInput"
+                    className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
+                  >
+                    {
+                      reviewPictures ? (
+                        <div className="flex flex-col items-center justify-center cursor-pointer">
+                          {reviewPictures.map((picture, index) => (
+                            <p key={index} className="text-sm">{picture.name}</p>
+                          ))}
+                          <button
+                            onClick={(e) => {
+                              setReviewPictures(undefined);
+                              e.preventDefault()
+                              if (inputRef.current) {
+                                inputRef.current.value = "";
+                              }
+                            }}
+                            className="mt-2"
+                          >
+                            <img
+                              src="/img/cancel.png"
+                              alt="clear"
+                              className="ml-3 w-3 h-3"
+                            />
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col items-center justify-center cursor-pointer">
+                          <p className="text-sm">Add Picture (Up to 3)</p>
+                          <p className="text-5xl mt-2">+</p>
+                        </div>
+                      )
+                    }
+
+                  </label>
+                  <input
+                    ref={inputRef}
+                    id="reviewImageInput"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    onChange={(e) => {
+                      const files = e.target.files;
+                      if (files && files.length > 3) {
+                        alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
+                        e.target.value = "";
+                      } else if (files && !reviewPictures) {
+                        alert("เพิ่มรูปภาพแล้ว");
+                        handleChangFileArray(files);
+                      } else if (files) {
+                        alert("เปลี่ยนรูปภาพแล้ว");
+                        handleChangFileArray(files);
+                      }
+                    }}
+                    style={{ display: "none" }}
+                  />
+                </div>
+              </div>
+          }
         </div>
-      </div>
       )}
     </div>
   );

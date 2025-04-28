@@ -165,7 +165,8 @@ export default function EditCampground({ params }: { params: { cid: string } }) 
     else if (amount > 0 && price > 0 && amenityName && description) {
       const formData = new FormData();
       formData.append("name", amenityName);
-      formData.append("amount", amount.toString());
+      formData.append("quantity", amount.toString());
+      alert("amount :"+amount.toString());
       formData.append("price", price.toString());
       formData.append("description", description);
       if (amenityImage) {
@@ -443,7 +444,7 @@ export default function EditCampground({ params }: { params: { cid: string } }) 
                     <p className="ml-5">Amount : </p>
                     <input
                       type="number"
-                      min="0"
+                      min="1"
                       className="w-[100px] ml-2 h-10 rounded-md border text-center"
                       onChange={(e) => setAmount(Number(e.target.value))}
                       value={amount}
