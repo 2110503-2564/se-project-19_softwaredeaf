@@ -14,7 +14,7 @@ export default function DateReserve({dateName,onDateChange,minDate,maxDate,initD
     return(
         <div className="flex flex-row justify-center">
             <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DatePicker className="bg-white" label={dateName}
+                <DatePicker className="bg-white" format="DD/MM/YYYY" label={dateName}
                 value={reserveDate} onChange={(value)=>{setReserveDate(value);onDateChange(value)}}  minDate={minDate || dayjs()} maxDate={maxDate||undefined} />
             </LocalizationProvider>
         </div>

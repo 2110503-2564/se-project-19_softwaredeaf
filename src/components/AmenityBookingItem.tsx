@@ -19,7 +19,7 @@ export default function AmenityBookingItem({amenities,handleSubmit,bookfrom,book
     const amountLeft = amenities.quantity - amenities.amountbooked;
 
     const makeAmenityBooking = () => {
-        if (datefrom && dateto && amount > 0 && dateto.format("YYYY-MM-DD") > datefrom.format("YYYY-MM-DD") ) {
+        if (datefrom && dateto && amount > 0 && amount <= amountLeft && dateto.format("YYYY-MM-DD") > datefrom.format("YYYY-MM-DD") ) {
           const booking: AmenityBooking = {
             _id:"",
             campgroundId: amenities.campgroundId ? amenities.campgroundId._id : "", 
@@ -28,9 +28,23 @@ export default function AmenityBookingItem({amenities,handleSubmit,bookfrom,book
             startDate: datefrom.format("YYYY-MM-DD"),
             endDate: dateto.format("YYYY-MM-DD")
           };
+        
 
           return booking;
         }
+        else if(!datefrom){
+            alert("Please insert Date From")
+        }
+        else if(!dateto){
+            alert("Please insert Date To")
+        }
+        else if(amount<=0){
+            alert("Amount must be more than 0")
+        }
+        else if(amount>amountLeft){
+            alert("Amount must be can't more than "+amountLeft)
+        }
+        
     };
 
     return(

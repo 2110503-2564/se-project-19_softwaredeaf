@@ -11,6 +11,9 @@ import Image from "next/image";
 import { useRef } from "react";
 import createReview from "@/libs/createReview";
 import getBookingReview from "@/libs/getBookingReview";
+import deleteReview from "@/libs/deleteReview";
+import updateReview from "@/libs/editReview";
+
 
 export default function RatingAndReview({
   booking,
@@ -23,6 +26,7 @@ export default function RatingAndReview({
 }) {
   const router = useRouter();
   const [showReviewSection, setShowReviewSection] = useState(false);
+  const [isEditReview, setEditReview] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [rating, setRating] = useState<number | null>(0);
   const [comment, setComment] = useState<string>("");
@@ -31,29 +35,28 @@ export default function RatingAndReview({
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const getReview = async () => {
-    try{
-      const response:ReviewData = await getBookingReview(token, booking._id);
+    try {
+      const response: ReviewData = await getBookingReview(token, booking._id);
       setReview(response.data[0]);
-      if(response.data[0]){
+      if (response.data[0]) {
         setShowReviewSection(true)
       }
       router.refresh();
       console.log(response.data[0]);
-    }catch(error){
+    } catch (error) {
       console.log(error);
     }
   }
   useEffect(() => {
     getReview();
     // console.log(review);
-  },[]);
+  }, []);
 
-  const handleDelete = async (bid: string) => {
+  const handleDelete = async (rid: string) => {
     setIsDeleting(true);
     try {
-      await deleteAmenityBookingByBookingId(token, bid);
-      await deleteBooking(token, bid);
-      alert("Delete Booking Success!");
+      //delete review
+      alert("Delete Review Success!");
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -78,7 +81,7 @@ export default function RatingAndReview({
     newData.append('comment', comment);
     newData.append('campgroundId', booking.camp._id);
     newData.append('campgroundName', booking.camp.name);
-    newData.append('bookingId',booking._id)
+    newData.append('bookingId', booking._id)
     if (reviewPictures && reviewPictures.length > 0) {
       reviewPictures.forEach(file => {
         newData.append('images', file);
@@ -129,56 +132,32 @@ export default function RatingAndReview({
                 {booking.camp.name}
               </div>
             </div>
-            
-            {/* {
-              role == 'user' ?
-                <div className="w-[50%] flex items-center justify-center">
-                  {
-                    review ?
-                      <button
-                        className={mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition}
-                        onClick={() => setShowReviewSection(!showReviewSection)}
-                      >
-                        Edit Review
-                      </button>
-                      :
-                      <button
-                        className={mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition}
-                        onClick={() => setShowReviewSection(!showReviewSection)}
-                      >
-                        Review
-                      </button>
-                  }
-                </div> : null
-            }
-          </div>
 
-           */}
             {/* Review button */}
             {
               role == 'user' ?
                 <div className="w-[50%] flex items-center justify-center">
                   {
                     review ?
-                    <div>
-                    <button
-                      className={`mt-10 ml-3 px-3 w-[200px] h-[35px] bg-yellow-400 rounded-md shadow-md hover:bg-yellow-700 transition`}
-                      onClick={() => alert('Edit Review')}
-                    >
-                      Edit Review
-                    </button>
-                  </div> 
-                  :
-                  <div>
-                    <button
-                      className={`mt-10 ml-3 px-3 w-[200px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
-                      onClick={() => setShowReviewSection(!showReviewSection)}
-                    >
-                       Review
-                    </button>
-                  </div> 
+                      <div>
+                        <button
+                          className={`mt-10 ml-3 px-3 w-[200px] h-[35px] bg-yellow-400 rounded-md shadow-md hover:bg-yellow-700 transition`}
+                          onClick={() => setEditReview(!isEditReview)}
+                        >
+                          Edit Review
+                        </button>
+                      </div>
+                      :
+                      <div>
+                        <button
+                          className={`mt-10 ml-3 px-3 w-[200px] h-[35px] ${showReviewSection ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
+                          onClick={() => setShowReviewSection(!showReviewSection)}
+                        >
+                          Review
+                        </button>
+                      </div>
                   }
-          
+
                 </div>
                 : null
             }
@@ -216,81 +195,173 @@ export default function RatingAndReview({
           {
             review ?
               <div>
-                <div className="flex flex-row items-center">
-                  <Rating
-                    name="campground-rating"
-                    value={review.rating}
-                    precision={0.5}
-                    readOnly
-                  />
+                {
+                  isEditReview ?
+                    <div>
+                      <div className="flex flex-row ">
+                        <Rating
+                          name="campground-rating"
+                          value={rating}
+                          onChange={(event, newValue) => setRating(newValue)}
+                          precision={0.5}
+                        />
+                        <button
+                          onClick={()=>{alert('Edit')}}
+                          className="flex absolute right-5 px-4 py-1 bg-yellow-300 rounded-lg text-black text-lg font-semibold hover:bg-yellow-400 transition"
+                        >
+                          Submit Review
+                        </button>
+                      </div>
 
-                  <button
-                      className={`ml-auto mr-5 px-3 w-[150px] h-[35px] bg-red-400 rounded-md shadow-md hover:bg-red-700 transition`}
-                      onClick={() => alert('Delete Review')}
-                    >
-                       DELETE
-                    </button>
-                </div>
-                <div className="mt-5 flex gap-5">
-                  <TextField
-                    fullWidth
-                    className="bg-neutral-200 rounded-md"
-                    id="rating-comment"
-                    label="Write your comment"
-                    value={review.comment}
-                    multiline
-                    rows={4}
-                    aria-readonly
-                  />
-                  <label
-                    className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
-                  >
-                    {
-                      review.pictures.length > 0 && review.pictures ? (
-                        <div className="flex flex-col items-center justify-center cursor-pointer">
-                          <div className="w-[100%] h-[100px] relative bg-gray-300 rounded-lg overflow-hidden">
-                            <img
-                              src={review.pictures[0]}
-                              alt="review image"
-                              className="object-cover w-full h-full"
-                            />
-                            {review.pictures.length > 1 && (
-                              <div className="absolute bottom-1 right-1 bg-black bg-opacity-60 text-white text-sm px-2 py-0.5 rounded-md">
-                                +{review.pictures.length - 1}
+                      <div className="mt-5 flex gap-5">
+                        <TextField
+                          fullWidth
+                          className="bg-neutral-200 rounded-md"
+                          id="rating-comment"
+                          label="Write your comment"
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                          multiline
+                          rows={4}
+                        />
+                        <label
+                          htmlFor="reviewImageInput"
+                          className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
+                        >
+                          {
+                            reviewPictures ? (
+                              <div className="flex flex-col items-center justify-center cursor-pointer">
+                                {reviewPictures.map((picture, index) => (
+                                  <p key={index} className="text-sm">{picture.name}</p>
+                                ))}
+                                <button
+                                  onClick={(e) => {
+                                    setReviewPictures(undefined);
+                                    e.preventDefault()
+                                    if (inputRef.current) {
+                                      inputRef.current.value = "";
+                                    }
+                                  }}
+                                  className="mt-2"
+                                >
+                                  <img
+                                    src="/img/cancel.png"
+                                    alt="clear"
+                                    className="ml-3 w-3 h-3"
+                                  />
+                                </button>
                               </div>
-                            )}
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="flex flex-col items-center justify-center cursor-pointer">
+                            ) : (
+                              <div className="flex flex-col items-center justify-center cursor-pointer">
+                                <p className="text-sm">Add Picture (Up to 3)</p>
+                                <p className="text-5xl mt-2">+</p>
+                              </div>
+                            )
+                          }
 
-                        </div>
-                      )
-                    }
+                        </label>
+                        <input
+                          ref={inputRef}
+                          id="reviewImageInput"
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={(e) => {
+                            const files = e.target.files;
+                            if (files && files.length > 3) {
+                              alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
+                              e.target.value = "";
+                            } else if (files && !reviewPictures) {
+                              alert("เพิ่มรูปภาพแล้ว");
+                              handleChangFileArray(files);
+                            } else if (files) {
+                              alert("เปลี่ยนรูปภาพแล้ว");
+                              handleChangFileArray(files);
+                            }
+                          }}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                    </div>
+                    :
+                    <div>
+                      <div className="flex flex-row items-center">
+                        <Rating
+                          name="campground-rating"
+                          value={review.rating}
+                          precision={0.5}
+                          readOnly
+                        />
 
-                  </label>
-                  <input
-                    ref={inputRef}
-                    id="reviewImageInput"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={(e) => {
-                      const files = e.target.files;
-                      if (files && files.length > 3) {
-                        alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
-                        e.target.value = "";
-                      } else if (files && !reviewPictures) {
-                        alert("เพิ่มรูปภาพแล้ว");
-                        handleChangFileArray(files);
-                      } else if (files) {
-                        alert("เปลี่ยนรูปภาพแล้ว");
-                        handleChangFileArray(files);
-                      }
-                    }}
-                    style={{ display: "none" }}
-                  />
-                </div>
+                        <button
+                          className={`ml-auto mr-5 px-3 w-[150px] h-[35px] bg-red-400 rounded-md shadow-md hover:bg-red-700 transition`}
+                          onClick={() => handleDelete(review._id)}
+                        >
+                          DELETE
+                        </button>
+                      </div>
+                      <div className="mt-5 flex gap-5">
+                        <TextField
+                          fullWidth
+                          className="bg-neutral-200 rounded-md"
+                          id="rating-comment"
+                          label="Comment"
+                          value={review.comment}
+                          multiline
+                          rows={4}
+                          InputProps={{ readOnly: true }}
+                        />
+                        <label
+                          className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
+                        >
+                          {
+                            review.pictures.length > 0 && review.pictures ? (
+                              <div className="flex flex-col items-center justify-center cursor-pointer">
+                                <div className="w-[100%] h-[100px] relative bg-gray-300 rounded-lg overflow-hidden">
+                                  <img
+                                    src={review.pictures[0]}
+                                    alt="review image"
+                                    className="object-cover w-full h-full"
+                                  />
+                                  {review.pictures.length > 1 && (
+                                    <div className="absolute bottom-1 right-1 bg-black bg-opacity-60 text-white text-sm px-2 py-0.5 rounded-md">
+                                      +{review.pictures.length - 1}
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                            ) : (
+                              <div className="flex flex-col items-center justify-center cursor-pointer">
+
+                              </div>
+                            )
+                          }
+
+                        </label>
+                        <input
+                          ref={inputRef}
+                          id="reviewImageInput"
+                          type="file"
+                          accept="image/*"
+                          multiple
+                          onChange={(e) => {
+                            const files = e.target.files;
+                            if (files && files.length > 3) {
+                              alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
+                              e.target.value = "";
+                            } else if (files && !reviewPictures) {
+                              alert("เพิ่มรูปภาพแล้ว");
+                              handleChangFileArray(files);
+                            } else if (files) {
+                              alert("เปลี่ยนรูปภาพแล้ว");
+                              handleChangFileArray(files);
+                            }
+                          }}
+                          style={{ display: "none" }}
+                        />
+                      </div>
+                    </div>
+                }
               </div>
               :
               <div>
