@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import StarRating from "./StarRating";
+import { Review } from "../../interface";
 
 interface Props {
   selectedReview: Review | null;
@@ -32,7 +33,7 @@ const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
         <div className="mb-4">
           <StarRating rating={selectedReview.rating} maxRating={5} />
           <h2 className="text-2xl font-bold mt-2 text-black">
-            {selectedReview.name}
+            {selectedReview.username}
           </h2>
         </div>
 
