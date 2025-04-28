@@ -18,7 +18,7 @@ export default function AmenityBookingEditItem({amenities,handleSubmit,handleDel
     const [amount,setAmount]=useState<number>(amenities.amount)
 
     const makeAmenityBooking = () => {
-        if (datefrom && dateto && amount > 0 && amount<=amenities.amount && dateto.format("YYYY-MM-DD") >= datefrom.format("YYYY-MM-DD") ) {
+        if (datefrom && dateto && amount > 0 && amount<=amenities.amount && amount>0 && dateto.format("YYYY-MM-DD") >= datefrom.format("YYYY-MM-DD") ) {
         
             const booking: AmenityBooking = {
             _id:amenities._id,
@@ -37,12 +37,7 @@ export default function AmenityBookingEditItem({amenities,handleSubmit,handleDel
         }
     };
     const handleSetAmount = (newamount:number) => {
-        if(newamount > amenities.amount || newamount < 1){
-            alert('Amount should be in range 1-'+amenities.amount);
-            setAmount(amount);
-        }else{
-            setAmount(newamount);
-        }
+        setAmount(newamount);
     }
 
     const deleteAmenityBooking = () => {
@@ -83,7 +78,6 @@ export default function AmenityBookingEditItem({amenities,handleSubmit,handleDel
                                     <input
                                     type="number"
                                     min="1"
-                                    max={amenities.amount}
                                     className="w-15 h-10 rounded-md border text-center"
                                     onChange={(e)=>handleSetAmount(Number(e.target.value))}
                                     defaultValue={amount}
