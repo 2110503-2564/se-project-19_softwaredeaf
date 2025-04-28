@@ -9,13 +9,16 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Image from "next/image";
 import { useRef } from "react";
+import createReview from "@/libs/createReview";
 
 export default function RatingAndReview({
   booking,
   token,
+  role
 }: {
   booking: ReservationItem;
   token: string;
+  role:string
 }) {
   const router = useRouter();
   const [showReviewSection, setShowReviewSection] = useState(false);
@@ -32,7 +35,7 @@ export default function RatingAndReview({
       await deleteAmenityBookingByBookingId(token, bid);
       await deleteBooking(token, bid);
       alert("Delete Booking Success!");
-      router.push("/mybooking");
+      router.refresh();
     } catch (error) {
       console.error(error);
       alert("Delete failed");
@@ -46,14 +49,32 @@ export default function RatingAndReview({
     setReviewPictures(arrayFile);
   }
 
-  const handleReviewSubmit = () => {
+  const handleReviewSubmit = async () => {
     if (!rating || !comment.trim()) {
       alert("Please provide both a rating and a comment.");
       return;
     }
-    // Submit logic goes here (API call)
-    console.log("Review Submitted:", { rating, comment });
-    alert("Review submitted!");
+    const newData = new FormData;
+    newData.append('rating',rating.toString());
+    newData.append('comment',comment);
+    newData.append('campgroundId',booking.camp._id);
+    newData.append('campgroundName',booking.camp.name);
+    if(reviewPictures&&reviewPictures.length > 0){
+      reviewPictures.forEach(file => {
+        newData.append('images', file);
+      });
+    }
+
+    try{
+      await createReview(token,newData);
+      // Submit logic goes here (API call)
+      console.log("Review Submitted:", { rating, comment });
+      // router.refresh();
+      alert("Review submitted!");
+    }catch(error){
+      console.log(error);
+      alert('Create Review Failed!')
+    }
   };
 
   return (
@@ -89,18 +110,21 @@ export default function RatingAndReview({
               </div>
             </div>
             {/* Review button */}
-            <div className="w-[50%] flex items-center justify-center">
-              <button
-                className={`mt-5 px-3 w-[230px] h-[35px] ${showReviewSection? "bg-yellow-700":"bg-yellow-400"} rounded-xl shadow-md hover:bg-yellow-700 transition`}
-                onClick={()=>setShowReviewSection(!showReviewSection)}
-              >
-                Review Campground
-              </button>
-            </div>
+            {
+              role=='user' ? 
+              <div className="w-[50%] flex items-center justify-center">
+                <button
+                  className={`mt-10 ml-3 px-3 w-[230px] h-[35px] ${showReviewSection? "bg-yellow-700":"bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
+                  onClick={()=>setShowReviewSection(!showReviewSection)}
+                >
+                  Review
+                </button>
+              </div> : null
+            }
           </div>
 
           {/* Date Section */}
-          <div className="mt-10">
+          <div className="mt-5">
             <p className="mb-2">Date:</p>
             <div className="flex gap-5">
               <div className="w-[50%]">

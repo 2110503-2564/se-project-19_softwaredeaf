@@ -18,7 +18,7 @@ export default async function myBooking() {
   return (
     <div className="text-xl text-black h-[60%] py-10">
       {bookings.length > 0 ? (
-        <BookingList bookings={bookings} user={user}/>
+        <BookingList bookings={bookings} user={user} userrole={session?.user.role}/>
       ) : (
         <div className="flex justify-center items-center h-[300px]">
           <p className="text-gray-500 text-2xl">No Booking</p>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import { FilterButton } from "./FilterButton";
   
 
-export default function BookingList({bookings,user}:{bookings:ReservationItem[],user:string}) {
+export default function BookingList({bookings,user,userrole}:{bookings:ReservationItem[],user:string,userrole:string}) {
     const [isAll,setAll] = useState(true);
     const [isVisited,setVisited] = useState(false);
 
@@ -26,7 +26,7 @@ export default function BookingList({bookings,user}:{bookings:ReservationItem[],
             filtered && filtered.length > 0 ? 
             filtered.map((book) =>
             book.visited ? (
-                <RatingandReview key={book._id} booking={book} token={user} />
+                <RatingandReview key={book._id} booking={book} token={user} role={userrole}/>
             ) : (
                 <div key={book._id} className="my-10 ">
                     <BookingItem booking={book} token={user} />

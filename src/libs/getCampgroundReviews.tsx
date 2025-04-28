@@ -4,7 +4,7 @@ export async function getCampgroundReviews(id: string) {
     });
   
     if (!response.ok) {
-      throw new Error(`Failed to fetch campground. Your ID is ${id}`);
+      console.log(response);
     }
   
     return await response.json();

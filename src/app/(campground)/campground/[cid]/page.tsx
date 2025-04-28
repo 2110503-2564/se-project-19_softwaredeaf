@@ -55,6 +55,7 @@ export default async function campground({
   const reviewData:Review[] = reviewDataJson.data;
 
 
+
   return (
     <div className="px-20">
       <p className="py-5 text-5xl text-black font-bold">{campground.name}</p>
