@@ -14,7 +14,6 @@ export default function BookingList({bookings,user}:{bookings:ReservationItem[],
         ? bookings 
         : bookings.filter(b => isVisited ? b.visited : !b.visited);
 
-
   return (
     <div className="text-xl text-black h-[60%] py-10 flex flex-col">
       <div className="flex flex-row ml-5 mr-5 items-center justify-center">

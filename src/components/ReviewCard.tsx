@@ -3,6 +3,7 @@
 import { useState } from "react";
 import StarRating from "./StarRating";
 import ReportModal from "./ReportModal";
+import { Review } from "../../interface";
 
 
 interface Props {

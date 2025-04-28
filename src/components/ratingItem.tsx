@@ -60,16 +60,16 @@ export default function RatingAndReview({
     <div className="flex flex-col w-[90%] bg-white text-black font-bold border border-[#A4B465] rounded-[40px] mx-auto my-20 shadow-lg">
       {/* Header Section */}
       <div className="flex flex-row">
-        <div className="w-[20%] h-[250px] bg-neutral-200 rounded-tl-[40px] overflow-hidden relative">
+        <div className={`w-[20%] h-[250px] bg-neutral-200 ${showReviewSection ? 'rounded-tl-[40px]' : 'rounded-l-[40px]'} overflow-hidden relative`}>
           <Image
             alt="campground"
             src={booking.camp.picture}
             height={1080}
             width={1920}
-            className="w-full h-full object-cover rounded-tl-[40px]"
+            className={`w-full h-full object-cover ${showReviewSection ? 'rounded-tl-[40px]' : 'rounded-l-[40px]'}`}
           />
 
-          <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-60 rounded-tl-[40px]" />
+          <div className={`absolute top-0 left-0 w-full h-full bg-white bg-opacity-60 ${showReviewSection ? 'rounded-tl-[40px]' : 'rounded-l-[40px]'}`} />
 
           <Image
               alt="Overlay"
@@ -121,7 +121,7 @@ export default function RatingAndReview({
 
         {/* Amenity List Section */}
         <div className="w-[35%]">
-          <BookedAmenityList token={token} bid={booking._id} rt={true}/>
+          <BookedAmenityList token={token} bid={booking._id} rt={showReviewSection}/>
         </div>
       </div>
 

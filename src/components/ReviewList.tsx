@@ -11,9 +11,10 @@ import { Review } from "../../interface";
 interface Props {
   reviews: Review[];
   role?: string;
+  cancel?:boolean | false
 }
 
-export default function ReviewList({ reviews, role }: Props) {
+export default function ReviewList({ reviews, role, cancel }: Props) {
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [fullModal, setFullModal] = useState(false);
   const [isViewReview, setViewReview] = useState(true);
@@ -53,6 +54,7 @@ export default function ReviewList({ reviews, role }: Props) {
                       setFullModal(false);
                       setImageIndex(0);
                     }}
+                    cancel={cancel}
                   />
                 ))
               ) : (

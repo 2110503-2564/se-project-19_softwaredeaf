@@ -86,7 +86,7 @@ export default function SearchMenu() {
             {error && <div className="text-red-500 text-center py-4">{error}</div>}
             
             <div className="px-5 md:px-10 w-full">
-                <ReviewList reviews={reports} role="admin" />
+                <ReviewList reviews={reports} role="admin" cancel={true}/>
             </div>
         </div>
     );
