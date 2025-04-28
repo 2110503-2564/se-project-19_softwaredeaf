@@ -1,5 +1,5 @@
 export default async function getBookingReview(token:string,bid: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/userreviews/${bid}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/bookingreviews/${bid}`, {
         method: "GET",
         headers: {
             authorization: `Bearer ${token}`,

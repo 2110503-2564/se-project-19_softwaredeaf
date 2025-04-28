@@ -28,9 +28,8 @@ export default function RatingAndReview({
   const [isDeleting, setIsDeleting] = useState(false);
   const [rating, setRating] = useState<number | null>(0);
   const [comment, setComment] = useState<string>("");
-  const [reviewPictures, setReviewPictures] = useState<File[]>();
+  const [reviewPictures, setReviewPictures] = useState<Record<string, File[]>>({});
   const [review, setReview] = useState<Review | null>(null);
-  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const getReview = async () => {
     try {
@@ -80,8 +79,8 @@ export default function RatingAndReview({
     const newData = new FormData();
     newData.append('rating', rating.toString());
     newData.append('comment', comment);
-    if (reviewPictures && reviewPictures.length > 0) {
-      reviewPictures.forEach(file => {
+    if (reviewPictures[booking._id] && reviewPictures[booking._id].length > 0) {
+      reviewPictures[booking._id].forEach(file => {
         newData.append('images', file);
       });
     }
@@ -98,10 +97,13 @@ export default function RatingAndReview({
   };
   
 
-  const handleChangFileArray = (fileInput: FileList) => {
+  const handleChangFileArray = (fileInput: FileList, bookingId: string) => {
     const arrayFile = Array.from(fileInput);
-    setReviewPictures(arrayFile);
-  }
+    setReviewPictures((prev) => ({
+      ...prev,
+      [bookingId]: arrayFile,
+    }));
+  };
 
   const handleReviewSubmit = async () => {
     if (!rating || !comment.trim()) {
@@ -114,8 +116,8 @@ export default function RatingAndReview({
     newData.append('campgroundId', booking.camp._id);
     newData.append('campgroundName', booking.camp.name);
     newData.append('bookingId', booking._id)
-    if (reviewPictures && reviewPictures.length > 0) {
-      reviewPictures.forEach(file => {
+    if (reviewPictures[booking._id] && reviewPictures[booking._id].length > 0) {
+      reviewPictures[booking._id].forEach(file => {
         newData.append('images', file);
       });
     }
@@ -257,22 +259,23 @@ export default function RatingAndReview({
                           rows={4}
                         />
                         <label
-                          htmlFor="reviewImageInput"
+                          htmlFor={`reviewImageInput-${booking._id}`}
+                          key={review._id}
                           className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
                         >
                           {
-                            reviewPictures ? (
+                            reviewPictures[booking._id] ? (
                               <div className="flex flex-col items-center justify-center cursor-pointer">
-                                {reviewPictures.map((picture, index) => (
+                                {reviewPictures[booking._id].map((picture, index) => (
                                   <p key={index} className="text-sm">{picture.name}</p>
                                 ))}
                                 <button
                                   onClick={(e) => {
-                                    setReviewPictures(undefined);
+                                    setReviewPictures(prev => ({
+                                      ...prev,
+                                      [booking._id]: []
+                                    }));
                                     e.preventDefault()
-                                    if (inputRef.current) {
-                                      inputRef.current.value = "";
-                                    }
                                   }}
                                   className="mt-2"
                                 >
@@ -293,8 +296,8 @@ export default function RatingAndReview({
 
                         </label>
                         <input
-                          ref={inputRef}
-                          id="reviewImageInput"
+                          id={`reviewImageInput-${booking._id}`}
+                          key={booking._id}
                           type="file"
                           accept="image/*"
                           multiple
@@ -303,12 +306,12 @@ export default function RatingAndReview({
                             if (files && files.length > 3) {
                               alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
                               e.target.value = "";
-                            } else if (files && !reviewPictures) {
+                            } else if (files && !reviewPictures[booking._id]) {
                               alert("เพิ่มรูปภาพแล้ว");
-                              handleChangFileArray(files);
+                              handleChangFileArray(files,booking._id);
                             } else if (files) {
                               alert("เปลี่ยนรูปภาพแล้ว");
-                              handleChangFileArray(files);
+                              handleChangFileArray(files,booking._id);
                             }
                           }}
                           style={{ display: "none" }}
@@ -371,8 +374,7 @@ export default function RatingAndReview({
 
                         </label>
                         <input
-                          ref={inputRef}
-                          id="reviewImageInput"
+                          id={`reviewImageInput-${booking._id}`}
                           type="file"
                           accept="image/*"
                           multiple
@@ -381,12 +383,12 @@ export default function RatingAndReview({
                             if (files && files.length > 3) {
                               alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
                               e.target.value = "";
-                            } else if (files && !reviewPictures) {
+                            } else if (files && !reviewPictures[booking._id]) {
                               alert("เพิ่มรูปภาพแล้ว");
-                              handleChangFileArray(files);
+                              handleChangFileArray(files,booking._id);
                             } else if (files) {
                               alert("เปลี่ยนรูปภาพแล้ว");
-                              handleChangFileArray(files);
+                              handleChangFileArray(files,booking._id);
                             }
                           }}
                           style={{ display: "none" }}
@@ -424,22 +426,22 @@ export default function RatingAndReview({
                     rows={4}
                   />
                   <label
-                    htmlFor="reviewImageInput"
+                    htmlFor={`reviewImageInput-${booking._id}`}
                     className="w-[25%] h-auto border border-neutral-400 rounded-md text-neutral-500 bg-neutral-200 flex flex-col items-center justify-center hover:border-black cursor-pointer"
                   >
                     {
-                      reviewPictures ? (
+                      reviewPictures[booking._id] ? (
                         <div className="flex flex-col items-center justify-center cursor-pointer">
-                          {reviewPictures.map((picture, index) => (
+                          {reviewPictures[booking._id].map((picture, index) => (
                             <p key={index} className="text-sm">{picture.name}</p>
                           ))}
                           <button
                             onClick={(e) => {
-                              setReviewPictures(undefined);
+                              setReviewPictures(prev => ({
+                                ...prev,
+                                [booking._id]: []
+                              }));
                               e.preventDefault()
-                              if (inputRef.current) {
-                                inputRef.current.value = "";
-                              }
                             }}
                             className="mt-2"
                           >
@@ -460,8 +462,7 @@ export default function RatingAndReview({
 
                   </label>
                   <input
-                    ref={inputRef}
-                    id="reviewImageInput"
+                    id={`reviewImageInput-${booking._id}`}
                     type="file"
                     accept="image/*"
                     multiple
@@ -470,12 +471,12 @@ export default function RatingAndReview({
                       if (files && files.length > 3) {
                         alert("กรุณาเลือกไม่เกิน 3 รูปภาพ");
                         e.target.value = "";
-                      } else if (files && !reviewPictures) {
+                      } else if (files && !reviewPictures[booking._id]) {
                         alert("เพิ่มรูปภาพแล้ว");
-                        handleChangFileArray(files);
+                        handleChangFileArray(files,booking._id);
                       } else if (files) {
                         alert("เปลี่ยนรูปภาพแล้ว");
-                        handleChangFileArray(files);
+                        handleChangFileArray(files,booking._id);
                       }
                     }}
                     style={{ display: "none" }}
