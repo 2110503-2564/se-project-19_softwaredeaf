@@ -87,7 +87,7 @@ export default function BookingCampgroundList({
                 {filtered.map((booking) => (
                   <div className="flex flex-col w-[100%] bg-white text-black font-bold border border-[#A4B465] rounded-[40px] mb-5 shadow-lg">
                     <div className="flex flex-row">
-                      <div className="w-[20%] h-[250px] bg-neutral-200 rounded-l-[40px]">
+                      <div className="w-[20%] bg-neutral-200 rounded-l-[40px]">
                         <Image
                           alt="campground"
                           src={booking.camp.picture}
@@ -153,8 +153,15 @@ export default function BookingCampgroundList({
                           </div>
                         </div>
 
+                        <div className="w-[50%]">
+                          <p className="mt-3">Booker:</p>
+                          <div className="bg-[#D9D9D9] px-3 py-1 rounded-md text-base font-light w-[100%]">
+                            {booking.name} {booking.surname}
+                          </div>
+                        </div>
+
                         {/* Date Section */}
-                        <div className="mb-4">
+                        <div className="mb-4 mt-4">
                           <p className="mb-2">Date:</p>
                           <div className="flex gap-5">
                             <div className="w-[50%]">
