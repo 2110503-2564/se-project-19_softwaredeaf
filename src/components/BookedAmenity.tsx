@@ -53,7 +53,7 @@ export default function BookedAmenity({
         ))
       ) : (
         <div className="h-full w-full flex flex-row items-center justify-center">
-          <p className="">You haven't booked any amenity</p>
+          <p className="">No Amenity Booked</p>
         </div>
       )}
     </div>

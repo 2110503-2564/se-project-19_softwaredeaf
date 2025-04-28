@@ -52,17 +52,14 @@ export default async function editBooking({params}:{params:{bid:string}}){
                             <p className="text-xl">dummy Stars</p>
                         </div>
                 </div>
-                <div className="text-black bg-green-100 rounded-tl-xl shadow-md rounded-bl-xl flex justify-center">
+                <div className="relative w-[60vh] h-[40vh] text-black bg-green-100 rounded-tl-xl shadow-md rounded-bl-xl flex justify-center">
                     <Image
                         alt="campground"
-                        src="/img/campicdemo.jpg"
-                        height={300}
-                        width={300}
-                        className="w-[60vh] h-auto rounded-xl"
-                    >
-                    </Image>
-                </div>
-                
+                        src={campground.picture}
+                        fill
+                        className="rounded-xl object-cover"
+                    />
+                </div>  
             </div> 
             <div className="mt-5">
                 <EditBookingForm amenities={amenity} bookingId={params.bid} booking={booking}/>
