@@ -143,7 +143,7 @@ export default function EditCampground({ params }: { params: { cid: string } }) 
       }
       else {
         setEditAmenities(prev => [...prev, amenity]);
-        alert('Booking Amenity Success!');
+        alert('Update Amenity!');
       }
     }
   };
