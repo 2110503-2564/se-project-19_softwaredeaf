@@ -87,8 +87,8 @@ export default function ReviewCard({ review, role, onClick, cancel }: Props) {
         <div className="ml-4 w-[40%]">
           <p className="text-black text-xl font-semibold">{review.username}</p>
           <p
-            className={`text-gray-700 whitespace-pre-wrap transition-all duration-300 ${
-              !showFull ? "line-clamp-[7]" : ""
+            className={`text-gray-700 whitespace-pre-wrap transition-all duration-300 break-words  ${
+              !showFull ? "line-clamp-[3]" : ""
             }`}
           >
             {review.comment}
