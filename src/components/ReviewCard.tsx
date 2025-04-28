@@ -75,7 +75,7 @@ export default function ReviewCard({ review, role, onClick, cancel }: Props) {
               onClick={(e) => {
                 e.stopPropagation();
                 handleReportClick();
-              }}
+              }}  
             >
               Report
             </button>
