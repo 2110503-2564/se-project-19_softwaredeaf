@@ -78,7 +78,7 @@ export default function NewCampground() {
       console.error(err);
     } finally {
       setCreated(true);
-      await new Promise((r) => setTimeout(r, 2000));
+      await new Promise((r) => setTimeout(r, 500));
       router.push(`/campground/${newCampId}`);
     }
   };
@@ -231,6 +231,7 @@ export default function NewCampground() {
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
+                    className="transform rotate-180"
                   >
                     <path d="M12 5v14M5 12l7 7 7-7" />
                   </svg>
@@ -324,7 +325,7 @@ export default function NewCampground() {
                   </div>
                   <div className="relative flex flex-row items-center">
                     <p>Image :</p>
-                    <div className="border border-black ml-2 py-2 px-5 rounded-xl flex flex-row items-center">
+                    <div className="border border-black ml-2 py-2 px-5 rounded-xl flex flex-row items-center break-words">
                       <label
                         htmlFor="amenityImageInput"
                         className="flex flex-row items-center"

@@ -125,7 +125,7 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
           >
             {review.comment}
           </p>
-          {review.comment.length > 300 && (
+          {/* {review.comment.length > 300 && (
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -135,7 +135,7 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
             >
               {showFull ? "Show less" : "Read more"}
             </button>
-          )}
+          )} */}
         </div>
 
         {review.pictures.length > 0 && (<div className="w-[40%] h-[100px] relative bg-gray-300 rounded-lg overflow-hidden">
