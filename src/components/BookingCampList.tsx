@@ -107,7 +107,7 @@ export default function BookingCampgroundList({
                             </div>
                           </div>
                           <div className="w-[50%] flex flex-col items-center justify-center">
-                            <div className="flex flex-row items-center justify-center">
+                            {!booking.visited && (<div className="flex flex-row items-center justify-center">
                               <Link href={`/mybooking/${booking._id}/edit`}>
                                 <button
                                   className="mt-5 w-12 h-12 rounded-full bg-[#FFB900] flex items-center justify-center shadow-md hover:bg-[#FAD164]
@@ -132,14 +132,14 @@ export default function BookingCampgroundList({
                                   className="w-6 h-6"
                                 />
                               </button>
-                            </div>
+                            </div>)}
                             <div className="flex items-center justify-center">
                               {booking.visited ? null : (
                                 <button
                                   type="button"
                                   className="text-xl h-[40px] bg-[#65C465] text-black font-semibold py-1 px-1 mt-4 rounded-xl hover:bg-[#B5DE62] 
                                         disabled:cursor-not-allowed disabled:opacity-50 transition-all duration-300 ease-in-out"
-                                  disabled={now.isBefore(
+                                  disabled={now.isAfter(
                                     dayjs(booking.endDate)
                                   )}
                                   onClick={(e) => {

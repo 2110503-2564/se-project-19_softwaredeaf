@@ -107,7 +107,7 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
               onClick={(e) => {
                 e.stopPropagation();
                 handleReportClick();
-              }}
+              }}  
             >
               Report
             </button>
