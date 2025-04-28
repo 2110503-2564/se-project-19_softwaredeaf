@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import StarRating from "./StarRating";
 import { Review } from "../../interface";
 
@@ -11,6 +11,21 @@ interface Props {
 const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
   const [fullModal, setFullModal] = useState(false);
   const [imageIndex, setImageIndex] = useState(0);
+  const [needsReadMore, setNeedsReadMore] = useState(false);
+
+  const commentRef = useRef<HTMLParagraphElement>(null);
+
+  useEffect(() => {
+    if (commentRef.current) {
+      const el = commentRef.current;
+      if (el.scrollHeight > el.clientHeight) {
+        setNeedsReadMore(true);
+      } else {
+        setNeedsReadMore(false);
+      }
+    }
+  }, [selectedReview]);
+
 
   if (!selectedReview) return null;
 
@@ -20,7 +35,7 @@ const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
       onClick={() => setSelectedReview(null)}
     >
       <div
-        className="bg-white rounded-xl p-6 max-w-xl w-full relative shadow-lg max-h-[80vh] overflow-y-auto"
+        className="bg-white rounded-xl p-6 max-w-xl w-full relative shadow-lg max-h-[80vh] overflow-y-auto overflow-x-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -39,13 +54,14 @@ const ReviewModal = ({ selectedReview, setSelectedReview }: Props) => {
 
         {/* Comment */}
         <p
-          className={`text-gray-800 whitespace-pre-wrap ${
+          ref={commentRef}
+          className={`text-gray-800 whitespace-pre-wrap break-words ${
             !fullModal ? "line-clamp-[7]" : ""
           }`}
         >
           {selectedReview.comment}
         </p>
-        {selectedReview.comment.length > 300 && (
+        {needsReadMore && (
           <button
             onClick={(e) => {
               e.stopPropagation();

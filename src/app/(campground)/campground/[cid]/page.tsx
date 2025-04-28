@@ -66,7 +66,7 @@ export default async function campground({
             src={campground.picture}
             height={1080}
             width={1920}
-            className="w-[40%] h-auto w-auto rounded-xl"
+            className="w-[40%] h-auto rounded-xl object-contain"
           ></Image>
         </div>
         <div className="flex flex-col space-y-2 column-auto row-span-full col-span-2 rounded-tr-xl rounded-br-xl pl-10 ">
