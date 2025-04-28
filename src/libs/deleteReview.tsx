@@ -1,5 +1,5 @@
 export default async function deleteReview(token: string, reviewId: string) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/review/${reviewId}`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/userreviews/${reviewId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${token}`

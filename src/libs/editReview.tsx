@@ -1,5 +1,5 @@
-export default async function updateReview(token: string, reviewId: string, data: FormData) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/review/${reviewId}`, {
+export default async function editReview(token: string, reviewId: string, data: FormData) {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/userreviews/${reviewId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,

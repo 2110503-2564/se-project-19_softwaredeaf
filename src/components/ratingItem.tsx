@@ -2,8 +2,6 @@
 import { Rating, TextField } from "@mui/material";
 import BookedAmenityList from "@/components/BookedAmenityList";
 import dayjs from "dayjs";
-import deleteBooking from "@/libs/deleteBooking";
-import deleteAmenityBookingByBookingId from "@/libs/deleteAmenityBookingByBookingId";
 import { ReservationItem, Review, ReviewData } from "../../interface";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -12,7 +10,7 @@ import { useRef } from "react";
 import createReview from "@/libs/createReview";
 import getBookingReview from "@/libs/getBookingReview";
 import deleteReview from "@/libs/deleteReview";
-import updateReview from "@/libs/editReview";
+import editReview from "@/libs/editReview";
 
 
 export default function RatingAndReview({
@@ -40,9 +38,10 @@ export default function RatingAndReview({
       setReview(response.data[0]);
       if (response.data[0]) {
         setShowReviewSection(true)
+        setComment(response.data[0].comment)
+        setRating(response.data[0].rating)
       }
       router.refresh();
-      console.log(response.data[0]);
     } catch (error) {
       console.log(error);
     }
@@ -55,8 +54,10 @@ export default function RatingAndReview({
   const handleDelete = async (rid: string) => {
     setIsDeleting(true);
     try {
-      //delete review
+      await deleteReview(token, rid);
       alert("Delete Review Success!");
+      setReview(null);
+      setShowReviewSection(false);
       router.refresh();
     } catch (error) {
       console.error(error);
@@ -65,6 +66,37 @@ export default function RatingAndReview({
       setIsDeleting(false);
     }
   };
+  
+  const handleEditSubmit = async () => {
+    if (!rating || !comment.trim()) {
+      alert("Please provide both a rating and a comment.");
+      return;
+    }
+    if (!review) {
+      alert("No review to update!");
+      return;
+    }
+  
+    const newData = new FormData();
+    newData.append('rating', rating.toString());
+    newData.append('comment', comment);
+    if (reviewPictures && reviewPictures.length > 0) {
+      reviewPictures.forEach(file => {
+        newData.append('images', file);
+      });
+    }
+  
+    try {
+      await editReview(token, review._id, newData);
+      alert('Review updated successfully!');
+      setEditReview(false); // Exit edit mode
+      getReview(); // Refresh review
+    } catch (error) {
+      console.error(error);
+      alert('Failed to update review!');
+    }
+  };
+  
 
   const handleChangFileArray = (fileInput: FileList) => {
     const arrayFile = Array.from(fileInput);
@@ -206,7 +238,7 @@ export default function RatingAndReview({
                           precision={0.5}
                         />
                         <button
-                          onClick={()=>{alert('Edit')}}
+                          onClick={handleEditSubmit}
                           className="flex absolute right-5 px-4 py-1 bg-yellow-300 rounded-lg text-black text-lg font-semibold hover:bg-yellow-400 transition"
                         >
                           Submit Review
