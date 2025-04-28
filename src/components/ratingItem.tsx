@@ -11,6 +11,8 @@ import createReview from "@/libs/createReview";
 import getBookingReview from "@/libs/getBookingReview";
 import deleteReview from "@/libs/deleteReview";
 import editReview from "@/libs/editReview";
+import createReports from "@/libs/createReport";
+import ReportModal from "./ReportModal";
 
 
 export default function RatingAndReview({
@@ -30,6 +32,7 @@ export default function RatingAndReview({
   const [comment, setComment] = useState<string>("");
   const [reviewPictures, setReviewPictures] = useState<Record<string, File[]>>({});
   const [review, setReview] = useState<Review | null>(null);
+  const [showReport, setShowReport] = useState(false);
 
   const getReview = async () => {
     try {
@@ -66,6 +69,45 @@ export default function RatingAndReview({
     }
   };
   
+  const handleReportClick = () => {
+    setShowReport(!showReport);
+  };
+
+  const handleReportSubmit = async (reportReason: string) => {
+    let newReport;
+    if(reportReason=="other" || reportReason=="offensive Language"){
+      newReport = {
+        status: {
+          reported: true
+        },
+        report:{
+          reason:'other',
+          otherReasonText:reportReason
+        }
+      };
+    }else{
+      newReport = {
+        status: {
+          reported: true
+        },
+        report:{
+          reason:reportReason
+        }
+      };
+    }
+      console.log("review = ", review);
+      console.log("review._id = ", review?._id);
+    try{
+      const reported = await createReports(token,review._id,newReport);
+      console.log("Report : ");
+      console.log(reported);
+      alert(`Reported with reason: ${reportReason}`);
+    }catch(error){
+      console.log(error);
+      alert("Report Failed!");
+    }
+  };
+
   const handleEditSubmit = async () => {
     if (!rating || !comment.trim()) {
       alert("Please provide both a rating and a comment.");
@@ -175,7 +217,7 @@ export default function RatingAndReview({
                     review ?
                       <div>
                         <button
-                          className={`mt-10 ml-3 px-3 w-[200px] h-[35px] bg-yellow-400 rounded-md shadow-md hover:bg-yellow-700 transition`}
+                          className={`mt-10 ml-3 px-3 w-[200px] h-[35px] ${isEditReview ? "bg-yellow-700" : "bg-yellow-400"} rounded-md shadow-md hover:bg-yellow-700 transition`}
                           onClick={() => setEditReview(!isEditReview)}
                         >
                           Edit Review
@@ -328,12 +370,20 @@ export default function RatingAndReview({
                           readOnly
                         />
 
+                        {role == 'owner' ? 
+                        <button 
+                          className="ml-auto mr-5 px-3 w-[150px] h-[35px] bg-red-400 rounded-md shadow-md hover:bg-red-700 transition"
+                          onClick={(e) => {
+                            handleReportClick();
+                          }}
+                        >
+                          REPORT</button> : 
                         <button
                           className={`ml-auto mr-5 px-3 w-[150px] h-[35px] bg-red-400 rounded-md shadow-md hover:bg-red-700 transition`}
                           onClick={() => handleDelete(review._id)}
                         >
                           DELETE
-                        </button>
+                        </button>}
                       </div>
                       <div className="mt-5 flex gap-5">
                         <TextField
@@ -485,6 +535,14 @@ export default function RatingAndReview({
               </div>
           }
         </div>
+      )}
+
+      {showReport && (
+        <ReportModal
+          role={role}
+          onReport={handleReportSubmit}
+          onClose={handleReportClick}
+        />
       )}
     </div>
   );
