@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Campground Owner Creating Campground', async ({ page }) => {
+  test.setTimeout(120000); //เครื่องผมอืด
   // ---------- Login ----------
 await page.goto('http://localhost:3000/');
 await page.getByRole('link', { name: 'Sign-in' }).click();
@@ -38,6 +39,7 @@ page.once('dialog', dialog => {
 });
 
 await page.getByRole('button', { name: 'Create' }).click();
+await page.waitForURL(/http:\/\/localhost:3000\/campground\/.*/);
 await expect(page.getByText('012-356-7321')).toBeVisible();
 
 
