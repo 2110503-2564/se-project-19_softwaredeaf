@@ -106,7 +106,7 @@ export default function ReviewCard({ review, role, onClick, cancel }: Props) {
           )}
         </div>
 
-        <div className="w-[40%] h-[100px] relative bg-gray-300 rounded-lg overflow-hidden">
+        {review.pictures.length > 0 && (<div className="w-[40%] h-[100px] relative bg-gray-300 rounded-lg overflow-hidden">
           <img
             src={review.pictures[0]}
             alt="review image"
@@ -117,7 +117,7 @@ export default function ReviewCard({ review, role, onClick, cancel }: Props) {
               +{review.pictures.length - 1}
             </div>
           )}
-        </div>
+        </div>)}
       </div>
 
       {showReport && (

@@ -26,6 +26,15 @@ export default function ReviewList({ reviews, role, cancel }: Props) {
     setViewReview((prev) => !prev);
   };
 
+  if (!reviews) {
+    return (
+      <div className="flex flex-col items-center justify-center py-10 text-gray-600">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-600 mb-3"></div>
+        Loading reviews...
+      </div>
+    );
+  }
+  
   return (
     <div className="mt-5 mb-5">
       <div className="flex flex-row">
