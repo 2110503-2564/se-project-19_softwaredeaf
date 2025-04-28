@@ -31,7 +31,7 @@ export default function BookingItem({
       alert("Delete failed");
     } finally {
       alert("Delete Booking Success!");
-      router.push("/mybooking");
+      router.refresh();
       setIsDeleting(false);
     }
   };

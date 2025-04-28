@@ -28,7 +28,7 @@ export default function BookingList({bookings,user}:{bookings:ReservationItem[],
             book.visited ? (
                 <RatingandReview key={book._id} booking={book} token={user} />
             ) : (
-                <div key={book._id} className="my-10">
+                <div key={book._id} className="my-10 ">
                     <BookingItem booking={book} token={user} />
                 </div>
             ))

@@ -9,7 +9,7 @@ export default async function deleteCampground(id: string, token: string) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json(); // กรณีที่ API ส่งข้อความผิดพลาดใน body
+      const errorData = await response.json();
       throw new Error(`Failed to delete campground with ID: ${id}. Status: ${response.status} - ${response.statusText}. ${errorData.message || ''}`);
     }
 
