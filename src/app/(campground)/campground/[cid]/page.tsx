@@ -111,7 +111,7 @@ export default async function campground({
       <div className="my-10">
         <Booknowbutton linktext={params.cid} />
       </div>
-      <ReviewList reviews={reviewData} role={userRole} />
+      <ReviewList reviews={reviewData} role={userRole} token={session?.user.token ?? ""}/>
       <AmenityList amenities={amenity} />
       {
         (session?.user.role == 'owner') && campBookings ?

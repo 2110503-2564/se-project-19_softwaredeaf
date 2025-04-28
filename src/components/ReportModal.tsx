@@ -50,10 +50,11 @@ const ReportModal = ({ role, onReport, onClose }: ReportModalProps) => {
             className="w-full p-2 rounded bg-white text-black border border-black mt-2"
           >
             <option value="">Select Reason</option>
-            <option value="Inappropriate Content">Inappropriate Content</option>
-            <option value="Spam">Spam</option>
-            <option value="Offensive Language">Offensive Language</option>
-            <option value="Other">Other</option>
+            <option value="inappropriate">Inappropriate Content</option>
+            <option value="spam">Spam</option>
+            <option value="fake">Fake Infomation</option>
+            <option value="offensive Language">Offensive Language</option>
+            <option value="other">Other</option>
           </select>
 
           {/* Conditional Input for 'Other' */}

@@ -12,9 +12,10 @@ interface Props {
   reviews: Review[];
   role?: string;
   cancel?:boolean | false
+  token:string
 }
 
-export default function ReviewList({ reviews, role, cancel }: Props) {
+export default function ReviewList({ reviews, role, cancel,token }: Props) {
   const [selectedReview, setSelectedReview] = useState<Review | null>(null);
   const [fullModal, setFullModal] = useState(false);
   const [isViewReview, setViewReview] = useState(true);
@@ -63,6 +64,7 @@ export default function ReviewList({ reviews, role, cancel }: Props) {
                       setFullModal(false);
                       setImageIndex(0);
                     }}
+                    token={token}
                     cancel={cancel}
                   />
                 ))

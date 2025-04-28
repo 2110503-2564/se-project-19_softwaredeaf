@@ -4,6 +4,7 @@ import { useState } from "react";
 import StarRating from "./StarRating";
 import ReportModal from "./ReportModal";
 import { Review } from "../../interface";
+import createReports from "@/libs/createReport";
 
 
 interface Props {
@@ -11,9 +12,10 @@ interface Props {
   role?: string;
   onClick?: () => void;
   cancel?: boolean | false;
+  token:string
 }
 
-export default function ReviewCard({ review, role, onClick, cancel }: Props) {
+export default function ReviewCard({ review, role, onClick, cancel , token }: Props) {
   const [showFull, setShowFull] = useState(false);
   const [showReport, setShowReport] = useState(false);
 
@@ -21,8 +23,38 @@ export default function ReviewCard({ review, role, onClick, cancel }: Props) {
     setShowReport(!showReport);
   };
 
-  const handleReportSubmit = (reportReason: string) => {
-    alert(`Reported with reason: ${reportReason}`);
+  const handleReportSubmit = async (reportReason: string) => {
+    let newReport;
+    if(reportReason=="other" || reportReason=="offensive Language"){
+      newReport = {
+        status: {
+          reported: true
+        },
+        report:{
+          reason:'other',
+          otherReasonText:reportReason
+        }
+      };
+    }else{
+      newReport = {
+        status: {
+          reported: true
+        },
+        report:{
+          reason:reportReason
+        }
+      };
+    }
+    console.log("Token : " + token)
+    try{
+      const reported = await createReports(token,review._id,newReport);
+      console.log("Report : ");
+      console.log(reported);
+      alert(`Reported with reason: ${reportReason}`);
+    }catch(error){
+      console.log(error);
+      alert("Report Failed!");
+    }
   };
   const removeReviewHandler = () => {
     alert("delete review eiei");
