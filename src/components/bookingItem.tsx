@@ -97,7 +97,7 @@ export default function BookingItem({
             </div>
     
             {/* Amenity List Section */}
-            <div className="pl-5 w-[35%]">
+            <div className="pl-5 w-[35%] max-h-[250px] overflow-y-auto">
               <BookedAmenityList token={token} bid={booking._id} rt={rt}/>
             </div>
           </div>

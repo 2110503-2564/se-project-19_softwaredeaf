@@ -17,7 +17,7 @@ export default function BookedAmenityList({token,bid,rt}:{token:string,bid:strin
     }, []);
 
     return(
-        <div className={`text-black text-xl bg-[#D9D9D9] h-full ${rt ? 'rounded-tr-[40px]' : 'rounded-r-[40px]'}`}>
+        <div className={`text-black text-xl bg-[#D9D9D9] h-full ${rt ? 'rounded-tr-[40px]' : 'rounded-r-[40px]'} overflow-y-auto`}>
             <BookedAmenity amenityList={data}/>
         </div>
     )

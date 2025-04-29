@@ -14,13 +14,15 @@ export default function BookedAmenity({
             key={idx}
             className="h-[40%] w-[95%] bg-white m-2 shadow flex py-4 pt-4 items-center"
           >
+            {amenityList.campgroundAmenityId.image && amenityList.campgroundAmenityId.image.startsWith("http") && (
             <Image
-              src="/img/logo.png"
-              alt="logo"
+              src={amenityList.campgroundAmenityId.image}
+              alt="amenity picture"
               height={300}
               width={300}
               className="object-contain h-full w-[30%]"
-            />
+            />)
+          }
             {/* Text Content */}
             <div className="ml-4 w-[100%]">
               <h2 className="font-semibold text-md ">
