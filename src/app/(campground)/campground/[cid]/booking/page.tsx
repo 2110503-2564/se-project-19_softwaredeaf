@@ -55,7 +55,7 @@ export default async function booking({params}:{params:{cid:string}}){
                         </div>
                         <div className="flex flex-row row-span-1 col-span-2 text-[#FFB900]">
                             <p className=" text-xl font-semibold min-w-[100px]">Rating: </p>
-                            <p className="text-xl font-semibold">dummy Stars</p>
+                            <p className="text-xl font-semibold">{campground.avgRating}</p>
                         </div>
 
                     {/* </div> */}
