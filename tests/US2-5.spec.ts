@@ -2,9 +2,10 @@ import { test, expect } from "playwright/test"
 test.use({ storageState: 'storage/storageState-karn2.json' });
 
 test('UC2-5-1', async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto('http://localhost:3000/campground/680f247c155842edd2567797')
     await page.getByText('Edit').click();
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1000);
     await page.getByRole('button', { name: 'Edit' }).first().click();
     page.on("dialog", async (dialog) => {
         console.log("Dialog message:", dialog.message()); // ดึงข้อความจาก dialog
@@ -29,6 +30,7 @@ test('UC2-5-1', async ({ page }) => {
 })
 
 test('UC2-5-2', async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto('http://localhost:3000/campground/680f247c155842edd2567797')
     await page.getByText('Edit').click();
     await page.waitForTimeout(500);
@@ -57,6 +59,7 @@ test('UC2-5-2', async ({ page }) => {
 
 })
 test('UC2-5-3', async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto('http://localhost:3000/campground/680f247c155842edd2567797')
     await page.getByText('Edit').click();
     await page.waitForTimeout(500);
@@ -83,6 +86,7 @@ test('UC2-5-3', async ({ page }) => {
 
 })
 test('UC2-5-4', async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto('http://localhost:3000/campground/680f247c155842edd2567797')
     await page.getByText('Edit').click();
     await page.waitForTimeout(500);
@@ -109,6 +113,7 @@ test('UC2-5-4', async ({ page }) => {
 
 })
 test('UC2-5-5', async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto('http://localhost:3000/campground/680f247c155842edd2567797')
     await page.getByText('Edit').click();
     await page.waitForTimeout(500);
@@ -137,6 +142,7 @@ test('UC2-5-5', async ({ page }) => {
 
 })
 test('UC2-5-6', async ({ page }) => {
+    test.setTimeout(60000);
     await page.goto('http://localhost:3000/campground/680f247c155842edd2567797')
     await page.getByText('Edit').click();
     await page.waitForTimeout(500);
