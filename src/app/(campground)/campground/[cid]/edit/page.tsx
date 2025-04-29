@@ -254,8 +254,15 @@ export default function EditCampground({ params }: { params: { cid: string } }) 
               <p className="text-black text-md semibold">Postal Code</p>
               <input
                 value={postalcode}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,5}$/.test(value)) {
+                    setPostalcode(value);
+                  }
+                }}
+                maxLength={5}
+                inputMode="numeric"
                 className="bg-[#D9D9D9] border-none p-1 focus:border-[#626F47] rounded-md"
-                onChange={(e) => setPostalcode(e.target.value)}
                 placeholder="Postalcode"
               />
             </div>

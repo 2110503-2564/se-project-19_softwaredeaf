@@ -190,7 +190,14 @@ export default function NewCampground() {
               <p>Postal Code</p>
               <input
                 value={postalcode}
-                onChange={(e) => setPostalcode(e.target.value)}
+                onChange={(e) => {
+                  const value = e.target.value;
+                  if (/^\d{0,5}$/.test(value)) {
+                    setPostalcode(value);
+                  }
+                }}
+                maxLength={5}
+                inputMode="numeric"
                 className="bg-[#D9D9D9] p-1 rounded-md"
                 placeholder="Postalcode"
               />
