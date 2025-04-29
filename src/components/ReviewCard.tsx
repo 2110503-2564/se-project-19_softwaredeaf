@@ -53,7 +53,6 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
       console.log("Report : ");
       console.log(reported);
       alert(`Reported with reason: ${reportReason}`);
-      router.refresh();
     }catch(error){
       console.log(error);
       alert("Report Failed!");
@@ -68,7 +67,7 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
     try {
       await deleteReview(token, review._id);
       alert("Delete reported review successfully.")
-      router.refresh();
+      window.location.href = '/reports';
     } catch (error) {
       console.error(error);
       alert("Delete failed");
@@ -82,8 +81,7 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
     try {
       await discardReports(token, review._id);
       alert("Discard Report Success!");
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      router.refresh();
+      window.location.href = '/reports';
     } catch (error) {
       console.error(error);
       alert("Discard Report Failed!");

@@ -79,7 +79,9 @@ export default function NewCampground() {
     } catch (err) {
       alert("Error creating campground");
       console.error(err);
-      setCreated(true);
+      setLoading(false);
+      await new Promise((r) => setTimeout(r, 500));
+      router.refresh();
     }
   };
 

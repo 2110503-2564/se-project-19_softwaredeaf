@@ -1,7 +1,7 @@
 export default async function discardReports(token: string, reviewId: string) {
   const discardPayload = {
     status: { reported: false },
-    report: { reason: "", otherReasonText: "" }
+    report: { reason: null, otherReasonText: "" }
   };
 
   const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND}/api/v1/reports/${reviewId}`, {
