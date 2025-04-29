@@ -2,15 +2,28 @@
 import { Rating } from "@mui/material"
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import deleteReview from "@/libs/deleteReview";
+
 export default function Review({ id, name, comment, rating, role }: { id: string, name: string, comment: string, rating: number, role: string }) {
     const session = useSession();
+    const router = useRouter();
 
     const [expanded, setExpanded] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const handleMoreClick = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
-    const removeReviewHandler = () => {
-        alert("delete review eiei");
+    const removeReviewHandler = async (rid: string) => {
+        alert("delete review :D");
+            try {
+              await deleteReview(session?.user.token, rid);
+              alert("Delete Review Success!");
+              router.refresh();
+            } catch (error) {
+              console.error(error);
+              alert("Delete failed");
+            }
+        
         // res=await deleteReview(id,session.user.token); ????
     };
     const cancelReportHandler = () => {

@@ -5,7 +5,9 @@ import StarRating from "./StarRating";
 import ReportModal from "./ReportModal";
 import { Review } from "../../interface";
 import createReports from "@/libs/createReport";
-
+import { useRouter } from "next/navigation";
+import deleteReview from "@/libs/deleteReview";
+import editReview from "@/libs/editReview";
 
 interface Props {
   review: Review;
@@ -56,15 +58,41 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
       alert("Report Failed!");
     }
   };
-  const removeReviewHandler = () => {
-    alert("delete review eiei");
-    // res=await deleteReview(id,session.user.token); ????
-  };
-  const cancelReportHandler = () => {
-    alert("discard report");
-    // res=await cancelReport(id,session.user.token); ????
-  };
+  const router = useRouter(); // already imported, good
 
+  const removeReviewHandler = async () => {
+    const confirmDelete = confirm("Are you sure you want to delete this review?");
+    if (!confirmDelete) return;
+  
+    try {
+      await deleteReview(token, review._id);
+      alert("Delete Review Success!");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      alert("Delete failed");
+    }
+  };
+    
+  const cancelReportHandler = async () => {
+    const confirmCancel = confirm("Are you sure you want to discard this report?");
+    if (!confirmCancel) return;
+  
+    try {
+      const formData = new FormData();
+      formData.append("status.reported", "false");
+      formData.append("report.reason", "");
+      formData.append("report.otherReasonText", "");
+  
+      await editReview(token, review._id, formData);
+      alert("Discard Report Success!");
+      router.refresh();
+    } catch (error) {
+      console.error(error);
+      alert("Discard Report Failed!");
+    }
+  };
+  
   return (
     <div
       onClick={onClick}
