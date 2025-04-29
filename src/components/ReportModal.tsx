@@ -2,7 +2,7 @@ import { useState } from "react";
 
 interface ReportModalProps {
   role?: string;
-  onReport: (reportReason: string) => void;
+  onReport: (reportReason: string , otherReasonText: string) => void;
   onClose: () => void;
 }
 
@@ -11,10 +11,10 @@ const ReportModal = ({ role, onReport, onClose }: ReportModalProps) => {
   const [otherReason, setOtherReason] = useState<string>("");
 
   const handleReportClick = () => {
-    if (selectedReason === "Other" && !otherReason) {
+    if (selectedReason === "other" && !otherReason) {
       alert("Please provide a reason for 'Other'.");
     } else if (selectedReason) {
-      onReport(selectedReason === "Other" ? otherReason : selectedReason);
+      onReport(selectedReason , selectedReason === "other" ? otherReason : "");
       onClose(); // Close modal after reporting
     } else {
       alert("Please select a reason.");
@@ -58,7 +58,7 @@ const ReportModal = ({ role, onReport, onClose }: ReportModalProps) => {
           </select>
 
           {/* Conditional Input for 'Other' */}
-          {selectedReason === "Other" && (
+          {selectedReason === "other" && (
             <div className="mt-4">
               <label htmlFor="other-reason" className="block text-sm text-black">
                 Please provide a reason:

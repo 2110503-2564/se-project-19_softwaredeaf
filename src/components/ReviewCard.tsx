@@ -23,16 +23,16 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
     setShowReport(!showReport);
   };
 
-  const handleReportSubmit = async (reportReason: string) => {
+  const handleReportSubmit = async (reportReason: string, otherReasonText: string) => {
     let newReport;
-    if(reportReason=="other" || reportReason=="offensive Language"){
+    if(reportReason=="other"){
       newReport = {
         status: {
           reported: true
         },
         report:{
           reason:'other',
-          otherReasonText:reportReason
+          otherReasonText:otherReasonText
         }
       };
     }else{
@@ -117,6 +117,17 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
 
       <div className="flex mt-2 justify-between">
         <div className="ml-4 w-[40%]">
+          {role === "admin" && (
+            <div>
+          {review.status.reported ? (
+            <p className="text-black text-l font-black mb-3">
+              Reported for: {review.report.reason}
+              {review.report.reason === 'other' ? ` - ${review.report.otherReasonText}` : ''}
+            </p>
+          ) : ""}
+            <p className="text-black text-l font-black mb-3">{review.campgroundName}</p>
+            </div>
+          ) }
           <p className="text-black text-xl font-semibold">{review.username}</p>
           <p
             className={`text-gray-700 whitespace-pre-wrap transition-all duration-300 break-words  ${
