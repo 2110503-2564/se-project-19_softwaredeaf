@@ -10,5 +10,4 @@ export default async function getOneBooking(token:string,id:string){
     }
 
     return await response.json()
-
 }

@@ -15,5 +15,4 @@ export default async function createCampground(
     }
   
     return await response.json();
-  }
-  
+}

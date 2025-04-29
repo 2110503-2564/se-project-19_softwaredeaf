@@ -25,7 +25,6 @@ export default async function userRegister(userName:string,userTel:string,userEm
           throw new Error(errorText || "Registration failed");
         }
       }
-      
 
     return await response.json()
 }
