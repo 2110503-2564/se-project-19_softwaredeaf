@@ -14,6 +14,7 @@ const users = [
   { email: 'karn3@gmail.com', password: '123456', file: 'storage/storageState-karn3.json' },
   { email: 'bankbook@gmail.com', password: '123456', file: 'storage/storageState-bankbook.json'},
   { email: 'bankbook2@gmail.com', password: '123456', file: 'storage/storageState-bankbook2.json'},
+  { email: 'banksuper@gmail.com', password: '123456', file: 'storage/storageState-banksuper.json'},
 ];
 
 for (const user of users) {

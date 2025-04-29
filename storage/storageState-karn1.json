@@ -2,13 +2,13 @@
   "cookies": [
     {
       "name": "next-auth.csrf-token",
-      "value": "952bd2f15fff3449cd56fa0dc4b2f86f9ef3389a66cb03bdb216dc5d36efffaf%7C9631750f29339c31900718e49d2f8e54d5165077c0005105d4cdcff665f7f0ff",
+      "value": "1bb43095f853cd3adf0ef1b603985dbe4a21c0d7f19cc4c5400fe904b905596e%7Cecc8cad7daf87a0474e7f6539a11b2dc7e055834aee8229c426251f6e5486acb",
       "domain": "localhost",
       "path": "/",
       "expires": -1,
       "httpOnly": true,
       "secure": false,
-      "sameSite": "None"
+      "sameSite": "Lax"
     },
     {
       "name": "next-auth.callback-url",
@@ -18,17 +18,17 @@
       "expires": -1,
       "httpOnly": true,
       "secure": false,
-      "sameSite": "None"
+      "sameSite": "Lax"
     },
     {
       "name": "next-auth.session-token",
-      "value": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..EuBm0zmEb9bFm49J.yoK4gEeRvdfvae8DPsNealhYmEdnChW0M8qsoLe5T2kJS1VzyS3eHreVV6I4LCUxJ45qwem6lehVzWpWat59kH4XcjfzktpVPzliMjJ7e1Ml6AHIL91dGl0CYyPoL3d7wSFpCyIFy9zE7Epx5nkCikda4ZJCcmTiGGGsiL83hPuQBPESZQVbQZYlU6vJ0Hmeplmo3Ueqr_3ekGe5zyk-v8tlj8C2MDDScOCVrRRX7y_o-t2hKJbPQngSEr5VPb6zxa2_Btgks67m9zRTAzI_viSPny4vG8sED3AaPp5hnPoR0dw9g1QMkhnUqu_sCvGkxAq921fltFa5mTSGLVKTRbOD4b6godZfAPbAAkMnahtaQW0vq8BIVE3D6dxzw6hwpqiGGFZ2h4TLPTo7QribZL-0fWeAYdmUJD4ANLeHBx9Z38uPYHH35F2YQS3eEchLYs4k71VwZ2AaRrjPReC37faAkxYzeD-TUvDek2F2FhgQsHPi2A.fhURmRWu9FQpGIBru8FguQ",
+      "value": "eyJhbGciOiJkaXIiLCJlbmMiOiJBMjU2R0NNIn0..vBFVn8SPybyVsLKZ.V9gXfaAGO06fVV0dP-YZ5NJt9OuEtgLg276zJGdU3l3JIrRB6MzOkb7RUumEod48N-NveqjmuhtdFSrc2JwZ0j4iVjT46zcSlwtWGhgDgy8gq3_CTmyzZyrAkkEqmM0wQNr-42JUA9zcYC7q1PJlMvgsQfAwQhq3aF1CKhewJxuhSPAr_nDEjAD_BaBISRqt6URmZ3jBojlQW7MUU29tY6mG-yU2Vk1qjrKsgTFZZr_FzuHyLjb5mPimRpa5HHa9sdQrC99nEfOKzX1yAWybJ03BkB1BoL37Wrrgalj2lRNciSmzVlBoHtNwLPHp4H24dKw7KXGNP4dcnz_z7xhHOXyEuL68WEK_JKRUaQ7MAI-YBlF8M4FECBXPLThlrClnaEEwJGX3vIM2_c0VGD4R5fE3LPTEPSDjNtWkDaOsH0ge6XLJlGO-s5bHZJQ-2mSXCpn8Qo2PHhiHC4qIHZ7_6r8LmeEHclDUaG9f2oOaTz5QL_m3WA.7ZuN3ADC4ZqaoQKm9awQsw",
       "domain": "localhost",
       "path": "/",
-      "expires": 1748459353,
+      "expires": 1748507602,
       "httpOnly": true,
       "secure": false,
-      "sameSite": "None"
+      "sameSite": "Lax"
     }
   ],
   "origins": [
@@ -37,7 +37,7 @@
       "localStorage": [
         {
           "name": "nextauth.message",
-          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1745867323}"
+          "value": "{\"event\":\"session\",\"data\":{\"trigger\":\"getSession\"},\"timestamp\":1745915601}"
         }
       ]
     }
