@@ -98,10 +98,14 @@ export default function RatingAndReview({
       console.log("review = ", review);
       console.log("review._id = ", review?._id);
     try{
+      if(!review){
+        return;
+      }
       const reported = await createReports(token,review._id,newReport);
       console.log("Report : ");
       console.log(reported);
       alert(`Reported with reason: ${reportReason}`);
+      getReview();
     }catch(error){
       console.log(error);
       alert("Report Failed!");
@@ -170,6 +174,7 @@ export default function RatingAndReview({
       console.log("Review Submitted:", { rating, comment });
       // router.refresh();
       alert("Review submitted!");
+      getReview();
     } catch (error) {
       console.log(error);
       alert('Create Review Failed!')

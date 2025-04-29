@@ -73,13 +73,13 @@ export default function NewCampground() {
           createAmenity(item, newCamp.data._id, session.user.token)
         )
       );
-    } catch (err) {
-      alert("Error creating campground");
-      console.error(err);
-    } finally {
       setCreated(true);
       await new Promise((r) => setTimeout(r, 500));
       router.push(`/campground/${newCampId}`);
+    } catch (err) {
+      alert("Error creating campground");
+      console.error(err);
+      setCreated(true);
     }
   };
 

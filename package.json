@@ -17,7 +17,7 @@
     "@tailwindcss/line-clamp": "^0.4.4",
     "dayjs": "^1.11.13",
     "install": "^0.13.0",
-    "next": "^14.2.28",
+    "next": "^14.2.5",
     "next-auth": "^4.24.8",
     "npm": "^11.3.0",
     "playwright": "^1.52.0",
