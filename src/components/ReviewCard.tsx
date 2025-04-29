@@ -7,7 +7,7 @@ import { Review } from "../../interface";
 import createReports from "@/libs/createReport";
 import { useRouter } from "next/navigation";
 import deleteReview from "@/libs/deleteReview";
-import editReview from "@/libs/editReview";
+import discardReports from "@/libs/discardReport";
 
 interface Props {
   review: Review;
@@ -79,12 +79,7 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
     if (!confirmCancel) return;
   
     try {
-      const formData = new FormData();
-      formData.append("status.reported", "false");
-      formData.append("report.reason", "");
-      formData.append("report.otherReasonText", "");
-  
-      await editReview(token, review._id, formData);
+      await discardReports(token, review._id);
       alert("Discard Report Success!");
       router.refresh();
     } catch (error) {
@@ -92,7 +87,7 @@ export default function ReviewCard({ review, role, onClick, cancel , token }: Pr
       alert("Discard Report Failed!");
     }
   };
-  
+    
   return (
     <div
       onClick={onClick}

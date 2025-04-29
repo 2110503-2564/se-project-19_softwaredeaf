@@ -13,17 +13,9 @@ export default function Review({ id, name, comment, rating, role }: { id: string
     const [showModal, setShowModal] = useState(false);
     const handleMoreClick = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
-    const removeReviewHandler = async (rid: string) => {
+    const removeReviewHandler = async () => {
         alert("delete review :D");
-            try {
-              await deleteReview(session?.user.token, rid);
-              alert("Delete Review Success!");
-              router.refresh();
-            } catch (error) {
-              console.error(error);
-              alert("Delete failed");
-            }
-        
+
         // res=await deleteReview(id,session.user.token); ????
     };
     const cancelReportHandler = () => {
