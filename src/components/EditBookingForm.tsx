@@ -43,7 +43,7 @@ export default function EditBookingForm({amenities,bookingId,booking}:{amenities
                 alert('Update Amenity!');
             }else{
                 setAmenList(prev => [...prev, newbooking]);
-                alert('Booking Amenity Success!');
+                alert('Update Amenity!');
             }
             console.log("Update List");
             console.log(amenBookList);
