@@ -181,7 +181,7 @@ export default function BookingCampgroundList({
                       </div>
 
                       {/* Amenity List Section */}
-                      <div className="pl-5 w-[35%]">
+                      <div className="pl-5 w-[35%] max-h-[350px] overflow-y-auto">
                         <BookedAmenityList token={token} bid={booking._id} />
                       </div>
                     </div>

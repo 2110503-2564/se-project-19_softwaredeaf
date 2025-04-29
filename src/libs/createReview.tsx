@@ -15,4 +15,4 @@ export default async function createReview(
     }
 
     return await response.json();
-  }
+}

@@ -73,16 +73,16 @@ export default function RatingAndReview({
     setShowReport(!showReport);
   };
 
-  const handleReportSubmit = async (reportReason: string) => {
+  const handleReportSubmit = async (reportReason: string, otherReasonText: string) => {
     let newReport;
-    if(reportReason=="other" || reportReason=="offensive Language"){
+    if(reportReason=="other"){
       newReport = {
         status: {
           reported: true
         },
         report:{
           reason:'other',
-          otherReasonText:reportReason
+          otherReasonText:otherReasonText
         }
       };
     }else{

@@ -11,6 +11,4 @@ export default async function getUserProfile(token:string){
     }
 
     return await response.json()
-
-
 }

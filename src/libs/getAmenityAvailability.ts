@@ -1,5 +1,4 @@
 // getAmenityAvailability.ts
-
 export interface AmenityBooking {
   campgroundAmenityId: string;
   amount: number;

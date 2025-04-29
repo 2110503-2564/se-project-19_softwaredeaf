@@ -12,4 +12,4 @@ export default async function editReview(token: string, reviewId: string, data: 
     }
 
     return await response.json();
-  }
+}

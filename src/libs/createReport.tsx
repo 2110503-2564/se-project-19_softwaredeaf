@@ -17,5 +17,4 @@ export default async function createReports(
     }
   
     return await response.json();
-  }
-  
+} 
